@@ -1,0 +1,28 @@
+{
+  "name": "first-redux-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "aes-js": "^3.1.1",
+    "axios": "^0.18.0",
+    "bootstrap": "^4.1.1",
+    "circular-buffer": "^1.0.2",
+    "node-rsa": "^1.0.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
+    "react-scripts": "1.1.4",
+    "reactstrap": "^6.1.0",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
+    "socket.io-client": "^2.1.1",
+    "ursa": "^0.9.4",
+    "worker-loader": "^2.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

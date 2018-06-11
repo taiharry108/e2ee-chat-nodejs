@@ -1,0 +1,9 @@
+.messageText {
+  color: white;
+  padding: 0.2rem 0.5rem;
+}
+
+.myMsg {
+  font-weight: 900;
+  color: lightgreen;
+}
