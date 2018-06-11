@@ -1,5 +1,6 @@
 import { SEND_MSG, RECEIVE_MSG, FETCH_MSGS, CONNECTED } from './types';
 import axios from 'axios';
+import { SERVER_URL } from '../consts'
 
 export const sendMsg = (socket, msg) => dispatch => {
   socket.emit(SEND_MSG, msg);
@@ -14,7 +15,7 @@ export const receiveMsg = (msg) => dispatch => {
 };
 
 export const fetchMsgs = () => dispatch => {
-  axios.get('http://localhost:8000/api/message')
+  axios.get(SERVER_URL + '/api/message')
     .then(res => {
       dispatch({
         type: FETCH_MSGS,
