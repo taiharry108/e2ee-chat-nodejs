@@ -47,13 +47,13 @@ class LoginModal extends Component {
             <ModalBody>
               <FormGroup>
                 <Label for="userName">User Name</Label>
-                <Input autoComplete="off" type="text" name="username" id="userName" placeholder="" onChange={this.onChange} value={this.state.username}/>
+                <Input autoComplete="off" type="text" name="username" id="userName" placeholder="" onChange={this.onChange} value={this.state.username} autoFocus="true"/>
                 <Label for="chatroomName">Chatroom</Label>
                 <Input autoComplete="off" type="text" name="chatroomName" id="chatroomName" placeholder="" onChange={this.onChange} value={this.state.chatroomName}/>
               </FormGroup>
             </ModalBody>
             <ModalFooter>
-              <Button color="primary" onClick={this.onClick} type="submit">Enter</Button>{' '}
+              <Button className="shadow" enable-shadows="true" color="primary" onClick={this.onClick} type="submit">Enter</Button>{' '}
             </ModalFooter>
           </Form>
         </Modal>

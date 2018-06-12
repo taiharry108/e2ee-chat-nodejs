@@ -1,9 +1,65 @@
 .messageText {
-  color: white;
   padding: 0.2rem 0.5rem;
+  background-color: none;
 }
 
 .myMsg {
-  font-weight: 900;
-  color: lightgreen;
+  font-weight: 500;
+  background-color: none;
+  color: darkgreen;
+}
+
+.mw-30 {
+  /* max-width: 30%; */
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #bbb;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+.speech-bubble {
+	position: relative;
+	background: #ccf7f5;
+	border-radius: .4em;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 12px solid transparent;
+	border-bottom: 0;
+	margin-top: -6px;
+}
+
+.b-right:after {
+  right: 0;
+  border-left-color: #ccf7f5;
+  border-right: 0;
+  margin-right: -12px;
+}
+
+.b-left:after {
+  left: 0;
+  border-right-color: #ccf7f5;
+  border-left: 0;
+  margin-left: -12px;
 }

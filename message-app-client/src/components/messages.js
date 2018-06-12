@@ -3,16 +3,17 @@ import { connect } from 'react-redux';
 import { fetchMsgs, receiveMsg } from '../actions/textActions'
 import { RECEIVE_MSG } from '../actions/types';
 import { decrypt } from '../actions/encryptActions';
-import { Row, Col } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
+import PropTypes from 'prop-types';
 import './messages.css';
 
 class Messages extends Component {
+
   constructor(props) {
     super(props);
-  }
-
-  componentWillMount() {
-    // this.props.fetchMsgs();
+    this.scrollToBottom = this.scrollToBottom.bind(this);
+    this.messageDiv = this.messageDiv.bind(this);
+    this.emptyCol = this.emptyCol.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -22,7 +23,6 @@ class Messages extends Component {
     }
     if (this.props.socket === null && nextProps.socket) {
       nextProps.socket.on(RECEIVE_MSG, (msg) => {
-        console.log('received message', msg.textContent)
         this.props.receiveMsg(msg);
       });
     }
@@ -32,14 +32,36 @@ class Messages extends Component {
     return;
   }
 
-  Msg(msg) {
-    let msgContent = decrypt(msg.textContent, msg.aesKey);
-    return (
-      <div key={msg._id} className="messageText">
-        <p>{msg.senderId}:{msgContent}</p>
-      </div>
-    )
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({});
   }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  messageDiv(msg, isSender, msgClass, messageBoxClass, msgContent) {
+    return <Col xs="5" className={messageBoxClass}>
+            <div key={msg._id} className={msgClass}>
+              <Row>
+                <Col>{msg.username}</Col>
+              </Row>
+              <Row>
+                <Col className='text-right'>{msgContent}</Col>
+              </Row>
+            </div>
+          </Col>
+  }
+
+  emptyCol() {
+    return <Col xs="7"></Col>
+  }
+
+
 
   render() {
     const messageItems = this.props.msgs.map(msg => {
@@ -48,19 +70,24 @@ class Messages extends Component {
       }
       else {
         let msgContent = decrypt(msg.textContent, msg.aesKey);
-        let msgClass = msg.senderId === this.props.clientId ? "messageText myMsg" : "messageText"
-        return <div key={msg._id} className={msgClass}>
-                <Row>
-                  <Col xs="1">{msg.username}</Col>
-                  <Col xs="auto">{msgContent}</Col>
+        let isSender = msg.senderId === this.props.clientId
+        let msgClass = isSender ? "messageText myMsg" : "messageText"
+        let bSide = isSender ? " b-right" : " b-left"
+        let messageBoxClass = 'speech-bubble my-3 p-2 mw-30' + bSide
+
+        return  <Row>
+                  { isSender ? this.emptyCol() : this.messageDiv(msg, isSender, msgClass, messageBoxClass, msgContent)}
+                  { isSender ? this.messageDiv(msg, isSender, msgClass, messageBoxClass, msgContent) : this.emptyCol()}
                 </Row>
-              </div>
       }
-    })
+    });
     return (
-      <div>
+      <Container fluid={true} className='scrollbar-primary'>
         {messageItems}
-      </div>
+        <div style={{ float:"left", clear: "both" }}
+             ref={(el) => { this.messagesEnd = el; }}>
+        </div>
+      </Container>
     );
   }
 
@@ -74,5 +101,12 @@ const mapStateToProps = state => {
     socket: state.login.socket
   }
 };
+
+Messages.propTypes = {
+  msgs: PropTypes.array.isRequired,
+  clientId: PropTypes.string,
+  aesKey: PropTypes.object,
+  socket: PropTypes.object
+}
 
 export default connect(mapStateToProps, { fetchMsgs, receiveMsg })(Messages);

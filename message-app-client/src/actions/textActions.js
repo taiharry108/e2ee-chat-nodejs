@@ -7,7 +7,6 @@ export const sendMsg = (socket, msg) => dispatch => {
 };
 
 export const receiveMsg = (msg) => dispatch => {
-  console.log(msg);
   dispatch({
     type: RECEIVE_MSG,
     payload: msg

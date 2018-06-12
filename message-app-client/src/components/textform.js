@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { sendMsg, connected } from '../actions/textActions';
 import { genKeys, sendPubKey2Ser, assignedAsHost, removeAsHost, receivedEncryptedAESKey, encrypt } from '../actions/encryptActions';
 import { ASSIGN_HOST, REMOVE_HOST, CONNECTED } from '../actions/types';
+import PropTypes from 'prop-types';
 import { Input  } from 'reactstrap';
 import './textform.css';
 
@@ -53,7 +54,6 @@ class TextForm extends Component {
     const textMsg = {
       textContent: encrypt(this.state.textContent, this.props.aesKey)
     }
-    console.log(textMsg);
     this.props.sendMsg(this.props.socket, textMsg);
     this.setState({textContent: ''});
   }
@@ -77,9 +77,14 @@ class TextForm extends Component {
 
 const mapStateToProps = state => ({
   rsaKey: state.encrypt.rsaKey,
-  isHost: state.encrypt.isHost,
   aesKey: state.encrypt.aesKey,
   socket: state.login.socket
 });
+
+TextForm.propTypes = {
+  rsaKey: PropTypes.object,
+  aesKey: PropTypes.object,
+  socket: PropTypes.object
+}
 
 export default connect(mapStateToProps, { genKeys, sendMsg, assignedAsHost, removeAsHost, receivedEncryptedAESKey, connected })(TextForm);
