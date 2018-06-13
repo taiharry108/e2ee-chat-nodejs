@@ -43,17 +43,25 @@ class Messages extends Component {
     this.scrollToBottom();
   }
 
-  messageDiv(msg, isSender, msgClass, messageBoxClass, msgContent) {
-          return <Col xs="auto" className={messageBoxClass}>
-                  <div className={msgClass}>
-                    <Row>
-                      <Col>{msg.username}</Col>
-                    </Row>
-                    <Row>
-                      <Col>{msgContent}</Col>
-                    </Row>
-                  </div>
+  messageDiv(msg, messageBoxClass, msgContent, isSender) {
+    let msgClass = "message-text lead";
+    msgClass += isSender ? " sender-msg pr-5" : " pr-5";
+    let senderNameText = isSender ? "" : msg.username;
+    let senderNameClass = isSender ? "" : "col mb-0 h6";
+    return <Col xs="auto" className={messageBoxClass}>
+            <div>
+              <Row>
+                <div className={senderNameClass}>
+                  {senderNameText}
+                </div>
+              </Row>
+              <Row>
+                <Col className={msgClass}>
+                    {msgContent}
                 </Col>
+              </Row>
+            </div>
+          </Col>
   }
 
   render() {
@@ -63,16 +71,16 @@ class Messages extends Component {
       }
       else {
         let msgContent = decrypt(msg.textContent, msg.aesKey);
-        let isSender = msg.senderId === this.props.clientId
-        let msgClass = isSender ? "messageText myMsg" : "messageText"
-        let rowClass = isSender ? "justify-content-end" : "justify-content-start"
-        let bSide = isSender ? " b-right" : " b-left"
-        let messageBoxClass = 'speech-bubble my-3 p-2' + bSide
+        let isSender = msg.senderId === this.props.clientId;
+        let rowClass = isSender ? "justify-content-end" : "justify-content-start";
+        let bSide = isSender ? " b-right" : " b-left";
+        let messageBoxClass = 'speech-bubble my-3 pl-2 pr-3 py-1' + bSide;
+        messageBoxClass += isSender ? " my-msg" : " others-msg";
 
         return  <Row className={rowClass} key={msg._id}>
                   <Col xs="5">
                     <Row className={rowClass}>
-                      {this.messageDiv(msg, isSender, msgClass, messageBoxClass, msgContent)}
+                      {this.messageDiv(msg, messageBoxClass, msgContent, isSender)}
                     </Row>
                   </Col>
                 </Row>

@@ -4,7 +4,7 @@ html {
 
 body {
   overflow: hidden;
-  background-color: #727b84;
+  background-color: #f9f9fb;
   height: 100%;
 }
 
@@ -35,7 +35,6 @@ body {
   max-height: calc(100% - 194.8px);
   overflow-y: auto;
   position: absolute;
-  background-color: #727b84;
 }
 
 .App-footer {
