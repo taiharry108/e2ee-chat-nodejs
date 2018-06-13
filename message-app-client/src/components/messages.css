@@ -20,12 +20,12 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    /* background: #f1f1f1; */
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #bbb;
+    background: #999;
 }
 
 /* Handle on hover */
@@ -37,6 +37,8 @@
 	position: relative;
 	background: #ccf7f5;
 	border-radius: .4em;
+  width: inherit;
+  max-width: 100%;
 }
 
 .speech-bubble:after {

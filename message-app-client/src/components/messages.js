@@ -13,7 +13,6 @@ class Messages extends Component {
     super(props);
     this.scrollToBottom = this.scrollToBottom.bind(this);
     this.messageDiv = this.messageDiv.bind(this);
-    this.emptyCol = this.emptyCol.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,23 +44,17 @@ class Messages extends Component {
   }
 
   messageDiv(msg, isSender, msgClass, messageBoxClass, msgContent) {
-    return <Col xs="5" className={messageBoxClass}>
-            <div key={msg._id} className={msgClass}>
-              <Row>
-                <Col>{msg.username}</Col>
-              </Row>
-              <Row>
-                <Col className='text-right'>{msgContent}</Col>
-              </Row>
-            </div>
-          </Col>
+          return <Col xs="auto" className={messageBoxClass}>
+                  <div className={msgClass}>
+                    <Row>
+                      <Col>{msg.username}</Col>
+                    </Row>
+                    <Row>
+                      <Col>{msgContent}</Col>
+                    </Row>
+                  </div>
+                </Col>
   }
-
-  emptyCol() {
-    return <Col xs="7"></Col>
-  }
-
-
 
   render() {
     const messageItems = this.props.msgs.map(msg => {
@@ -72,12 +65,16 @@ class Messages extends Component {
         let msgContent = decrypt(msg.textContent, msg.aesKey);
         let isSender = msg.senderId === this.props.clientId
         let msgClass = isSender ? "messageText myMsg" : "messageText"
+        let rowClass = isSender ? "justify-content-end" : "justify-content-start"
         let bSide = isSender ? " b-right" : " b-left"
-        let messageBoxClass = 'speech-bubble my-3 p-2 mw-30' + bSide
+        let messageBoxClass = 'speech-bubble my-3 p-2' + bSide
 
-        return  <Row>
-                  { isSender ? this.emptyCol() : this.messageDiv(msg, isSender, msgClass, messageBoxClass, msgContent)}
-                  { isSender ? this.messageDiv(msg, isSender, msgClass, messageBoxClass, msgContent) : this.emptyCol()}
+        return  <Row className={rowClass} key={msg._id}>
+                  <Col xs="5">
+                    <Row className={rowClass}>
+                      {this.messageDiv(msg, isSender, msgClass, messageBoxClass, msgContent)}
+                    </Row>
+                  </Col>
                 </Row>
       }
     });
