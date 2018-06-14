@@ -1,5 +1,5 @@
 html {
-  height: 100%;
+  overflow-y: hidden;
 }
 
 body {
@@ -11,48 +11,26 @@ body {
 .App {
   width: 100%;
   margin: auto;
-
 }
-
 
 .App-header {
   color: white;
-  text-align: center;
-  display: block;
 }
 
-
-.App-main {
-  height: auto;
-  width: 100%;
-  top: 108px;
-  right: -4px;
-  bottom: 38px;
-  margin: 0;
-  height: calc(100% - 146px);
-  overflow-y: scroll;
-  position: absolute;
+.scrollable-middle {
+    position: fixed;
+    top: 116px;
+    left: 0;
+    right: 0;
+    height: calc(100% - 154px);
+    z-index: 1020;
 }
-
-.main {
-  background-color: #f9f9fb;
-  min-height: 100%;
-}
-
-.App-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
-
 
 .App-intro {
   font-size: large;
 }
 
-.textform-col {
-  padding-left: 0;
-  padding-right: 0;
+.sticky-bottom {
 }
 
 /* width */

@@ -4,7 +4,7 @@ import { sendMsg, connected } from '../actions/textActions';
 import { genKeys, sendPubKey2Ser, assignedAsHost, removeAsHost, receivedEncryptedAESKey, encrypt } from '../actions/encryptActions';
 import { ASSIGN_HOST, REMOVE_HOST, CONNECTED } from '../actions/types';
 import PropTypes from 'prop-types';
-import { Input  } from 'reactstrap';
+import { Input, Container, Row, Col  } from 'reactstrap';
 import './textform.css';
 
 class TextForm extends Component {
@@ -60,16 +60,18 @@ class TextForm extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.onSubmit} autoComplete="new-password">
-          <div>
-            <Input autoComplete="off" className="textArea"
-              type="text" name="textContent"
-              onChange={this.onChange} placeholder="Type a message"
-              value={this.state.textContent}/>
-          </div>
-        </form>
-      </div>
+      <Container className="textform-footer">
+        <Row>
+          <Col>
+            <form onSubmit={this.onSubmit} autoComplete="new-password">
+              <Input autoComplete="off" className="textArea"
+                type="text" name="textContent"
+                onChange={this.onChange} placeholder="Type a message"
+                value={this.state.textContent}/>
+            </form>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 

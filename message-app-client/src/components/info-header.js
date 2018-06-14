@@ -8,9 +8,13 @@ import './info-header.css';
 class InfoHeader extends Component {
   render() {
     return (
-      <Container className="container-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Welcome to Secret Chatroom</h1>
+      <Container className="info-header">
+        <Row>
+          <Col className="text-center"><img src={logo} className="App-logo" alt="logo" /></Col>
+        </Row>
+        <Row>
+          <Col><div className="h1 App-title text-center">Welcome to Secret Chatroom</div></Col>
+        </Row>
       </Container>
     );
   }

@@ -13,32 +13,53 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div>
+        <Container>
           <LoginModal className='loginModal'/>
-          <header className="App-header sticky-top">
-            <InfoHeader />
-          </header>
-          <div className="App-main">
-            <Container className="main">
-              <Row>
-                <Col>
-                  <Messages />
-                </Col>
-              </Row>
-            </Container>
-          </div>
-          <footer className="App-footer">
-            <Container>
-              <Row>
-                <Col className="textform-col"><TextForm /></Col>
-              </Row>
-            </Container>
-          </footer>
-        </div>
+          <Row className="fixed-top">
+            <Col>
+              <InfoHeader />
+            </Col>
+          </Row>
+          <Row className="scrollable-middle">
+            <Col>
+              <Messages />
+            </Col>
+          </Row>
+          <Row className="fixed-bottom">
+            <Col>
+              <TextForm />
+            </Col>
+          </Row>
+        </Container>
       </Provider>
     );
   }
 }
+
+// <Provider store={store}>
+//   <Container>
+//     <LoginModal className='loginModal'/>
+//     <Row className="sticky-top">
+//       <Col>
+//         <InfoHeader />
+//       </Col>
+//     </Row>
+//     <Row className="scrollable-middle">
+//       <Col>
+//         <Messages />
+//       </Col>
+//     </Row>
+//     <Row className='sticky-bottom'>
+//       <Col>
+//         <TextForm />
+//       </Col>
+//     </Row>
+//   </Container>
+// </Provider>
+// );
+// }
+// }
+
 
 
 export default App;
