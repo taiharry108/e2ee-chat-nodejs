@@ -1,0 +1,13 @@
+.container-header {
+  background-color: #222;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}

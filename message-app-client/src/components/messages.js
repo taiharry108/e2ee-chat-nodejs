@@ -74,11 +74,11 @@ class Messages extends Component {
         let isSender = msg.senderId === this.props.clientId;
         let rowClass = isSender ? "justify-content-end" : "justify-content-start";
         let bSide = isSender ? " b-right" : " b-left";
-        let messageBoxClass = 'speech-bubble my-3 pl-2 pr-3 py-1' + bSide;
+        let messageBoxClass = 'speech-bubble my-3 pl-2 pr-3 py-1 shadow-sm' + bSide;
         messageBoxClass += isSender ? " my-msg" : " others-msg";
 
         return  <Row className={rowClass} key={msg._id}>
-                  <Col xs="5">
+                  <Col lg="5" md="12">
                     <Row className={rowClass}>
                       {this.messageDiv(msg, messageBoxClass, msgContent, isSender)}
                     </Row>

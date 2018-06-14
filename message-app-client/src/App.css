@@ -3,8 +3,8 @@ html {
 }
 
 body {
-  overflow: hidden;
-  background-color: #f9f9fb;
+  background-color: #724967;
+  overflow-x: hidden;
   height: 100%;
 }
 
@@ -14,27 +14,29 @@ body {
 
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
 
 .App-header {
-  background-color: #222;
-  padding: 20px;
   color: white;
   text-align: center;
   display: block;
 }
 
+
 .App-main {
   height: auto;
   width: 100%;
+  top: 108px;
+  right: -4px;
   bottom: 38px;
   margin: 0;
-  max-height: calc(100% - 194.8px);
-  overflow-y: auto;
+  height: calc(100% - 146px);
+  overflow-y: scroll;
   position: absolute;
+}
+
+.main {
+  background-color: #f9f9fb;
+  min-height: 100%;
 }
 
 .App-footer {
@@ -43,9 +45,6 @@ body {
   width: 100%;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
 
 .App-intro {
   font-size: large;
@@ -56,6 +55,25 @@ body {
   padding-right: 0;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    /* background: #f1f1f1; */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #999;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
