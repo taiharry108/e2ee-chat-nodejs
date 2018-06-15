@@ -1,10 +1,15 @@
 .textform-footer {
-  /* padding-left: 0;
-  padding-right: 0; */
-  background-color: #dbc5f7;
+  background-color: #443266;
 }
 
 .send-msg-btn {
   min-width: 39px;
   width: 100%;
+  background-color: #C3C3E5;
+}
+
+.textArea {
+  /* outline: none; */
+  box-shadow:0 0 0 0.1rem rgba(0, 123, 255, 0.25);
+  /* border:1px solid #ccc !important; */
 }

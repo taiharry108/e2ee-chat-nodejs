@@ -1,5 +1,5 @@
 .info-header {
-  background-color: #222;
+  background-color: #443266;
 }
 
 .app-title {
@@ -30,7 +30,7 @@
 
 .user-number:active {
   /* border-color: #724967; */
-  background-color: #444;
+  background-color: #443266;
   /* color: #724967; */
   /* border-radius: 50%; */
   /* border-style: solid; */

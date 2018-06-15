@@ -5,6 +5,7 @@ import Messages from './components/messages';
 import TextForm from './components/textform';
 import LoginModal from './components/loginModal';
 import InfoHeader from './components/info-header';
+import SideBar from './components/side-bar';
 import { Container, Row, Col } from 'reactstrap';
 import store from './store';
 
