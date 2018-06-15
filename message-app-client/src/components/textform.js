@@ -4,7 +4,7 @@ import { sendMsg, connected } from '../actions/textActions';
 import { genKeys, sendPubKey2Ser, assignedAsHost, removeAsHost, receivedEncryptedAESKey, encrypt } from '../actions/encryptActions';
 import { ASSIGN_HOST, REMOVE_HOST, CONNECTED, SEND_AES } from '../actions/types';
 import PropTypes from 'prop-types';
-import { Input, Container, Row, Col  } from 'reactstrap';
+import { Input, Container, Row, Col, Button } from 'reactstrap';
 import './textform.css';
 
 class TextForm extends Component {
@@ -16,6 +16,7 @@ class TextForm extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.checkValidity = this.checkValidity.bind(this);
 
     this.props.genKeys();
 
@@ -62,20 +63,42 @@ class TextForm extends Component {
     this.setState({textContent: ''});
   }
 
+  checkValidity(text) {
+    return text !== '';
+  }
+
+  componentDidMount() {
+    this.wrapper.onreize = []
+    this.wrapper.onreize.push((e) => console.log(e))
+    console.log(this.wrapper);
+  }
+
   render() {
+    let textContent = this.state.textContent;
+    let validTextContent = this.checkValidity(textContent);
     return (
-      <Container className="textform-footer">
+      <div ref={(ele) => this.wrapper = ele}>
+      <Container className="textform-footer py-2" >
         <Row>
           <Col>
             <form onSubmit={this.onSubmit} autoComplete="new-password">
-              <Input autoComplete="off" className="textArea"
-                type="text" name="textContent"
-                onChange={this.onChange} placeholder="Type a message"
-                value={this.state.textContent}/>
+              <Row className="text-right">
+                <Col className="my-1 pr-lg-0">
+                  <Input autoComplete="off" className="textArea"
+                    type="text" name="textContent"
+                    onChange={this.onChange} placeholder="Type a message"
+                    value={textContent}/>
+                </Col>
+                <Col lg="1" className="my-1 mw-100">
+                  <Button color="secondary" className="send-msg-btn d-none d-sm-block" disabled={!validTextContent}>Send</Button>
+                </Col>
+              </Row>
             </form>
           </Col>
         </Row>
       </Container>
+      </div>
+
     );
   }
 

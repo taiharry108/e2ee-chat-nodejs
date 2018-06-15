@@ -12,13 +12,13 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Container className='whole-container'>
+        <Container className='whole-container shadow'>
           <Row>
             <Col>
               <LoginModal className='loginModal'/>
             </Col>
           </Row>
-          <Row className="sticky-top">
+          <Row className="sticky-top fixed-header">
             <Col className='px-0'>
               <InfoHeader />
             </Col>
@@ -28,9 +28,9 @@ class App extends Component {
               <Messages />
             </Col>
           </Row>
-          <Row className="fixed-bottom">
-            <Col>
-              <TextForm />
+          <Row>
+            <Col className="px-0">
+              <TextForm/>
             </Col>
           </Row>
         </Container>

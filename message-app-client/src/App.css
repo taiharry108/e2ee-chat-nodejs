@@ -10,6 +10,7 @@ body {
 
 .whole-container {
   height: 100vh;
+  max-height: 1080px;
 }
 
 .App {
@@ -25,7 +26,7 @@ body {
     top: 124.8px;
     left: 0;
     right: 0;
-    height: calc(100% - 162.8px);
+    height: calc(100% - 186.8px);
     /* height: 100%; */
     z-index: 1020;
 }

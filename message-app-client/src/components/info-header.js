@@ -23,7 +23,6 @@ class InfoHeader extends Component {
       let socket = nextProps.socket;
 
       socket.on(UPDATE_ROOM_INFO, (resp) => {
-        console.log(resp);
         this.props.updateRoomInfo(resp);
       })
     }

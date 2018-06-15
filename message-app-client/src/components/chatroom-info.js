@@ -9,22 +9,7 @@ class ChatroomInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [
-        {id: 0, name: "Harry_______fadsfsdaf"},
-        {id: 1, name: "Sherry"},
-        {id: 2, name: "Harry"},
-        {id: 3, name: "Sherry"},
-        {id: 4, name: "Harry"},
-        {id: 5, name: "Sherry"},
-        {id: 6, name: "Harry"},
-        {id: 7, name: "Sherry"},
-        {id: 8, name: "Harry"},
-        {id: 9, name: "Sherry"},
-        {id: 10, name: "Harry"},
-        {id: 11, name: "Sherry"},
-        {id: 12, name: "Harry"},
-        {id: 13, name: "Sherry"},
-      ]
+      users: []
     };
   }
 

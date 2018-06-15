@@ -2,13 +2,14 @@
 	background-color: #f9f9fb;
 	height: 100%;
 	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .speech-bubble {
 	position: relative;
 	border-radius: .6em;
   width: inherit;
-  max-width: 100%;
+  max-width: 80%;
 }
 
 .speech-bubble::after {
