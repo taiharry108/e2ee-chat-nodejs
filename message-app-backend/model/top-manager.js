@@ -35,7 +35,17 @@ class TopManager {
   }
 
   broadcastAESKey(chatroomKey, encryptedAESKeys) {
-    this._cms[chatroomKey].broadcastAESKey(encryptedAESKeys)
+    this._cms[chatroomKey].broadcastAESKey(encryptedAESKeys);
+  }
+
+  broadcastRoomInfo(io, chatroomKey) {
+    let cm = this._cms[chatroomKey]
+    let number = cm.getUserNumber();
+    let roomInfo = cm.getRoomInfo();
+    console.log('going to broadcast number', number, chatroomKey)
+    io.in(chatroomKey).emit('UPDATE_ROOM_INFO', {
+      number, roomInfo
+    });
   }
 }
 

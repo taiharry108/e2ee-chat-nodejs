@@ -11,7 +11,7 @@
   max-width: 100%;
 }
 
-.speech-bubble:after {
+.speech-bubble::after {
 	content: '';
 	position: absolute;
 	top: 50%;
@@ -30,21 +30,21 @@
   background: #fdecff;
 }
 
-.my-msg.b-right:after {
+.my-msg.b-right::after {
   border-left-color: #faf292;
 }
 
-.others-msg.b-left:after {
+.others-msg.b-left::after {
   border-right-color: #fdecff;
 }
 
-.b-right:after {
+.b-right::after {
   right: 0;
   border-right: 0;
   margin-right: -12px;
 }
 
-.b-left:after {
+.b-left::after {
   left: 0;
   border-right-color: #ccf7f5;
   border-left: 0;

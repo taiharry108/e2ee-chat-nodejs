@@ -13,6 +13,7 @@ class ChatroomManager {
     this.assignHost();
   }
 
+
   removeClient(client) {
     this.removeHost();
 
@@ -62,6 +63,19 @@ class ChatroomManager {
     }
   }
 
+  getUserNumber() {
+    return Object.keys(this._users).length;
+  }
+
+  getRoomInfo() {
+    let clientIds = Object.keys(this._users)
+    return clientIds.map(clientId => {
+      let user = this._users[clientId]
+      return {
+      username: user.getUsername(),
+      clientId: user.getClientId()
+    }});
+  }
 }
 
 

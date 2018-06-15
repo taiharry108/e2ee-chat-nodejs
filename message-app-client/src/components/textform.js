@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { sendMsg, connected } from '../actions/textActions';
 import { genKeys, sendPubKey2Ser, assignedAsHost, removeAsHost, receivedEncryptedAESKey, encrypt } from '../actions/encryptActions';
-import { ASSIGN_HOST, REMOVE_HOST, CONNECTED } from '../actions/types';
+import { ASSIGN_HOST, REMOVE_HOST, CONNECTED, SEND_AES } from '../actions/types';
 import PropTypes from 'prop-types';
 import { Input, Container, Row, Col  } from 'reactstrap';
 import './textform.css';
@@ -25,23 +25,27 @@ class TextForm extends Component {
     if (nextProps.rsaKey) {
       this.setState({pubKey:nextProps.rsaKey.exportKey('pkcs8-public-pem')});
     }
+
+    // subscribe to socket
     if (this.props.socket === null && nextProps.socket) {
-      nextProps.socket.on(ASSIGN_HOST, (othersKeys) => {
-        this.props.assignedAsHost(othersKeys, nextProps.socket);
+
+      let socket = nextProps.socket;
+      socket.on(ASSIGN_HOST, (othersKeys) => {
+        this.props.assignedAsHost(othersKeys, socket);
       });
 
-      nextProps.socket.on(REMOVE_HOST, (othersKeys) => {
+      socket.on(REMOVE_HOST, (othersKeys) => {
         this.props.removeAsHost();
       });
 
-      nextProps.socket.on(CONNECTED, (clientId) => {
+      socket.on(CONNECTED, (clientId) => {
         let pubKey = this.state.pubKey
         console.log('connected to server, going to send public kay', pubKey)
-        sendPubKey2Ser(nextProps.socket, pubKey);
+        sendPubKey2Ser(socket, pubKey);
         this.props.connected(clientId);
       })
 
-      nextProps.socket.on('SEND_AES', (encryptedAES) => this.props.receivedEncryptedAESKey(encryptedAES, this.props.rsaKey))
+      socket.on(SEND_AES, (encryptedAES) => this.props.receivedEncryptedAESKey(encryptedAES, this.props.rsaKey))
     }
   }
 

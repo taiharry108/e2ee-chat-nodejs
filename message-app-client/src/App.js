@@ -3,7 +3,6 @@ import './App.css';
 import { Provider } from 'react-redux';
 import Messages from './components/messages';
 import TextForm from './components/textform';
-import MemberBox from './components/memberBox';
 import LoginModal from './components/loginModal';
 import InfoHeader from './components/info-header';
 import { Container, Row, Col } from 'reactstrap';
@@ -13,15 +12,19 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Container>
-          <LoginModal className='loginModal'/>
-          <Row className="fixed-top">
+        <Container className='whole-container'>
+          <Row>
             <Col>
+              <LoginModal className='loginModal'/>
+            </Col>
+          </Row>
+          <Row className="sticky-top">
+            <Col className='px-0'>
               <InfoHeader />
             </Col>
           </Row>
           <Row className="scrollable-middle">
-            <Col>
+            <Col className='px-0'>
               <Messages />
             </Col>
           </Row>
@@ -35,31 +38,4 @@ class App extends Component {
     );
   }
 }
-
-// <Provider store={store}>
-//   <Container>
-//     <LoginModal className='loginModal'/>
-//     <Row className="sticky-top">
-//       <Col>
-//         <InfoHeader />
-//       </Col>
-//     </Row>
-//     <Row className="scrollable-middle">
-//       <Col>
-//         <Messages />
-//       </Col>
-//     </Row>
-//     <Row className='sticky-bottom'>
-//       <Col>
-//         <TextForm />
-//       </Col>
-//     </Row>
-//   </Container>
-// </Provider>
-// );
-// }
-// }
-
-
-
 export default App;

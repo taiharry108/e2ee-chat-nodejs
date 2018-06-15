@@ -20,6 +20,7 @@ class Messages extends Component {
       let length = nextProps.msgs.length
       nextProps.msgs[length - 1].aesKey = this.props.aesKey
     }
+    // subscribe to socket
     if (this.props.socket === null && nextProps.socket) {
       nextProps.socket.on(RECEIVE_MSG, (msg) => {
         this.props.receiveMsg(msg);

@@ -25,6 +25,14 @@ class User {
     return this._pubKey;
   }
 
+  getUsername() {
+    return this._username;
+  }
+
+  getClientId() {
+    return this._clientId;
+  }
+
 }
 
 module.exports = User;

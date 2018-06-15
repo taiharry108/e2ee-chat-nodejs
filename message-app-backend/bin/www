@@ -43,6 +43,7 @@ io.on('connection', (client) => {
     let chatroomKey = getChatroomKey(client);
     console.log('received keys from client', client.id, ' at ', chatroomKey);
     tm.addClientToChat(chatroomKey, client, username, pubKey);
+    tm.broadcastRoomInfo(io, chatroomKey);
   })
 
   client.on('BROADCAST_AES', (encryptedAESKeys) => {
@@ -54,6 +55,7 @@ io.on('connection', (client) => {
     let chatroomKey = getChatroomKey(client);
     console.log('user from ', chatroomKey,' disconnected', client.id);
     tm.removeClientFromChat(chatroomKey, client);
+    tm.broadcastRoomInfo(io, chatroomKey);
   })
 })
 /**

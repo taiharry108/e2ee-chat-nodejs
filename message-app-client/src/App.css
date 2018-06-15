@@ -5,7 +5,11 @@ html {
 body {
   background-color: #724967;
   overflow-x: hidden;
-  height: 100%;
+  height: 100vh;
+}
+
+.whole-container {
+  height: 100vh;
 }
 
 .App {
@@ -18,19 +22,16 @@ body {
 }
 
 .scrollable-middle {
-    position: fixed;
-    top: 116px;
+    top: 124.8px;
     left: 0;
     right: 0;
-    height: calc(100% - 154px);
+    height: calc(100% - 162.8px);
+    /* height: 100%; */
     z-index: 1020;
 }
 
 .App-intro {
   font-size: large;
-}
-
-.sticky-bottom {
 }
 
 /* width */

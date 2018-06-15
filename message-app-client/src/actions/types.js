@@ -12,3 +12,6 @@ export const CONNECTED = 'CONNECTED';
 export const BROADCAST_AES = 'BROADCAST_AES';
 export const SEND_AES = 'SEND_AES';
 export const LOGIN = 'LOGIN';
+export const UPDATE_ROOM_INFO = 'UPDATE_ROOM_INFO';
+export const CLICK_POPOVER = 'CLICK_POPOVER';
+export const TOGGLE_MODAL = 'TOGGLE_MODAL';
