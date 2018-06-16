@@ -14,9 +14,10 @@ class TextForm extends Component {
     this.state = {
       textContent: '',
     };
-    this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.checkValidity = this.checkValidity.bind(this);
+    this.sendMsg = this.sendMsg.bind(this);
+    this.onEnterPressed = this.onEnterPressed.bind(this);
 
     this.props.genKeys();
 
@@ -50,49 +51,53 @@ class TextForm extends Component {
     }
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  onEnterPressed(event) {
+    if(event.charCode == 13) {
+      event.preventDefault()
+      let didSendMessage = this.sendMsg();
+      if (didSendMessage)
+        event.target.innerHTML = '';
+    }
   }
 
-  onSubmit(e) {
-    e.preventDefault();
+  sendMsg() {
+    if (this.state.textContent == "")
+      return false;
     const textMsg = {
       textContent: encrypt(this.state.textContent, this.props.aesKey)
     }
     this.props.sendMsg(this.props.socket, textMsg);
     this.setState({textContent: ''});
+    return true;
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    this.sendMsg();
   }
 
   checkValidity(text) {
     return text !== '';
   }
 
-  componentDidMount() {
-    this.wrapper.onreize = []
-    this.wrapper.onreize.push((e) => console.log(e))
-    console.log(this.wrapper);
-  }
-
   render() {
     let textContent = this.state.textContent;
     let validTextContent = this.checkValidity(textContent);
     return (
-      <div ref={(ele) => this.wrapper = ele}>
+      <div>
       <Container className="textform-footer py-2" >
         <Row>
           <Col>
             <form onSubmit={this.onSubmit} autoComplete="new-password">
-              <Row className="text-right">
+              <Row>
                 <Col className="my-1 pr-lg-0">
-                  <Input autoComplete="off" className="textArea"
-                    type="text" name="textContent"
-                    onChange={this.onChange} placeholder="Type a message"
-                    value={textContent}/>
+                  <div className="text-div py-1 px-2" contentEditable="true" place-text="Type a message" onKeyPress={this.onEnterPressed} onInput={(e) => this.setState({
+                    textContent: e.target.innerHTML
+                  })}></div>
                 </Col>
                 <Col lg="1" className="my-1 mw-100 d-none d-lg-block">
                   <Button color="secondary" className="send-msg-btn d-none d-sm-block" disabled={!validTextContent}>Send</Button>
                 </Col>
-
               </Row>
             </form>
           </Col>
@@ -108,7 +113,10 @@ class TextForm extends Component {
 
 // <Row>
 //   <Col>
-//     <div class="text-div col-md-12 sol-sm-12 py-1" contenteditable="true" place-text="Type a message"></div>
+//     <Input autoComplete="off" className="textArea"
+  // type="text" name="textContent"
+  // onChange={this.onChange} placeholder="Type a message"
+  // value={textContent}/>
 //   </Col>
 // </Row>
 

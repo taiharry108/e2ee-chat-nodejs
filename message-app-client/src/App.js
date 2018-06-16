@@ -13,52 +13,55 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Container className='whole-container shadow'>
-          <Row>
-            <Col>
-              <LoginModal className='loginModal'/>
-            </Col>
-          </Row>
-          <Row className="sticky-top fixed-header">
-            <Col className='px-0'>
-              <InfoHeader />
-            </Col>
-          </Row>
-          <Row className="scrollable-middle">
-            <Col className='px-0'>
-              <Messages />
-            </Col>
-          </Row>
-          <Row>
-            <Col className="px-0">
-              <TextForm/>
-            </Col>
-          </Row>
-        </Container>
+        <div className='app-wrapper'>
+          <div className="modal-container">
+            <LoginModal className='loginModal'/>
+          </div>
+          <Container className='whole-container shadow px-0'>
+            <div className="main-container d-flex flex-column">
+              <div className="order-1">
+                <InfoHeader />
+              </div>
+              <div className="flex-middle order-2 flex-fill">
+                <Messages />
+              </div>
+              <div className="flex-bottom order-3">
+                <TextForm/>
+              </div>
+            </div>
+          </Container>
+        </div>
       </Provider>
     );
   }
 }
 
 
-  // <div className='app-wrapper'>
-  //   <Container className='whole-container shadow'>
-  //     <div className="modal-container">
-  //       <LoginModal className='loginModal'/>
-  //     </div>
-  //     <div className="d-flex flex-column">
-  //       <div>
-  //         <InfoHeader />
-  //       </div>
-  //       <div className="flex-middle">
-  //         <Messages />
-  //       </div>
-  //       <div className="flex-bottom">
-  //         <TextForm/>
-  //       </div>
-  //     </div>
-  //   </Container>
-  // </div>
+
+
+// <Container className='whole-container shadow'>
+//   <Row>
+//     <Col>
+//       <LoginModal className='loginModal'/>
+//     </Col>
+//   </Row>
+//   <Row className="sticky-top fixed-header">
+//     <Col className='px-0'>
+//       <InfoHeader />
+//     </Col>
+//   </Row>
+//   <Row className="scrollable-middle">
+//     <Col className='px-0'>
+//       <Messages />
+//     </Col>
+//   </Row>
+//   <Row>
+//     <Col className="px-0">
+//       <TextForm/>
+//     </Col>
+//   </Row>
+// </Container>
+
 //
 
 export default App;

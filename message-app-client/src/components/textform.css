@@ -18,6 +18,7 @@
   border-radius: 0.25rem;
   max-height: 100px;
   min-height: 20px;
+  overflow-y: auto;
 }
 
 .text-div:empty:not(:focus):before{

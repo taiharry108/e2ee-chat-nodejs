@@ -1,4 +1,5 @@
 .container-main {
+	position: relative;
 	background-color: #f9f9fb;
 	height: 100%;
 	overflow-y: scroll;
