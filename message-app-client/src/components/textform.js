@@ -89,9 +89,10 @@ class TextForm extends Component {
                     onChange={this.onChange} placeholder="Type a message"
                     value={textContent}/>
                 </Col>
-                <Col lg="1" className="my-1 mw-100">
+                <Col lg="1" className="my-1 mw-100 d-none d-lg-block">
                   <Button color="secondary" className="send-msg-btn d-none d-sm-block" disabled={!validTextContent}>Send</Button>
                 </Col>
+
               </Row>
             </form>
           </Col>
@@ -103,6 +104,13 @@ class TextForm extends Component {
   }
 
 }
+
+
+// <Row>
+//   <Col>
+//     <div class="text-div col-md-12 sol-sm-12 py-1" contenteditable="true" place-text="Type a message"></div>
+//   </Col>
+// </Row>
 
 const mapStateToProps = state => ({
   rsaKey: state.encrypt.rsaKey,

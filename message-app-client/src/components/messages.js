@@ -79,7 +79,7 @@ class Messages extends Component {
         messageBoxClass += isSender ? " my-msg" : " others-msg";
 
         return  <Row className={rowClass} key={msg._id}>
-                  <Col lg="5" md="12">
+                  <Col lg="7" md="12">
                     <Row className={rowClass}>
                       {this.messageDiv(msg, messageBoxClass, msgContent, isSender)}
                     </Row>

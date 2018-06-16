@@ -39,4 +39,26 @@ class App extends Component {
     );
   }
 }
+
+
+  // <div className='app-wrapper'>
+  //   <Container className='whole-container shadow'>
+  //     <div className="modal-container">
+  //       <LoginModal className='loginModal'/>
+  //     </div>
+  //     <div className="d-flex flex-column">
+  //       <div>
+  //         <InfoHeader />
+  //       </div>
+  //       <div className="flex-middle">
+  //         <Messages />
+  //       </div>
+  //       <div className="flex-bottom">
+  //         <TextForm/>
+  //       </div>
+  //     </div>
+  //   </Container>
+  // </div>
+//
+
 export default App;

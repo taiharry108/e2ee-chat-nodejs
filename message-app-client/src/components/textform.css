@@ -8,8 +8,19 @@
   background-color: #C3C3E5;
 }
 
-.textArea {
-  /* outline: none; */
-  box-shadow:0 0 0 0.1rem rgba(0, 123, 255, 0.25);
-  /* border:1px solid #ccc !important; */
+.text-div {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  max-height: 100px;
+  min-height: 20px;
+}
+
+.text-div:empty:not(:focus):before{
+  content:attr(place-text);
+  color:grey;
 }
