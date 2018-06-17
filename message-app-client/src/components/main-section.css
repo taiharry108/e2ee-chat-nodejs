@@ -7,13 +7,11 @@
 }
 
 #sidebar-wrapper {
-  /* height: 100%; */
 	width: 0%;
-	transition: all 0.5s ease;
-	/* overflow: hidden; */
+	transition: all 1s ease;
 }
 
 #sidebar-wrapper.in {
-	width: 200px;
-	transition: all 0.5s ease;
+	width: 300px;
+	transition: all 1s ease;
 }

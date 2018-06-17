@@ -1,3 +1,17 @@
 .sidebar-container {
   overflow:hidden;
 }
+
+.sidebar-card {
+  border-radius: 0;
+}
+
+.status-text {
+  font-weight: 200;
+}
+
+.avatar {
+  background-color: lavenderblush;
+  max-height: 60px;
+  max-width: 60px;
+}
