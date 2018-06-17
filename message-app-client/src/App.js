@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Provider } from 'react-redux';
-import Messages from './components/messages';
+import MainSection from './components/main-section';
 import TextForm from './components/textform';
 import LoginModal from './components/loginModal';
 import InfoHeader from './components/info-header';
-import SideBar from './components/side-bar';
-import { Container, Row, Col } from 'reactstrap';
+import { Container } from 'reactstrap';
 import store from './store';
 
 class App extends Component {
@@ -23,7 +22,7 @@ class App extends Component {
                 <InfoHeader />
               </div>
               <div className="flex-middle order-2 flex-fill">
-                <Messages />
+                <MainSection />
               </div>
               <div className="flex-bottom order-3">
                 <TextForm/>
@@ -37,7 +36,7 @@ class App extends Component {
 }
 
 
-
+//
 
 // <Container className='whole-container shadow'>
 //   <Row>

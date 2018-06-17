@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Popover, PopoverHeader, PopoverBody, Button } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { UPDATE_ROOM_INFO } from '../actions/types';
 import { updateRoomInfo, appTitleOnClick, toggleModal } from '../actions/roomActions';
+import { toggleSidebar } from '../actions/uiActions';
 import ChatroomInfo from './chatroom-info';
 import './info-header.css';
 
@@ -30,6 +31,7 @@ class InfoHeader extends Component {
 
   onClick() {
     this.props.appTitleOnClick(this.props.popoverOpen);
+    this.props.toggleSidebar(this.props.sidebarOut);
   }
 
   logoOnClick() {
@@ -61,7 +63,8 @@ const mapStateToProps = state => {
     socket: state.login.socket,
     userNumber: state.room.userNumber,
     popoverOpen: state.room.popoverOpen,
-    modal: state.room.modal
+    modal: state.room.modal,
+    sidebarOut: state.ui.sidebarOut
   }
 };
 
@@ -70,4 +73,4 @@ InfoHeader.propTypes = {
   userNumber: PropTypes.number
 }
 
-export default connect(mapStateToProps, { updateRoomInfo, appTitleOnClick, toggleModal })(InfoHeader);
+export default connect(mapStateToProps, { updateRoomInfo, appTitleOnClick, toggleModal, toggleSidebar })(InfoHeader);

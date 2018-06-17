@@ -1,0 +1,19 @@
+.main-section-wrapper {
+  background-color: #f9f9fb;
+  position: relative;
+	height: 100%;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+  /* height: 100%; */
+	width: 0%;
+	transition: all 0.5s ease;
+	/* overflow: hidden; */
+}
+
+#sidebar-wrapper.in {
+	width: 200px;
+	transition: all 0.5s ease;
+}

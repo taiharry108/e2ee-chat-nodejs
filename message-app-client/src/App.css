@@ -1,5 +1,5 @@
 html, body, #root {
-  overflow-y: hidden;
+  overflow: hidden;
   height: 100%;
   width: 100%;
   padding: 0;
@@ -16,14 +16,12 @@ html, body, #root {
 .app-wrapper {
   width: 100%;
   height: 100%;
-  /* overflow: hidden; */
 }
 
 .whole-container {
   position: relative;
   height: calc(100% - 38px);
   top: 19px;
-  /* width: 1396px; */
 }
 
 .main-container {
@@ -62,7 +60,7 @@ html, body, #root {
 
 /* width */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 0;
 }
 
 /* Track */
@@ -83,4 +81,16 @@ html, body, #root {
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@media (max-width: 992px){
+  .container {
+      width: 100%;
+      max-width: none;
+    }
+
+  .whole-container {
+    height: 100%;
+    top: 0;
+  }
 }

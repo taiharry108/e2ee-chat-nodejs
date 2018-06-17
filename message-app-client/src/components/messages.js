@@ -65,10 +65,11 @@ class Messages extends Component {
           </Col>
   }
 
+
   render() {
     const messageItems = this.props.msgs.map(msg => {
       if (msg.aesKey === null) {
-        return;
+        return <div></div>;
       }
       else {
         let msgContent = decrypt(msg.textContent, msg.aesKey);
@@ -103,7 +104,8 @@ const mapStateToProps = state => {
     msgs: state.texts.msgs,
     clientId: state.texts.clientId,
     aesKey: state.encrypt.aesKey,
-    socket: state.login.socket
+    socket: state.login.socket,
+    // sidebarOut: state.ui.sidebarOut
   }
 };
 

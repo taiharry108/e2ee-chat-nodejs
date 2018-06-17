@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Popover, PopoverHeader, PopoverBody, Button } from 'reactstrap';
+import { Container, Row, Col, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 import PropTypes from 'prop-types';
 import './chatroom-info.css';
 
@@ -11,17 +11,6 @@ class ChatroomInfo extends Component {
     this.state = {
       users: []
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // subscribe to socket
-    if (this.props.socket === null && nextProps.socket) {
-
-      let socket = nextProps.socket;
-
-      // socket.on(UPDATE_USER_NUMBER, (userNumber) => {
-      // })
-    }
   }
 
   render() {
@@ -47,13 +36,11 @@ class ChatroomInfo extends Component {
 const mapStateToProps = state => {
   return {
     popoverOpen: state.room.popoverOpen,
-    socket: state.login.socket,
     roomInfo: state.room.roomInfo
   }
 };
 
 ChatroomInfo.propTypes = {
-  socket: PropTypes.object,
 }
 
 export default connect(mapStateToProps, {  })(ChatroomInfo);

@@ -4,7 +4,7 @@ import { sendMsg, connected } from '../actions/textActions';
 import { genKeys, sendPubKey2Ser, assignedAsHost, removeAsHost, receivedEncryptedAESKey, encrypt } from '../actions/encryptActions';
 import { ASSIGN_HOST, REMOVE_HOST, CONNECTED, SEND_AES } from '../actions/types';
 import PropTypes from 'prop-types';
-import { Input, Container, Row, Col, Button } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 import './textform.css';
 
 class TextForm extends Component {
@@ -52,7 +52,7 @@ class TextForm extends Component {
   }
 
   onEnterPressed(event) {
-    if(event.charCode == 13) {
+    if(event.charCode === 13) {
       event.preventDefault()
       let didSendMessage = this.sendMsg();
       if (didSendMessage)
@@ -61,7 +61,7 @@ class TextForm extends Component {
   }
 
   sendMsg() {
-    if (this.state.textContent == "")
+    if (this.state.textContent === "")
       return false;
     const textMsg = {
       textContent: encrypt(this.state.textContent, this.props.aesKey)
