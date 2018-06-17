@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Button, Modal, ModalHeader,
   ModalBody, ModalFooter, FormGroup,
   Label, Input, Form, FormFeedback } from 'reactstrap';
-import './loginModal.css';
+import './login-modal.css';
 import { toggleModal } from '../actions/roomActions';
 import { login } from '../actions/loginActions';
 

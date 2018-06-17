@@ -1,7 +1,8 @@
-import { RECEIVE_MSG, FETCH_MSGS, CONNECTED } from '../actions/types';
+import { RECEIVE_MSG, FETCH_MSGS, CONNECTED, SEND_MSG } from '../actions/types';
 
 const initialState = {
   msgs: [],
+  msg: "",
   clientId: null
 }
 
@@ -22,6 +23,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         clientId: action.payload
+      }
+    case SEND_MSG:
+      return {
+        ...state,
+        msg: action.payload
       }
     default:
       return state;

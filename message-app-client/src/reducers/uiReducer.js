@@ -1,7 +1,8 @@
-import { SIDEBAR_TOGGLE } from '../actions/types';
+import { SIDEBAR_TOGGLE, POPOVER_SIDEBAR_SWITCH } from '../actions/types';
 
 const initialState = {
   sidebarOut: false,
+  allowPopover: true
 }
 
 export default function(state = initialState, action) {
@@ -12,6 +13,11 @@ export default function(state = initialState, action) {
         ...state,
         sidebarOut: action.payload
       };
+    case POPOVER_SIDEBAR_SWITCH:
+      return {
+        ...state,
+        allowPopover: action.payload
+      }
     default:
       return state;
   }

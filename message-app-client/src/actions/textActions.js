@@ -2,8 +2,11 @@ import { SEND_MSG, RECEIVE_MSG, FETCH_MSGS, CONNECTED } from './types';
 import axios from 'axios';
 import { SERVER_URL } from '../consts'
 
-export const sendMsg = (socket, msg) => dispatch => {
-  socket.emit(SEND_MSG, msg);
+export const sendMsg = (msg) => dispatch => {
+  dispatch({
+    type: SEND_MSG,
+    payload: msg
+  })
 };
 
 export const receiveMsg = (msg) => dispatch => {
