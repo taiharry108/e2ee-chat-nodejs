@@ -53,20 +53,16 @@ class TextForm extends Component {
     let validTextContent = this.checkValidity(textContent);
     return (
       <div>
-      <Container className="textform-footer py-2" >
+      <Container className="textform-footer p-1" >
         <Row>
           <Col>
             <form onSubmit={this.onSubmit} autoComplete="new-password">
-              <Row>
-                <Col lg="11" className="my-1 pr-lg-0">
-                  <div className="text-div py-1 px-2" contentEditable="true" place-text="Type a message" onKeyPress={this.onEnterPressed} onInput={(e) => this.setState({
-                    textContent: e.target.innerHTML
-                  })}></div>
-                </Col>
-                <Col lg="1" className="my-1 mw-100 d-none d-lg-block">
-                  <Button color="secondary" className="send-msg-btn d-none d-sm-block" disabled={!validTextContent}>Send</Button>
-                </Col>
-              </Row>
+              <div className="d-flex flex-row">
+                <div className="text-div py-1 px-2 m-2 flex-grow-1" contentEditable="true" place-text="Type a message" onKeyPress={this.onEnterPressed} onInput={(e) => this.setState({
+                  textContent: e.target.innerHTML
+                })}></div>
+                <Button color="secondary" className="send-msg-btn d-none d-sm-block m-2 align-self-end" disabled={!validTextContent}>Send</Button>
+              </div>
             </form>
           </Col>
         </Row>
@@ -76,7 +72,6 @@ class TextForm extends Component {
   }
 
 }
-
 
 const mapStateToProps = state => ({
   aesKey: state.encrypt.aesKey,

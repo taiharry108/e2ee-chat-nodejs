@@ -4,7 +4,9 @@ import {
   Container, Card, CardBody, CardTitle, CardSubtitle, CardHeader, Row, Col
 } from 'reactstrap';
 import './sidebar.css';
+import { toggleSidebar } from '../actions/uiActions';
 import avatar from '../avatars/man.svg';
+import FontAwesome from 'react-fontawesome'
 const svgs = require.context('../avatars', true, /\.svg$/)
 
 class SideBar extends React.Component {
@@ -12,9 +14,14 @@ class SideBar extends React.Component {
     super(props);
     const keys = svgs.keys();
     const svgsArray = keys.map(key => svgs(key));
+    this.closeBtnOnClick = this.closeBtnOnClick.bind(this);
     this.state = {
       svgsArray
     }
+  }
+
+  closeBtnOnClick() {
+    this.props.toggleSidebar(true);
   }
 
   render() {
@@ -37,7 +44,18 @@ class SideBar extends React.Component {
     return (
       <Container className='sidebar-container h-100 px-0'>
         <Card className="h-100 sidebar-card">
-          <CardHeader className="text-nowrap text-center h5 pt-2 pb-3">Room Info</CardHeader>
+          <CardHeader className="text-nowrap pt-2 pb-3">
+            <div className='d-flex d-row'>
+              <FontAwesome
+                className="close-btn align-self-center mb-2"
+                name="times"
+                onClick={this.closeBtnOnClick}
+                />
+              <div className='text-center h5 flex-fill'>
+                Room Info
+              </div>
+            </div>
+          </CardHeader>
           <CardBody className="p-0">
             <Container>
               <div className="d-flex flex-column">
@@ -57,4 +75,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, {  })(SideBar);
+export default connect(mapStateToProps, { toggleSidebar })(SideBar);

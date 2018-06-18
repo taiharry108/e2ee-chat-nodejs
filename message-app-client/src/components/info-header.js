@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { UPDATE_ROOM_INFO } from '../actions/types';
-import { updateRoomInfo, appTitleOnClick, toggleModal } from '../actions/roomActions';
+import { updateRoomInfo, appTitleOnClick } from '../actions/roomActions';
 import { toggleSidebar } from '../actions/uiActions';
 import ChatroomInfo from './chatroom-info';
 import './info-header.css';
@@ -57,4 +57,4 @@ InfoHeader.propTypes = {
   userNumber: PropTypes.number
 }
 
-export default connect(mapStateToProps, { updateRoomInfo, appTitleOnClick, toggleModal, toggleSidebar })(InfoHeader);
+export default connect(mapStateToProps, { updateRoomInfo, appTitleOnClick, toggleSidebar })(InfoHeader);
