@@ -3,7 +3,7 @@ import { RECEIVE_MSG, FETCH_MSGS, CONNECTED, SEND_MSG, CLEAR_MSG } from '../acti
 const initialState = {
   msgs: [],
   msg: "",
-  clientId: null
+  clientId: null,
 }
 
 export default function(state = initialState, action) {

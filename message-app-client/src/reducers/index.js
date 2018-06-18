@@ -5,11 +5,10 @@ import loginReducer from './loginReducer';
 import roomReducer from './roomReducer';
 import uiReducer from './uiReducer';
 
-
 export default combineReducers({
   texts: textReducer,
   encrypt: encryptReducer,
   login: loginReducer,
   room: roomReducer,
-  ui: uiReducer
+  ui: uiReducer,
 });

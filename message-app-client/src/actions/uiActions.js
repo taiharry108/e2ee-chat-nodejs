@@ -1,4 +1,9 @@
-import { SIDEBAR_TOGGLE, POPOVER_SIDEBAR_SWITCH } from './types';
+import { SIDEBAR_TOGGLE,
+  POPOVER_SIDEBAR_SWITCH,
+  APPEND_EMOJI,
+  CLEAR_EMOJI,
+  EMOJI_CLICKED
+} from './types';
 
 export const toggleSidebar = (isOut) => dispatch => {
   dispatch({
@@ -13,3 +18,23 @@ export const flipSwitch = (allowPopover) => dispatch => {
     payload: allowPopover
   })
 }
+
+export const appendEmoji = (emoji) => dispatch => {
+  dispatch({
+    type: APPEND_EMOJI,
+    payload: emoji
+  })
+}
+
+export const clearEmoji = (emoji) => dispatch => {
+  dispatch({
+    type: CLEAR_EMOJI,
+  })
+}
+
+export const emojiClicked = (emojiPaneOut) => dispatch => {
+  dispatch({
+    type: EMOJI_CLICKED,
+    payload: !emojiPaneOut
+  })
+};

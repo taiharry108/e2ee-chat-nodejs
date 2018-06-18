@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { sendMsg } from '../actions/textActions';
 import { encrypt } from '../actions/encryptActions';
+import { emojiClicked, clearEmoji } from '../actions/uiActions';
 import PropTypes from 'prop-types';
+import EmojiPane from './emoji-pane';
 import { Container, Row, Col, Button } from 'reactstrap';
+import { Emoji } from 'emoji-mart'
 import './textform.css';
 
 class TextForm extends Component {
@@ -17,6 +20,19 @@ class TextForm extends Component {
     this.checkValidity = this.checkValidity.bind(this);
     this.sendMsg = this.sendMsg.bind(this);
     this.onEnterPressed = this.onEnterPressed.bind(this);
+    this.emojiOnClick = this.emojiOnClick.bind(this);
+    this.onInput = this.onInput.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.emoji) {
+      let emoji = nextProps.emoji;
+      this.inputDiv.innerHTML += emoji.colons;
+      this.setState({
+        textContent: this.inputDiv.innerHTML
+      });
+      this.props.clearEmoji();
+    }
   }
 
   onEnterPressed(event) {
@@ -48,6 +64,16 @@ class TextForm extends Component {
     return text !== '';
   }
 
+  emojiOnClick() {
+    this.props.emojiClicked(this.props.emojiPaneOut);
+  }
+
+  onInput(e) {
+    this.setState({
+      textContent: e.target.innerHTML
+    });
+  }
+
   render() {
     let textContent = this.state.textContent;
     let validTextContent = this.checkValidity(textContent);
@@ -58,10 +84,14 @@ class TextForm extends Component {
           <Col>
             <form onSubmit={this.onSubmit} autoComplete="new-password">
               <div className="d-flex flex-row">
-                <div className="text-div py-1 px-2 m-2 flex-grow-1" contentEditable="true" place-text="Type a message" onKeyPress={this.onEnterPressed} onInput={(e) => this.setState({
-                  textContent: e.target.innerHTML
-                })}></div>
-                <Button color="secondary" className="send-msg-btn d-none d-sm-block m-2 align-self-end" disabled={!validTextContent}>Send</Button>
+                <div className="m2 p-2">
+                  <i className="far fa-smile emoji-icon align-self-center my-1 fa-2x text-secondary" onClick={this.emojiOnClick} id='emoji-icon'></i>
+                  <EmojiPane/>
+                </div>
+                <div className="text-div py-1 px-2 m-2 flex-grow-1" contentEditable="true" place-text="Type a message" onKeyPress={this.onEnterPressed} onInput={this.onInput} ref={(ele) => this.inputDiv = ele}></div>
+                <div>
+                  <Button color="secondary" className="send-msg-btn d-none d-sm-block m-2 align-self-end" disabled={!validTextContent}>Send</Button>
+                </div>
               </div>
             </form>
           </Col>
@@ -75,10 +105,12 @@ class TextForm extends Component {
 
 const mapStateToProps = state => ({
   aesKey: state.encrypt.aesKey,
+  emojiPaneOut: state.ui.emojiPaneOut,
+  emoji: state.ui.emoji
 });
 
 TextForm.propTypes = {
   aesKey: PropTypes.object,
 }
 
-export default connect(mapStateToProps, { sendMsg })(TextForm);
+export default connect(mapStateToProps, { sendMsg, emojiClicked, clearEmoji })(TextForm);

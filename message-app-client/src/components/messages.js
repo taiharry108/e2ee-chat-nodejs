@@ -1,17 +1,44 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchMsgs, receiveMsg } from '../actions/textActions'
+import { fetchMsgs, receiveMsg } from '../actions/textActions';
 import { RECEIVE_MSG } from '../actions/types';
 import { decrypt } from '../actions/encryptActions';
 import { Container, Row, Col } from 'reactstrap';
+import { Emoji } from 'emoji-mart'
 import PropTypes from 'prop-types';
 import './messages.css';
+import reactStringReplace from 'react-string-replace'
+const emojiREGEX = /(\:[a-z0-9\_\-]+\:)/g
+
+String.prototype.matchAll = function(regexp) {
+  var matches = [];
+  this.replace(regexp, function() {
+    var arr = ([]).slice.call(arguments, 0);
+    var extras = arr.splice(-2);
+    arr.index = extras[0];
+    arr.input = extras[1];
+    matches.push(arr);
+  });
+  return matches.length ? matches : null;
+};
 
 class Messages extends Component {
+  replaceMsgWithEmoji = (msg) => {
+    msg = msg.replace(/&nbsp;/g, ' ');
+    return (
+      <div className='d-flex flex-row'>
+        {reactStringReplace(msg, /(\:[a-z0-9\_\-]+\:)/g, (match, i) => {
+          return <div className="my-1"><Emoji key={i} emoji={match} size={24}/></div>
+        })}
+      </div>
+    )
+  }
+
 
   constructor(props) {
     super(props);
     this.messageDiv = this.messageDiv.bind(this);
+    this.replaceMsgWithEmoji = this.replaceMsgWithEmoji.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -31,18 +58,6 @@ class Messages extends Component {
     return;
   }
 
-  // scrollToBottom = () => {
-  //   this.messagesEnd.scrollIntoView({});
-  // }
-  //
-  // componentDidMount() {
-  //   this.scrollToBottom();
-  // }
-  //
-  // componentDidUpdate() {
-  //   this.scrollToBottom();
-  // }
-
   messageDiv(msg, messageBoxClass, msgContent, isSender) {
     let msgClass = "message-text lead";
     msgClass += isSender ? " sender-msg pr-5" : " pr-5";
@@ -57,7 +72,7 @@ class Messages extends Component {
               </Row>
               <Row>
                 <Col className={msgClass}>
-                    {msgContent}
+                    {this.replaceMsgWithEmoji(msgContent)}
                 </Col>
               </Row>
             </div>
