@@ -6,7 +6,7 @@ import TextForm from './textform';
 import LoginModal from './login-modal';
 import InfoHeader from './info-header';
 import { Container } from 'reactstrap';
-import { connected } from '../actions/textActions';
+import { connected, clearMsg } from '../actions/textActions';
 import { updateRoomInfo } from '../actions/roomActions';
 import { flipSwitch } from '../actions/uiActions';
 import { genKeys,
@@ -90,6 +90,7 @@ class AppWrapper extends Component {
 
     if (nextProps.msg !== "") {
       this.props.socket.emit(SEND_MSG, nextProps.msg);
+      this.props.clearMsg();
     }
   }
 
@@ -135,5 +136,6 @@ export default connect(mapStateToProps, {
   connected,
   receivedEncryptedAESKey,
   genKeys,
-  flipSwitch
+  flipSwitch,
+  clearMsg
 })(AppWrapper);

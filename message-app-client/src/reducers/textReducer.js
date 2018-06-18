@@ -1,4 +1,4 @@
-import { RECEIVE_MSG, FETCH_MSGS, CONNECTED, SEND_MSG } from '../actions/types';
+import { RECEIVE_MSG, FETCH_MSGS, CONNECTED, SEND_MSG, CLEAR_MSG } from '../actions/types';
 
 const initialState = {
   msgs: [],
@@ -28,6 +28,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         msg: action.payload
+      }
+    case CLEAR_MSG:
+      return {
+        ...state,
+        msg: ''
       }
     default:
       return state;

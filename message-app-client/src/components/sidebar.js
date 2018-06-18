@@ -35,7 +35,7 @@ class SideBar extends React.Component {
               </div>
     })
     return (
-      <Container className='sidebar-container h-100 pr-0'>
+      <Container className='sidebar-container h-100 px-0'>
         <Card className="h-100 sidebar-card">
           <CardHeader className="text-nowrap text-center h5 pt-2 pb-3">Room Info</CardHeader>
           <CardBody className="p-0">

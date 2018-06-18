@@ -1,4 +1,4 @@
-import { SEND_MSG, RECEIVE_MSG, FETCH_MSGS, CONNECTED } from './types';
+import { SEND_MSG, RECEIVE_MSG, FETCH_MSGS, CONNECTED, CLEAR_MSG} from './types';
 import axios from 'axios';
 import { SERVER_URL } from '../consts'
 
@@ -6,6 +6,12 @@ export const sendMsg = (msg) => dispatch => {
   dispatch({
     type: SEND_MSG,
     payload: msg
+  })
+};
+
+export const clearMsg = (msg) => dispatch => {
+  dispatch({
+    type: CLEAR_MSG,
   })
 };
 

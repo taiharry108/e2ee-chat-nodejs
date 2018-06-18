@@ -9,22 +9,15 @@ class MainSection extends Component {
 
   constructor(props) {
     super(props);
-    this.SidebarDiv = this.SidebarDiv.bind(this);
   }
 
-
-  SidebarDiv() {
-    if (this.props.sidebarOut) {
-      return (<SideBar/>);
-    } else
-      return (<div></div>);
-  }
 
   render() {
     let sidebarWrapperClass = this.props.sidebarOut ? 'in' : '';
+    let messageWrapperClass = this.props.sidebarOut ? 'in' : '';
     return (
       <div className='main-section-wrapper d-flex w-100 h-100'>
-        <div className='message-wrapper flex-grow-1'>
+        <div id='message-wrapper' className={messageWrapperClass}>
           <Messages />
         </div>
         <div id='sidebar-wrapper' className={sidebarWrapperClass}>
