@@ -26,6 +26,8 @@
 
 .symbol-wrapper {
 	display: inline-block;
+	vertical-align: top;
+	position: relative;
 }
 
 .my-msg {
