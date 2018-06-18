@@ -22,6 +22,18 @@ class TextForm extends Component {
     this.onEnterPressed = this.onEnterPressed.bind(this);
     this.emojiOnClick = this.emojiOnClick.bind(this);
     this.onInput = this.onInput.bind(this);
+    this.focusInputDiv = this.focusInputDiv.bind(this);
+  }
+
+  focusInputDiv() {
+    let range = document.createRange();
+    let sel = window.getSelection();
+
+    range.setStart(this.inputDiv, 1);
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
+    this.inputDiv.focus();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,15 +44,18 @@ class TextForm extends Component {
         textContent: this.inputDiv.innerHTML
       });
       this.props.clearEmoji();
+      this.focusInputDiv();
+    }
+
+    if (this.props.modalShown && !nextProps.modalShown) {
+      this.inputDiv.focus();      
     }
   }
 
   onEnterPressed(event) {
     if(event.charCode === 13) {
       event.preventDefault()
-      let didSendMessage = this.sendMsg();
-      if (didSendMessage)
-        event.target.innerHTML = '';
+      this.sendMsg();
     }
   }
 
@@ -52,6 +67,7 @@ class TextForm extends Component {
     }
     this.props.sendMsg(textMsg);
     this.setState({textContent: ''});
+    this.inputDiv.innerHTML = "";
     return true;
   }
 
@@ -88,7 +104,11 @@ class TextForm extends Component {
                   <i className="far fa-smile emoji-icon align-self-center my-1 fa-2x text-secondary" onClick={this.emojiOnClick} id='emoji-icon'></i>
                   <EmojiPane/>
                 </div>
-                <div className="text-div py-1 px-2 m-2 flex-grow-1" contentEditable="true" place-text="Type a message" onKeyPress={this.onEnterPressed} onInput={this.onInput} ref={(ele) => this.inputDiv = ele}></div>
+                <div className="text-div py-1 px-2 m-2 flex-grow-1"
+                  contentEditable="true" place-text="Type a message"
+                  onKeyPress={this.onEnterPressed} onInput={this.onInput}
+                  ref={(ele) => this.inputDiv = ele}>
+                </div>
                 <div>
                   <Button color="secondary" className="send-msg-btn d-none d-sm-block m-2 align-self-end" disabled={!validTextContent}>Send</Button>
                 </div>
@@ -106,7 +126,8 @@ class TextForm extends Component {
 const mapStateToProps = state => ({
   aesKey: state.encrypt.aesKey,
   emojiPaneOut: state.ui.emojiPaneOut,
-  emoji: state.ui.emoji
+  emoji: state.ui.emoji,
+  modalShown: state.room.modal
 });
 
 TextForm.propTypes = {

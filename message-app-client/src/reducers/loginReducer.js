@@ -2,7 +2,7 @@ import { LOGIN } from '../actions/types';
 
 const initialState = {
   username: '',
-  socket: null
+  socket: null,
 }
 
 export default function(state = initialState, action) {

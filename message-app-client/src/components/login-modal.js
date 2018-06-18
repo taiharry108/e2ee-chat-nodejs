@@ -21,6 +21,7 @@ class LoginModal extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.checkValidity = this.checkValidity.bind(this);
     this.feedback = this.feedback.bind(this);
+
   }
 
   onClick() {
@@ -60,7 +61,8 @@ class LoginModal extends Component {
     let validChatroomName = this.checkValidity(this.state.chatroomName);
     let validInputs = validUsername && validChatroomName;
     return (
-        <Modal isOpen={this.props.modal} className={this.props.className}>
+        <Modal isOpen={this.props.modal} className={this.props.className}
+          autoFocus={false}>
           <ModalHeader>Please enter your name</ModalHeader>
           <Form onSubmit={this.onSubmit} autoComplete="new-password">
             <ModalBody>
@@ -69,7 +71,7 @@ class LoginModal extends Component {
                 <Input valid={validUsername} invalid={!validUsername}
                   autoComplete="off" type="text" name="username" id="userName"
                   placeholder="" onChange={this.onChange} value={this.state.username}
-                  autoFocus="true"/>
+                  autoFocus ref={(ele) => this.usernameDiv = ele}/>
                 {this.feedback(validUsername)}
                 <Label for="chatroomName">Chatroom</Label>
                 <Input valid={validChatroomName} invalid={!validChatroomName}
