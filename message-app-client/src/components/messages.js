@@ -11,7 +11,6 @@ class Messages extends Component {
 
   constructor(props) {
     super(props);
-    this.scrollToBottom = this.scrollToBottom.bind(this);
     this.messageDiv = this.messageDiv.bind(this);
   }
 
