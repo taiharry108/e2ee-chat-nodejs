@@ -24,6 +24,10 @@
 	margin-top: -6px;
 }
 
+.symbol-wrapper {
+	display: inline-block;
+}
+
 .my-msg {
   background: #faf292;
 }

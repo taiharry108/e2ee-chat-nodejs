@@ -26,9 +26,9 @@ class Messages extends Component {
   replaceMsgWithEmoji = (msg) => {
     msg = msg.replace(/&nbsp;/g, ' ');
     return (
-      <div className='d-flex flex-row'>
+      <div>
         {reactStringReplace(msg, /(\:[a-z0-9\_\-]+\:)/g, (match, i) => {
-          return <div className="my-1"><Emoji key={i} emoji={match} size={24}/></div>
+          return <div className="symbol-wrapper"><Emoji key={i} emoji={match} size={28}/></div>
         })}
       </div>
     )
