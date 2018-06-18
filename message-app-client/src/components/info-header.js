@@ -16,8 +16,7 @@ class InfoHeader extends Component {
     this.onClick = this.onClick.bind(this);
   }
 
-  onClick() {
-    console.log(this.props.allowPopover)
+  onClick(e) {
     if (this.props.allowPopover)
       this.props.appTitleOnClick(this.props.popoverOpen);
     else
