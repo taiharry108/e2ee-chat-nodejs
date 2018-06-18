@@ -25,3 +25,7 @@
   content:attr(place-text);
   color:grey;
 }
+
+.message-text {
+  word-break: break-word;
+}

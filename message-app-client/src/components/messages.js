@@ -32,17 +32,17 @@ class Messages extends Component {
     return;
   }
 
-  scrollToBottom = () => {
-    this.messagesEnd.scrollIntoView({});
-  }
-
-  componentDidMount() {
-    this.scrollToBottom();
-  }
-
-  componentDidUpdate() {
-    this.scrollToBottom();
-  }
+  // scrollToBottom = () => {
+  //   this.messagesEnd.scrollIntoView({});
+  // }
+  //
+  // componentDidMount() {
+  //   this.scrollToBottom();
+  // }
+  //
+  // componentDidUpdate() {
+  //   this.scrollToBottom();
+  // }
 
   messageDiv(msg, messageBoxClass, msgContent, isSender) {
     let msgClass = "message-text lead";

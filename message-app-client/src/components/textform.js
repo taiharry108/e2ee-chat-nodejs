@@ -58,7 +58,7 @@ class TextForm extends Component {
           <Col>
             <form onSubmit={this.onSubmit} autoComplete="new-password">
               <Row>
-                <Col className="my-1 pr-lg-0">
+                <Col lg="11" className="my-1 pr-lg-0">
                   <div className="text-div py-1 px-2" contentEditable="true" place-text="Type a message" onKeyPress={this.onEnterPressed} onInput={(e) => this.setState({
                     textContent: e.target.innerHTML
                   })}></div>
