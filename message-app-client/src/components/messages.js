@@ -4,7 +4,8 @@ import { fetchMsgs, receiveMsg } from '../actions/textActions';
 import { RECEIVE_MSG } from '../actions/types';
 import { decrypt } from '../actions/encryptActions';
 import { Container, Row, Col } from 'reactstrap';
-import { Emoji } from 'emoji-mart'
+import { Emoji } from 'emoji-mart';
+import Push from 'push.js';
 import PropTypes from 'prop-types';
 import './messages.css';
 import reactStringReplace from 'react-string-replace'
@@ -43,8 +44,15 @@ class Messages extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.msgs.length !== nextProps.msgs.length) {
-      let length = nextProps.msgs.length
-      nextProps.msgs[length - 1].aesKey = this.props.aesKey
+      let length = nextProps.msgs.length;
+      let newMsg = nextProps.msgs[length - 1];
+      newMsg.textContent = decrypt(newMsg.textContent, this.props.aesKey);
+      if (newMsg.senderId !== this.props.clientId)
+        Push.create('New Message', {
+          body: newMsg.textContent,
+          timeout: 2000,
+          icon:'http://www.myiconfinder.com/uploads/iconsets/256-256-8007c02e43c5e5c87fc8976e34c8290f-message.png'
+        });
     }
     // subscribe to socket
     if (this.props.socket === null && nextProps.socket) {
@@ -86,7 +94,7 @@ class Messages extends Component {
         return <div></div>;
       }
       else {
-        let msgContent = decrypt(msg.textContent, msg.aesKey);
+        let msgContent = msg.textContent;
         let isSender = msg.senderId === this.props.clientId;
         let rowClass = isSender ? "justify-content-end" : "justify-content-start";
         let bSide = isSender ? " b-right" : " b-left";

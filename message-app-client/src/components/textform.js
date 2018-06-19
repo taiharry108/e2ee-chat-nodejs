@@ -6,7 +6,6 @@ import { emojiClicked, clearEmoji } from '../actions/uiActions';
 import PropTypes from 'prop-types';
 import EmojiPane from './emoji-pane';
 import { Container, Row, Col, Button } from 'reactstrap';
-import { Emoji } from 'emoji-mart'
 import './textform.css';
 
 class TextForm extends Component {
@@ -48,7 +47,7 @@ class TextForm extends Component {
     }
 
     if (this.props.modalShown && !nextProps.modalShown) {
-      this.inputDiv.focus();      
+      this.inputDiv.focus();
     }
   }
 
@@ -63,6 +62,7 @@ class TextForm extends Component {
     if (this.state.textContent === "")
       return false;
     const textMsg = {
+
       textContent: encrypt(this.state.textContent, this.props.aesKey)
     }
     this.props.sendMsg(textMsg);

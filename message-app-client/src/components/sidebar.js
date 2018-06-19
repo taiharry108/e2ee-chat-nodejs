@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  Container, Card, CardBody, CardTitle, CardSubtitle, CardHeader, Row, Col
+  Container, Card, CardBody, CardTitle, CardSubtitle, CardHeader
 } from 'reactstrap';
 import './sidebar.css';
 import { toggleSidebar } from '../actions/uiActions';
-import avatar from '../avatars/man.svg';
 import FontAwesome from 'react-fontawesome'
 const svgs = require.context('../avatars', true, /\.svg$/)
 
