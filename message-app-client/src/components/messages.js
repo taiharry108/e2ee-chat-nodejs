@@ -46,21 +46,18 @@ class Messages extends Component {
   }
 
   scrollToBottom = () => {
-    if (this.props.allowAutoBottom)
-      this.messagesEnd.scrollIntoView({});
+    this.messagesEnd.scrollIntoView({});
   }
 
   componentDidMount() {
-    this.scrollToBottom();
+    if (this.props.allowAutoBottom)
+      this.scrollToBottom();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    this.scrollToBottom();
+    if (this.props.allowAutoBottom)
+     this.scrollToBottom();
   }
-
-  // jumpToBotDivOnClick() {
-  //   this.messagesEnd.scrollIntoView({});
-  // }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.msgs.length !== nextProps.msgs.length) {
@@ -79,6 +76,10 @@ class Messages extends Component {
       nextProps.socket.on(RECEIVE_MSG, (msg) => {
         this.props.receiveMsg(msg);
       });
+    }
+
+    if (!this.props.scrollToBot && nextProps.scrollToBot) {
+      this.scrollToBottom();
     }
   }
 
@@ -144,16 +145,13 @@ class Messages extends Component {
   }
 }
 
-//
-
-
 const mapStateToProps = state => {
   return {
     msgs: state.texts.msgs,
     clientId: state.texts.clientId,
     aesKey: state.encrypt.aesKey,
     socket: state.login.socket,
-    allowAutoBottom: state.ui.allowAutoBottom
+    allowAutoBottom: state.ui.allowAutoBottom,
   }
 };
 
@@ -161,7 +159,7 @@ Messages.propTypes = {
   msgs: PropTypes.array.isRequired,
   clientId: PropTypes.string,
   aesKey: PropTypes.object,
-  socket: PropTypes.object
+  socket: PropTypes.object,
 }
 
 export default connect(mapStateToProps, { fetchMsgs, receiveMsg })(Messages);

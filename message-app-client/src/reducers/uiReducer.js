@@ -3,14 +3,15 @@ import { SIDEBAR_TOGGLE,
   APPEND_EMOJI,
   CLEAR_EMOJI,
   EMOJI_CLICKED,
-  TOGGLE_ALLOW_AUTO_BOTTOM } from '../actions/types';
+  TOGGLE_ALLOW_AUTO_BOTTOM,
+} from '../actions/types';
 
 const initialState = {
   sidebarOut: false,
   allowPopover: true,
   emoji: null,
   emojiPaneOut: false,
-  allowAutoBottom: true
+  allowAutoBottom: true,
 }
 
 export default function(state = initialState, action) {

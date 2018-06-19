@@ -13,7 +13,7 @@ class MainSection extends Component {
     super(props);
 
     this.state = {
-      circleShown: true
+      circleShown: false
     }
 
     this.handleScroll = this.handleScroll.bind(this);
@@ -27,11 +27,19 @@ class MainSection extends Component {
   handleScroll(event) {
     let element = event.target;
     if (element.scrollHeight - element.scrollTop === element.clientHeight) {
-      if (!this.props.allowAutoBottom)
+      if (!this.props.allowAutoBottom) {
         this.props.toggleAllowAutoBottom(true);
+        this.setState({
+          circleShown: false
+        });
+      }
     } else {
-      if (this.props.allowAutoBottom)
+      if (this.props.allowAutoBottom) {
         this.props.toggleAllowAutoBottom(false);
+        this.setState({
+          circleShown: true
+        });
+      }
     }
   }
 
@@ -49,10 +57,10 @@ class MainSection extends Component {
     return (
       <div className='main-section-wrapper d-flex w-100 h-100'>
         <div id='message-wrapper' className={messageWrapperClass} ref={(ele) => this.mainDiv = ele}>
-          <Messages />
+          <Messages scrollToBot={!this.state.circleShown}/>
           <div className="circle-wrapper">
             <div className={circleClassName} onClick={this.circleOnClick}>
-              <FontAwesome className="fa-down" name="chevron-down" size="2x" onClick={this.circleOnClick}/>
+              <FontAwesome className="fa-down" name="chevron-down" size="2x"/>
             </div>
           </div>
         </div>
