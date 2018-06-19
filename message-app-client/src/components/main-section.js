@@ -44,7 +44,7 @@ class MainSection extends Component {
   render() {
     let sidebarWrapperClass = this.props.sidebarOut ? 'in' : '';
     let messageWrapperClass = this.props.sidebarOut ? 'in' : '';
-    let circleClassName = "rounded-circle bg-light circle" + (this.state.circleShown ? "" : " in")
+    let circleClassName = "rounded-circle circle shadow-sm text-black-50" + (this.state.circleShown ? " bg-light" : " in bg-secondary")
 
     return (
       <div className='main-section-wrapper d-flex w-100 h-100'>
@@ -52,7 +52,7 @@ class MainSection extends Component {
           <Messages />
           <div className="circle-wrapper">
             <div className={circleClassName} onClick={this.circleOnClick}>
-              <FontAwesome className="fa-down shadow-sm" name="chevron-down" size="2x" onClick={this.circleOnClick}/>
+              <FontAwesome className="fa-down" name="chevron-down" size="2x" onClick={this.circleOnClick}/>
             </div>
           </div>
         </div>

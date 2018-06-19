@@ -98,7 +98,7 @@ class AppWrapper extends Component {
     return (
       <div className='app-wrapper'>
         <div className="modal-container">
-          <LoginModal className='loginModal'/>
+
         </div>
         <Container className='whole-container shadow px-0'>
           <div className="main-container d-flex flex-column">
@@ -118,7 +118,7 @@ class AppWrapper extends Component {
   }
 }
 
-//
+//<LoginModal className='loginModal'/>
 
 const mapStateToProps = state => {
   return {
