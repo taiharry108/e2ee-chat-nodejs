@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import './sidebar.css';
 import { toggleSidebar } from '../actions/uiActions';
-import FontAwesome from 'react-fontawesome'
+import FontAwesome from 'react-fontawesome';
 const svgs = require.context('../avatars', true, /\.svg$/)
 
 class SideBar extends React.Component {

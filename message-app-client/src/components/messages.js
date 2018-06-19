@@ -8,7 +8,8 @@ import { Emoji } from 'emoji-mart';
 import Push from 'push.js';
 import PropTypes from 'prop-types';
 import './messages.css';
-import reactStringReplace from 'react-string-replace'
+import reactStringReplace from 'react-string-replace';
+
 const emojiREGEX = /(\:[a-z0-9\_\-]+\:)/g
 
 String.prototype.matchAll = function(regexp) {
@@ -29,18 +30,37 @@ class Messages extends Component {
     return (
       <div>
         {reactStringReplace(msg, /(\:[a-z0-9\_\-]+\:)/g, (match, i) => {
-          return <div className="symbol-wrapper"><Emoji key={i} emoji={match} size={28}/></div>
+          return <div className="symbol-wrapper"><Emoji key={i} emoji={match} size={28} fallback={(emoji) => {
+            return <div key={i}>"ABC"</div>;
+          }}/></div>
         })}
       </div>
     )
   }
 
-
   constructor(props) {
     super(props);
     this.messageDiv = this.messageDiv.bind(this);
     this.replaceMsgWithEmoji = this.replaceMsgWithEmoji.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
   }
+
+  scrollToBottom = () => {
+    if (this.props.allowAutoBottom)
+      this.messagesEnd.scrollIntoView({});
+  }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.scrollToBottom();
+  }
+
+  // jumpToBotDivOnClick() {
+  //   this.messagesEnd.scrollIntoView({});
+  // }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.msgs.length !== nextProps.msgs.length) {
@@ -87,7 +107,6 @@ class Messages extends Component {
           </Col>
   }
 
-
   render() {
     const messageItems = this.props.msgs.map(msg => {
       if (msg.aesKey === null) {
@@ -110,16 +129,23 @@ class Messages extends Component {
                 </Row>
       }
     });
+
     return (
       <Container className='container-main scrollbar-primary'>
-        {messageItems}
-        <div style={{ float:"left", clear: "both" }}
-             ref={(el) => { this.messagesEnd = el; }}>
+        <div className='w-100 h-100' ref={(ele) => this.mainDiv = ele}>
+          {messageItems}
+          <div style={{ float:"left", clear: "both" }}
+               ref={(el) => { this.messagesEnd = el; }}>
+          </div>
+
         </div>
       </Container>
     );
   }
 }
+
+//
+
 
 const mapStateToProps = state => {
   return {
@@ -127,7 +153,7 @@ const mapStateToProps = state => {
     clientId: state.texts.clientId,
     aesKey: state.encrypt.aesKey,
     socket: state.login.socket,
-    // sidebarOut: state.ui.sidebarOut
+    allowAutoBottom: state.ui.allowAutoBottom
   }
 };
 

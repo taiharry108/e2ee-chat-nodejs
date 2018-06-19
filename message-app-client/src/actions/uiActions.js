@@ -2,7 +2,8 @@ import { SIDEBAR_TOGGLE,
   POPOVER_SIDEBAR_SWITCH,
   APPEND_EMOJI,
   CLEAR_EMOJI,
-  EMOJI_CLICKED
+  EMOJI_CLICKED,
+  TOGGLE_ALLOW_AUTO_BOTTOM
 } from './types';
 
 export const toggleSidebar = (isOut) => dispatch => {
@@ -38,3 +39,10 @@ export const emojiClicked = (emojiPaneOut) => dispatch => {
     payload: !emojiPaneOut
   })
 };
+
+export const toggleAllowAutoBottom = (allow) => dispatch => {
+  dispatch({
+    type: TOGGLE_ALLOW_AUTO_BOTTOM,
+    payload: allow
+  })
+}

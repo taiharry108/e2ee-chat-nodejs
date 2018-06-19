@@ -8,6 +8,7 @@
     "bootstrap": "^4.1.1",
     "circular-buffer": "^1.0.2",
     "emoji-mart": "^2.6.1",
+    "lodash.debounce": "^4.0.8",
     "node-rsa": "^1.0.0",
     "push.js": "^1.0.5",
     "react": "^16.4.0",

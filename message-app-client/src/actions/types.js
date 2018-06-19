@@ -21,3 +21,4 @@ export const CLEAR_MSG = 'CLEAR_MSG';
 export const EMOJI_CLICKED = 'EMOJI_CLICKED';
 export const APPEND_EMOJI = 'APPEND_EMOJI';
 export const CLEAR_EMOJI = 'CLEAR_EMOJI';
+export const TOGGLE_ALLOW_AUTO_BOTTOM = 'TOGGLE_ALLOW_AUTO_BOTTOM';
