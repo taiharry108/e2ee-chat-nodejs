@@ -13,7 +13,8 @@ class MainSection extends Component {
     super(props);
 
     this.state = {
-      circleShown: false
+      circleShown: false,
+      newMsgDivShown: false
     }
 
     this.handleScroll = this.handleScroll.bind(this);
@@ -24,13 +25,25 @@ class MainSection extends Component {
     this.mainDiv.addEventListener('scroll', this.handleScroll, true);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.msgs.length !== nextProps.msgs.length) {
+      if (!this.props.allowAutoBottom) {
+        this.setState({
+          newMsgDivShown: true
+        });
+      }
+    }
+  }
+
   handleScroll(event) {
     let element = event.target;
     if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+
       if (!this.props.allowAutoBottom) {
         this.props.toggleAllowAutoBottom(true);
         this.setState({
-          circleShown: false
+          circleShown: false,
+          newMsgDivShown: false
         });
       }
     } else {
@@ -53,6 +66,8 @@ class MainSection extends Component {
     let sidebarWrapperClass = this.props.sidebarOut ? 'in' : '';
     let messageWrapperClass = this.props.sidebarOut ? 'in' : '';
     let circleClassName = "rounded-circle circle shadow-sm text-black-50" + (this.state.circleShown ? " bg-light" : " in bg-secondary")
+    let newMessageClassName = "new-message badge-pill shadow-sm text-center font-weight-bold text-muted";
+    newMessageClassName += this.state.newMsgDivShown ? "" : " in";
 
     return (
       <div className='main-section-wrapper d-flex w-100 h-100'>
@@ -62,6 +77,11 @@ class MainSection extends Component {
             <div className={circleClassName} onClick={this.circleOnClick}>
               <FontAwesome className="fa-down" name="chevron-down" size="2x"/>
             </div>
+          </div>
+          <div className="new-message-wrapper m-auto">
+              <div className={newMessageClassName}>
+                <div className='new-msg-text'>New Message</div>
+              </div>
           </div>
         </div>
         <div id='sidebar-wrapper' className={sidebarWrapperClass}>
@@ -76,6 +96,7 @@ class MainSection extends Component {
 const mapStateToProps = state => {
   return {
     sidebarOut: state.ui.sidebarOut,
+    msgs: state.texts.msgs,
     allowAutoBottom: state.ui.allowAutoBottom
   }
 };

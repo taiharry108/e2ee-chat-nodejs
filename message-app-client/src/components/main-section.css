@@ -26,6 +26,34 @@
 	transition: all 1s ease;
 }
 
+.new-message-wrapper {
+  position: relative;
+  bottom: 150px;
+  width: 200px;
+  height: 50px;
+  display: flex;
+}
+
+.new-message {
+  height: 100%;
+  width: 100%;
+  background-color: #faf292;
+  margin: auto;
+}
+
+.new-message.in {
+  transition: all 1s ease;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  font-size: 0;
+}
+
+.new-msg-text {
+  position: relative;
+  top: 25%;
+  margin: auto;
+}
 
 .circle-wrapper {
   position: relative;

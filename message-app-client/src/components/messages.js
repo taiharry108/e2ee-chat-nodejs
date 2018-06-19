@@ -60,6 +60,8 @@ class Messages extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+
+    // New Message arrive
     if (this.props.msgs.length !== nextProps.msgs.length) {
       let length = nextProps.msgs.length;
       let newMsg = nextProps.msgs[length - 1];
