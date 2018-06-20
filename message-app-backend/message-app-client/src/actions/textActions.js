@@ -1,6 +1,7 @@
 import { SEND_MSG, RECEIVE_MSG, FETCH_MSGS, CONNECTED, CLEAR_MSG} from './types';
 import axios from 'axios';
-import { SERVER_URL } from '../consts'
+
+const SERVER_URL = process.env.SERVER_URL || "/";
 
 export const sendMsg = (msg) => dispatch => {
   dispatch({

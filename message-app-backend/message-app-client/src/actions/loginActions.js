@@ -1,9 +1,11 @@
 import { LOGIN } from './types';
 import openSocket from 'socket.io-client';
-import { SERVER_URL } from '../consts'
+
+const SERVER_URL = process.env.SERVER_URL || "/";
 
 
 export const login = (username, chatroomName) => dispatch => {
+	console.log(SERVER_URL)
   let socket = openSocket(SERVER_URL, {query: {username:username, chatroomKey:chatroomName}});
   dispatch({
     type: LOGIN,
