@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {  Popover, PopoverHeader, PopoverBody } from 'reactstrap';
-import PropTypes from 'prop-types';
+import {  Popover } from 'reactstrap';
 import data from 'emoji-mart/data/apple.json'
 import { NimblePicker } from 'emoji-mart'
 import { appendEmoji } from '../actions/uiActions'

@@ -3,7 +3,6 @@ import logo from '../logo.svg';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { UPDATE_ROOM_INFO } from '../actions/types';
 import { updateRoomInfo, appTitleOnClick } from '../actions/roomActions';
 import { toggleSidebar } from '../actions/uiActions';
 import ChatroomInfo from './chatroom-info';

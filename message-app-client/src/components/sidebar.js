@@ -29,7 +29,7 @@ class SideBar extends React.Component {
       let noOfAva = this.state.svgsArray.length;
       let avaIdx = Math.floor(Math.random() * noOfAva)
       return  <div className="d-flex flex-row" key={user.clientId}>
-                <img src={this.state.svgsArray[avaIdx]} className='avatar rounded-circle my-2 mr-2'></img>
+                <img src={this.state.svgsArray[avaIdx]} className='avatar rounded-circle my-2 mr-2' alt={user.username[0].toUpperCase()}></img>
                 <div className="border-bottom p-2 text-nowrap flex-fill">
                   <CardTitle key={user.clientId} className="text-nowrap">
                     {user.username}

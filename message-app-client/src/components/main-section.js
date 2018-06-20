@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import SideBar from './sidebar';
 import Messages from './messages';
 import { toggleAllowAutoBottom } from '../actions/uiActions';

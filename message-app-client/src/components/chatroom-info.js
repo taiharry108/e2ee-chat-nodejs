@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
-import PropTypes from 'prop-types';
 import './chatroom-info.css';
 
 class ChatroomInfo extends Component {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import MainSection from './main-section';
 import TextForm from './textform';
 import LoginModal from './login-modal';

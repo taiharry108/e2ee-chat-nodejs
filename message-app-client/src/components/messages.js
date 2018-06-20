@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import './messages.css';
 import reactStringReplace from 'react-string-replace';
 
-const emojiREGEX = /(\:[a-z0-9\_\-]+\:)/g
+const emojiREGEX = /(:[a-z0-9_-]+:)/g
 
 String.prototype.matchAll = function(regexp) {
   var matches = [];
@@ -29,9 +29,9 @@ class Messages extends Component {
     msg = msg.replace(/&nbsp;/g, ' ');
     return (
       <div>
-        {reactStringReplace(msg, /(\:[a-z0-9\_\-]+\:)/g, (match, i) => {
+        {reactStringReplace(msg, emojiREGEX, (match, i) => {
           return <div className="symbol-wrapper"><Emoji key={i} emoji={match} size={28} fallback={(emoji) => {
-            return <div key={i}>"ABC"</div>;
+            return <div key={i}>{match}</div>;
           }}/></div>
         })}
       </div>
