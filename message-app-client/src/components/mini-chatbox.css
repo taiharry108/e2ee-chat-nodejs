@@ -1,0 +1,7 @@
+.mini-chatbox-wrapper {
+  width: 200px;
+  height: 200px;
+  left: calc(100% - 300px);
+  top: -200px;
+  position: absolute;
+}

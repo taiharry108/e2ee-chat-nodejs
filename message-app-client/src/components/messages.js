@@ -134,7 +134,7 @@ class Messages extends Component {
     });
 
     return (
-      <Container className='container-main scrollbar-primary'>
+      <Container className='container-main scrollbar-primary container-fw'>
         <div className='w-100 h-100' ref={(ele) => this.mainDiv = ele}>
           {messageItems}
           <div style={{ float:"left", clear: "both" }}

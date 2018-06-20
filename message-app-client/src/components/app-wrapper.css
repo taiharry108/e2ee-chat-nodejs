@@ -37,7 +37,6 @@ html, body, #root {
 .flex-middle {
   position: relative;
   height: 0;
-  z-index: 1;
 }
 
 .flex-bottom {
@@ -51,7 +50,6 @@ html, body, #root {
     right: 0;
     height: calc(100vh - 186.8px);
     /* height: 100%; */
-    z-index: 1020;
 }
 
 .App-intro {
@@ -84,7 +82,7 @@ html, body, #root {
 }
 
 @media (max-width: 992px){
-  .container {
+  .container-fw {
       width: 100%;
       max-width: none;
     }

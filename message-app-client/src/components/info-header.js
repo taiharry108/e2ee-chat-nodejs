@@ -24,7 +24,7 @@ class InfoHeader extends Component {
 
   render() {
     return (
-      <Container className="info-header shadow px-0">
+      <Container className="info-header shadow px-0 container-fw">
         <Row>
           <Col className="text-center"><img src={logo} className="App-logo" alt="logo" onClick={this.logoOnClick}/></Col>
         </Row>

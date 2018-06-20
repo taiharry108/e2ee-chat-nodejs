@@ -99,7 +99,7 @@ class AppWrapper extends Component {
         <div className="modal-container">
           <LoginModal className='loginModal'/>
         </div>
-        <Container className='whole-container shadow px-0'>
+        <Container className='whole-container shadow px-0 container-fw'>
           <div className="main-container d-flex flex-column">
             <div className="order-1">
               <InfoHeader />

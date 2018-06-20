@@ -6,6 +6,7 @@ import { emojiClicked, clearEmoji } from '../actions/uiActions';
 import PropTypes from 'prop-types';
 import EmojiPane from './emoji-pane';
 import { Container, Row, Col, Button } from 'reactstrap';
+import MiniChatbox from './mini-chatbox';
 import './textform.css';
 
 class TextForm extends Component {
@@ -95,28 +96,29 @@ class TextForm extends Component {
     let validTextContent = this.checkValidity(textContent);
     return (
       <div>
-      <Container className="textform-footer p-1" >
-        <Row>
-          <Col>
-            <form onSubmit={this.onSubmit} autoComplete="new-password">
-              <div className="d-flex flex-row">
-                <div className="m2 p-2">
-                  <i className="far fa-smile emoji-icon align-self-center my-1 fa-2x text-secondary" onClick={this.emojiOnClick} id='emoji-icon'></i>
-                  <EmojiPane/>
+        <MiniChatbox/>
+        <Container className="textform-footer p-1 container-fw" >
+          <Row>
+            <Col>
+              <form onSubmit={this.onSubmit} autoComplete="new-password">
+                <div className="d-flex flex-row">
+                  <div className="m2 p-2">
+                    <i className="far fa-smile emoji-icon align-self-center my-1 fa-2x text-secondary" onClick={this.emojiOnClick} id='emoji-icon'></i>
+                    <EmojiPane/>
+                  </div>
+                  <div className="text-div py-1 px-2 m-2 flex-grow-1"
+                    contentEditable="true" place-text="Type a message"
+                    onKeyPress={this.onEnterPressed} onInput={this.onInput}
+                    ref={(ele) => this.inputDiv = ele}>
+                  </div>
+                  <div>
+                    <Button color="secondary" className="send-msg-btn d-none d-sm-block m-2 align-self-end" disabled={!validTextContent}>Send</Button>
+                  </div>
                 </div>
-                <div className="text-div py-1 px-2 m-2 flex-grow-1"
-                  contentEditable="true" place-text="Type a message"
-                  onKeyPress={this.onEnterPressed} onInput={this.onInput}
-                  ref={(ele) => this.inputDiv = ele}>
-                </div>
-                <div>
-                  <Button color="secondary" className="send-msg-btn d-none d-sm-block m-2 align-self-end" disabled={!validTextContent}>Send</Button>
-                </div>
-              </div>
-            </form>
-          </Col>
-        </Row>
-      </Container>
+              </form>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
