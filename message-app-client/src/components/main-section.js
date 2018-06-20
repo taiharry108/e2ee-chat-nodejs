@@ -66,8 +66,8 @@ class MainSection extends Component {
     let sidebarWrapperClass = this.props.sidebarOut ? 'in' : '';
     let messageWrapperClass = this.props.sidebarOut ? 'in' : '';
     let circleClassName = "rounded-circle circle shadow-sm text-black-50" + (this.state.circleShown ? " bg-light" : " in bg-secondary")
-    let newMessageClassName = "new-message badge-pill shadow-sm text-center font-weight-bold text-muted";
-    newMessageClassName += this.state.newMsgDivShown ? "" : " in";
+    let newMessageClassName = "new-message badge-pill shadow-sm text-center font-weight-bold text-white";
+    newMessageClassName += this.state.newMsgDivShown ? " bg-secondary" : " in";
 
     return (
       <div className='main-section-wrapper d-flex w-100 h-100'>
