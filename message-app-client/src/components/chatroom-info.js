@@ -13,8 +13,9 @@ class ChatroomInfo extends Component {
   }
 
   render() {
-    const userDiv = this.props.roomInfo.map((user) => {
-      return  <Row key={user.clientId} className='my-1'>
+    const userDiv = this.props.roomUserIds.map((userid) => {
+      let user = this.props.roomUsers[userid];
+      return  <Row key={user.userid} className='my-1'>
                 <Col>{user.username}</Col>
               </Row>
     })
@@ -35,7 +36,8 @@ class ChatroomInfo extends Component {
 const mapStateToProps = state => {
   return {
     popoverOpen: state.room.popoverOpen,
-    roomInfo: state.room.roomInfo
+    roomUserIds: state.room.roomUserIds,
+    roomUsers: state.room.roomUsers
   }
 };
 

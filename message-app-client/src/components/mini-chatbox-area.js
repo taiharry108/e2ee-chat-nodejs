@@ -2,13 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container } from 'reactstrap';
 import PropTypes from 'prop-types';
+import MiniChatbox from './mini-chatbox'
 import './mini-chatbox-area.css';
 
 class MiniChatboxArea extends Component {
 
   render() {
+    const dmUsersDiv = this.props.dmUsersShow.map((userid) => {
+      let user = this.dmUsers[userid]
+      return <MiniChatbox key={userid} name={user.username}/>;
+    })
     return (
-      <div className='mini-chatbox-area'>
+      <div className='mini-chatbox-area d-flex flex-row-reverse'>
+        {dmUsersDiv}
       </div>
     );
   }
@@ -17,6 +23,8 @@ class MiniChatboxArea extends Component {
 
 const mapStateToProps = state => {
   return {
+    dmUsers: state.dm.dmUsers,
+    dmUsersShow: state.dm.dmUsersShow
   }
 };
 

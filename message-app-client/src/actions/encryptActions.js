@@ -24,11 +24,12 @@ export const assignedAsHost = (pubKeys, socket) => dispatch => {
   let aesKey = crypto.randomBytes(32);
 
   let encryptedAES = {};
-  for (let clientId in pubKeys) {
-    if (pubKeys.hasOwnProperty(clientId)) {
-      let pubKey = pubKeys[clientId];
-      encryptedAES[clientId] = encryptWithPubKey(pubKey, aesKey)
-      console.log('going to send encrypted aes', encryptedAES[clientId])
+  for (let userid in pubKeys) {
+    if (pubKeys.hasOwnProperty(userid)) {
+      let pubKey = pubKeys[userid];
+      console.log('pubKey is ', pubKey);
+      encryptedAES[userid] = encryptWithPubKey(pubKey, aesKey)
+      console.log('going to send encrypted aes', encryptedAES[userid])
     }
   }
 

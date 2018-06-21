@@ -4,6 +4,7 @@ import encryptReducer from './encryptReducer';
 import loginReducer from './loginReducer';
 import roomReducer from './roomReducer';
 import uiReducer from './uiReducer';
+import dmReducer from './dmReducer';
 
 export default combineReducers({
   texts: textReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   login: loginReducer,
   room: roomReducer,
   ui: uiReducer,
+  dm: dmReducer
 });

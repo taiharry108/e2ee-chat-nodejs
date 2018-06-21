@@ -5,6 +5,7 @@ import {
 } from 'reactstrap';
 import './sidebar.css';
 import { toggleSidebar } from '../actions/uiActions';
+import { selectDMUser } from '../actions/dmActions';
 import FontAwesome from 'react-fontawesome';
 const svgs = require.context('../avatars', true, /\.svg$/)
 
@@ -14,6 +15,7 @@ class SideBar extends React.Component {
     const keys = svgs.keys();
     const svgsArray = keys.map(key => svgs(key));
     this.closeBtnOnClick = this.closeBtnOnClick.bind(this);
+    this.roomMemberOnClick = this.roomMemberOnClick.bind(this);
     this.state = {
       svgsArray
     }
@@ -23,15 +25,21 @@ class SideBar extends React.Component {
     this.props.toggleSidebar(true);
   }
 
+  roomMemberOnClick(userid) {
+    this.props.selectDMUser(userid);
+  }
+
   render() {
 
-    const userDiv = this.props.roomInfo.map((user) => {
+    const userDiv = this.props.roomUserIds.map((userid) => {
       let noOfAva = this.state.svgsArray.length;
       let avaIdx = Math.floor(Math.random() * noOfAva)
-      return  <div className="d-flex flex-row" key={user.clientId}>
+      let user = this.props.roomUsers[userid]
+      console.log('username', user.username);
+      return  <div className="room-member d-flex flex-row" key={user.userid}>
                 <img src={this.state.svgsArray[avaIdx]} className='avatar rounded-circle my-2 mr-2' alt={user.username[0].toUpperCase()}></img>
                 <div className="border-bottom p-2 text-nowrap flex-fill">
-                  <CardTitle key={user.clientId} className="text-nowrap">
+                  <CardTitle key={user.userid} className="text-nowrap">
                     {user.username}
                   </CardTitle>
                   <CardSubtitle className="text-nowrap status-text">
@@ -70,8 +78,9 @@ class SideBar extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    roomInfo: state.room.roomInfo
+    roomUserIds: state.room.roomUserIds,
+    roomUsers: state.room.roomUsers
   }
 };
 
-export default connect(mapStateToProps, { toggleSidebar })(SideBar);
+export default connect(mapStateToProps, { toggleSidebar, selectDMUser })(SideBar);

@@ -2,6 +2,7 @@ import { LOGIN } from '../actions/types';
 
 const initialState = {
   username: '',
+  userid: null,
   socket: null,
 }
 
@@ -12,7 +13,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         username: action.payload.username,
-        socket: action.payload.socket
+        socket: action.payload.socket,
+        userid: action.payload.userid
       };
     default:
       return state;

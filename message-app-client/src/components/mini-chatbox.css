@@ -1,16 +1,13 @@
 .mini-chatbox-wrapper {
   width: 200px;
   height: 200px;
-  left: calc(100% - 300px);
-  top: -200px;
-  position: absolute;
   overflow: hidden;
 }
 
 .mini-chatbox-wrapper.in {
   width: 200px;
   height: 40px;
-  top: -40px;
+  bottom: 0;
 }
 
 .mini-chatbox-header {

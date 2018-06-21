@@ -30,7 +30,7 @@ class InfoHeader extends Component {
         </Row>
         <Row>
           <Col>
-            <div data={this.props.userNumber} id="app-title" className="h1 app-title text-center user-number mb-0 py-2" onClick={this.onClick}>Welcome to Secret Chatroom</div>
+            <div data={this.props.roomUserIds.length} id="app-title" className="h1 app-title text-center user-number mb-0 py-2" onClick={this.onClick}>Welcome to Secret Chatroom</div>
             <ChatroomInfo />
           </Col>
         </Row>
@@ -43,17 +43,16 @@ class InfoHeader extends Component {
 const mapStateToProps = state => {
   return {
     socket: state.login.socket,
-    userNumber: state.room.userNumber,
     popoverOpen: state.room.popoverOpen,
     modal: state.room.modal,
     sidebarOut: state.ui.sidebarOut,
-    allowPopover: state.ui.allowPopover
+    allowPopover: state.ui.allowPopover,
+    roomUserIds: state.room.roomUserIds
   }
 };
 
 InfoHeader.propTypes = {
   socket: PropTypes.object,
-  userNumber: PropTypes.number
 }
 
 export default connect(mapStateToProps, { updateRoomInfo, appTitleOnClick, toggleSidebar })(InfoHeader);

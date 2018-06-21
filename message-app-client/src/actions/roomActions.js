@@ -1,11 +1,21 @@
-import { UPDATE_ROOM_INFO, CLICK_POPOVER, TOGGLE_MODAL } from './types';
+import { UPDATE_ROOM_INFO,
+  CLICK_POPOVER,
+  TOGGLE_MODAL,
+  INIT_ROOM_INFO } from './types';
 
-export const updateRoomInfo = (userNumber) => dispatch => {
+export const updateRoomInfo = (roomInfo) => dispatch => {
   dispatch({
     type: UPDATE_ROOM_INFO,
-    payload: userNumber
+    payload: roomInfo
   })
 };
+
+export const receiveInitRoomInfo = (initRoomInfo) => dispatch => {
+  dispatch({
+    type: INIT_ROOM_INFO,
+    payload: initRoomInfo
+  })
+}
 
 export const appTitleOnClick = (isOpen) => dispatch => {
   dispatch({

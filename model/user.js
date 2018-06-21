@@ -1,7 +1,6 @@
 class User {
-  constructor(client, clientId, username, pubKey) {
+  constructor(client, username, pubKey) {
     this._client = client;
-    this._clientId = clientId
     this._username = username;
     this._pubKey = pubKey;
     this._isHost = false;
@@ -27,10 +26,6 @@ class User {
 
   getUsername() {
     return this._username;
-  }
-
-  getClientId() {
-    return this._clientId;
   }
 
 }

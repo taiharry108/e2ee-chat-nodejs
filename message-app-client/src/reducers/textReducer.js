@@ -3,7 +3,7 @@ import { RECEIVE_MSG, FETCH_MSGS, CONNECTED, SEND_MSG, CLEAR_MSG } from '../acti
 const initialState = {
   msgs: [],
   msg: "",
-  clientId: null,
+  connected: false,
 }
 
 export default function(state = initialState, action) {
@@ -22,7 +22,7 @@ export default function(state = initialState, action) {
     case CONNECTED:
       return {
         ...state,
-        clientId: action.payload
+        connected: true
       }
     case SEND_MSG:
       return {

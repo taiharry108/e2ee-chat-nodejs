@@ -6,7 +6,7 @@ import LoginModal from './login-modal';
 import InfoHeader from './info-header';
 import { Container } from 'reactstrap';
 import { connected, clearMsg } from '../actions/textActions';
-import { updateRoomInfo } from '../actions/roomActions';
+import { updateRoomInfo, receiveInitRoomInfo } from '../actions/roomActions';
 import { flipSwitch } from '../actions/uiActions';
 import { genKeys,
   sendPubKey2Ser,
@@ -15,6 +15,7 @@ import { genKeys,
   receivedEncryptedAESKey,
 } from '../actions/encryptActions';
 import { UPDATE_ROOM_INFO,
+  INIT_ROOM_INFO,
   ASSIGN_HOST,
   REMOVE_HOST,
   CONNECTED,
@@ -69,6 +70,10 @@ class AppWrapper extends Component {
         this.props.updateRoomInfo(resp);
       })
 
+      socket.on(INIT_ROOM_INFO, (resp) => {
+        this.props.receiveInitRoomInfo(resp);
+      })
+
       socket.on(ASSIGN_HOST, (othersKeys) => {
         this.props.assignedAsHost(othersKeys, socket);
       });
@@ -77,11 +82,11 @@ class AppWrapper extends Component {
         this.props.removeAsHost();
       });
 
-      socket.on(CONNECTED, (clientId) => {
+      socket.on(CONNECTED, () => {
         let pubKey = this.state.pubKey
         console.log('connected to server, going to send public kay', pubKey)
         sendPubKey2Ser(socket, pubKey);
-        this.props.connected(clientId);
+        this.props.connected();
       })
 
       socket.on(SEND_AES, (encryptedAES) => this.props.receivedEncryptedAESKey(encryptedAES, this.props.rsaKey));
@@ -97,7 +102,7 @@ class AppWrapper extends Component {
     return (
       <div className='app-wrapper'>
         <div className="modal-container">
-
+          <LoginModal className='loginModal'/>
         </div>
         <Container className='whole-container shadow px-0 container-fw'>
           <div className="main-container d-flex flex-column">
@@ -117,7 +122,7 @@ class AppWrapper extends Component {
   }
 }
 
-//<LoginModal className='loginModal'/>
+//
 
 const mapStateToProps = state => {
   return {
@@ -139,5 +144,6 @@ export default connect(mapStateToProps, {
   receivedEncryptedAESKey,
   genKeys,
   flipSwitch,
-  clearMsg
+  clearMsg,
+  receiveInitRoomInfo
 })(AppWrapper);

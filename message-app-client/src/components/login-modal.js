@@ -6,6 +6,7 @@ import { Button, Modal, ModalHeader,
 import './login-modal.css';
 import { toggleModal } from '../actions/roomActions';
 import { login } from '../actions/loginActions';
+import uuidv1 from 'uuid/v1';
 
 
 class LoginModal extends Component {
@@ -35,7 +36,7 @@ class LoginModal extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    this.props.login(this.state.username, this.state.chatroomName);
+    this.props.login(this.state.username, this.state.chatroomName, uuidv1());
   }
 
   checkValidity(text) {

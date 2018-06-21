@@ -66,7 +66,7 @@ class Messages extends Component {
       let length = nextProps.msgs.length;
       let newMsg = nextProps.msgs[length - 1];
       newMsg.textContent = decrypt(newMsg.textContent, this.props.aesKey);
-      if (newMsg.senderId !== this.props.clientId)
+      if (newMsg.senderId !== this.props.userid)
         Push.create('New Message', {
           body: newMsg.textContent,
           timeout: 2000,
@@ -117,7 +117,7 @@ class Messages extends Component {
       }
       else {
         let msgContent = msg.textContent;
-        let isSender = msg.senderId === this.props.clientId;
+        let isSender = msg.senderId === this.props.userid;
         let rowClass = isSender ? "justify-content-end" : "justify-content-start";
         let bSide = isSender ? " b-right" : " b-left";
         let messageBoxClass = 'speech-bubble m-3 pl-2 pr-3 py-1 shadow-sm' + bSide;
@@ -150,16 +150,15 @@ class Messages extends Component {
 const mapStateToProps = state => {
   return {
     msgs: state.texts.msgs,
-    clientId: state.texts.clientId,
     aesKey: state.encrypt.aesKey,
     socket: state.login.socket,
     allowAutoBottom: state.ui.allowAutoBottom,
+    userid: state.login.userid
   }
 };
 
 Messages.propTypes = {
   msgs: PropTypes.array.isRequired,
-  clientId: PropTypes.string,
   aesKey: PropTypes.object,
   socket: PropTypes.object,
 }

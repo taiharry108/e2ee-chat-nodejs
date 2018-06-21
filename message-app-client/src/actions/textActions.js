@@ -1,7 +1,7 @@
 import { SEND_MSG, RECEIVE_MSG, FETCH_MSGS, CONNECTED, CLEAR_MSG} from './types';
 import axios from 'axios';
 
-const SERVER_URL = process.env.SERVER_URL || "/";
+const SERVER_URL = process.env.SERVER_URL || "http://chanss.asuscomm.com:60888";
 
 export const sendMsg = (msg) => dispatch => {
   dispatch({
@@ -33,9 +33,8 @@ export const fetchMsgs = () => dispatch => {
     });
 };
 
-export const connected = (clientId) => dispatch => {
+export const connected = () => dispatch => {
   dispatch({
     type: CONNECTED,
-    payload: clientId
   })
 }

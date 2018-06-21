@@ -14,7 +14,7 @@ const TopManager = require('../model/top-manager')
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '5000')
+const port = normalizePort(process.env.PORT || '8000')
 app.set('port', port)
 
 /**
@@ -30,7 +30,9 @@ const getChatroomKey = (client) => 'chatroomKey' in client.handshake.query ? cli
 
 io.on('connection', (client) => {
   console.log('user connected', client.handshake.address);
-  client.emit('CONNECTED', client.id);
+  client.emit('CONNECTED');
+  let username = client.handshake.query.username;
+  let userid = client.handshake.query.userid;
 
   client.on('SEND_MSG', (msg) => {
     console.log('received new message ', msg.textContent);
@@ -39,11 +41,12 @@ io.on('connection', (client) => {
   })
 
   client.on('SEND_KEY', (pubKey) => {
-    let username = client.handshake.query.username;
+
     let chatroomKey = getChatroomKey(client);
-    console.log('received keys from client', client.id, ' at ', chatroomKey);
-    tm.addClientToChat(chatroomKey, client, username, pubKey);
-    tm.broadcastRoomInfo(io, chatroomKey);
+    console.log('received keys {', pubKey,'} from client', userid, ' at ', chatroomKey);
+    tm.addClientToChat(chatroomKey, client, username, pubKey, userid);
+    tm.sendRoomInfoToClient(client, chatroomKey, userid);
+    tm.updateRoomInfoToOtherClients(client, chatroomKey, userid, true, username);
   })
 
   client.on('BROADCAST_AES', (encryptedAESKeys) => {
@@ -53,9 +56,10 @@ io.on('connection', (client) => {
 
   client.on('disconnect', (msg) => {
     let chatroomKey = getChatroomKey(client);
-    console.log('user from ', chatroomKey,' disconnected', client.id);
-    tm.removeClientFromChat(chatroomKey, client);
-    tm.broadcastRoomInfo(io, chatroomKey);
+    let userid = client.handshake.query.userid;
+    console.log('user from ', chatroomKey,' disconnected', userid);
+    tm.removeClientFromChat(chatroomKey, userid);
+    tm.updateRoomInfoToOtherClients(client, chatroomKey, userid, false, username);
   })
 })
 /**

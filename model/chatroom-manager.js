@@ -6,18 +6,18 @@ class ChatroomManager {
     this._hostId = null;
   }
 
-  addNewClient(newClient, newUsername, newPubKey) {
+  addNewClient(newClient, newUsername, newPubKey, userid) {
     this.removeHost();
-    let user = new User (newClient, newClient.id, newUsername, newPubKey);
-    this._users[newClient.id] = user
+    let user = new User (newClient, newUsername, newPubKey);
+    this._users[userid] = user
     this.assignHost();
   }
 
 
-  removeClient(client) {
+  removeClient(userid) {
     this.removeHost();
 
-    delete this._users[client.id];
+    delete this._users[userid];
     this.assignHost();
   }
 
@@ -48,17 +48,17 @@ class ChatroomManager {
 
   getPubKeys() {
     let pubKeys = {};
-    for (let clientId in this._users) {
-      let user = this._users[clientId];
-      pubKeys[clientId] = user.getPubKey();
+    for (let userid in this._users) {
+      let user = this._users[userid];
+      pubKeys[userid] = user.getPubKey();
     }
     return pubKeys;
   }
 
   broadcastAESKey(encryptedAESKeys) {
-    for (let clientId in this._users) {
-      let client = this._users[clientId].getClient();
-      let aesKey = encryptedAESKeys[clientId];
+    for (let userid in this._users) {
+      let client = this._users[userid].getClient();
+      let aesKey = encryptedAESKeys[userid];
       client.emit('SEND_AES', aesKey);
     }
   }
@@ -68,12 +68,12 @@ class ChatroomManager {
   }
 
   getRoomInfo() {
-    let clientIds = Object.keys(this._users)
-    return clientIds.map(clientId => {
-      let user = this._users[clientId]
+    let userids = Object.keys(this._users)
+    return userids.map(userid => {
+      let user = this._users[userid]
       return {
       username: user.getUsername(),
-      clientId: user.getClientId()
+      userid: userid
     }});
   }
 }

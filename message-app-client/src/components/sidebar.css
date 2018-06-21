@@ -19,3 +19,7 @@
 .close-btn {
   cursor: pointer;
 }
+
+.room-member {
+  cursor: pointer;
+}

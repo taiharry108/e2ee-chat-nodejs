@@ -22,7 +22,7 @@ class MiniChatbox extends Component {
   }
 
   render() {
-    let chatboxClass = "mini-chatbox-wrapper rounded-top shadow-sm";
+    let chatboxClass = "mini-chatbox-wrapper rounded-top shadow-sm mx-3 align-self-end flex-shrink-0";
     let headerClass = "mini-chatbox-header bg-danger d-flex justify-content-end";
     let footerClass = "mini-chatbox-footer bg-danger shadow";
     headerClass += this.state.minimized ? "" : " border-bottom";
@@ -34,6 +34,7 @@ class MiniChatbox extends Component {
           <div className={headerClass}>
             <FontAwesome className="minimize-btn m-2" name="minus" onClick={this.minBtnOnClick}/>
             <FontAwesome className="close-chat-btn m-2" name="times"/>
+            {this.props.name}
           </div>
           <div className='mini-chatbox-content flex-grow-1 shadow-sm bg-light'>
             <Container className='mini-chatbox-content-container'>
