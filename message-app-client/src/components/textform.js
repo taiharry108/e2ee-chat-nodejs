@@ -6,7 +6,7 @@ import { emojiClicked, clearEmoji } from '../actions/uiActions';
 import PropTypes from 'prop-types';
 import EmojiPane from './emoji-pane';
 import { Container, Row, Col, Button } from 'reactstrap';
-import MiniChatbox from './mini-chatbox';
+import MiniChatboxArea from './mini-chatbox-area';
 import './textform.css';
 
 class TextForm extends Component {
@@ -96,7 +96,7 @@ class TextForm extends Component {
     let validTextContent = this.checkValidity(textContent);
     return (
       <div>
-        <MiniChatbox/>
+        <MiniChatboxArea/>
         <Container className="textform-footer p-1 container-fw" >
           <Row>
             <Col>

@@ -4,4 +4,38 @@
   left: calc(100% - 300px);
   top: -200px;
   position: absolute;
+  overflow: hidden;
+}
+
+.mini-chatbox-wrapper.in {
+  width: 200px;
+  height: 40px;
+  top: -40px;
+}
+
+.mini-chatbox-header {
+  height: 40px;
+  z-index: 10;
+}
+
+.mini-chatbox-content-container {
+  top: 40px;
+  bottom: 30px;
+  right: 0;
+  left: 0;
+  position: absolute;
+  z-index: 5;
+}
+
+.mini-chatbox-footer {
+  height: 30px;
+  z-index: 10;
+}
+
+.mini-chatbox-footer.in {
+  height: 0;
+}
+
+.close-chat-btn, .minimize-btn {
+  cursor: pointer;
 }
