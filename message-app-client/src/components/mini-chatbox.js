@@ -22,8 +22,11 @@ class MiniChatbox extends Component {
   }
 
   render() {
+    console.log(this.props)
+    let user = this.props.roomUsers[this.props.userid];
+
     let chatboxClass = "mini-chatbox-wrapper rounded-top shadow-sm mx-3 align-self-end flex-shrink-0";
-    let headerClass = "mini-chatbox-header bg-danger d-flex justify-content-end";
+    let headerClass = "mini-chatbox-header bg-danger d-flex";
     let footerClass = "mini-chatbox-footer bg-danger shadow";
     headerClass += this.state.minimized ? "" : " border-bottom";
     footerClass += this.state.minimized ? " in" : " border-top";
@@ -32,9 +35,9 @@ class MiniChatbox extends Component {
       <div className={chatboxClass}>
         <div className='mini-chatbox d-flex flex-column w-100 h-100'>
           <div className={headerClass}>
+            <div className='h5 flex-fill ml-2 mb-0 align-self-center'>{user.username}</div>
             <FontAwesome className="minimize-btn m-2" name="minus" onClick={this.minBtnOnClick}/>
             <FontAwesome className="close-chat-btn m-2" name="times"/>
-            {this.props.name}
           </div>
           <div className='mini-chatbox-content flex-grow-1 shadow-sm bg-light'>
             <Container className='mini-chatbox-content-container'>
@@ -50,6 +53,7 @@ class MiniChatbox extends Component {
 
 const mapStateToProps = state => {
   return {
+    roomUsers: state.room.roomUsers
   }
 };
 

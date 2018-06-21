@@ -9,8 +9,7 @@ class MiniChatboxArea extends Component {
 
   render() {
     const dmUsersDiv = this.props.dmUsersShow.map((userid) => {
-      let user = this.props.roomUsers[userid];
-      return <MiniChatbox key={userid} name={user.username}/>;
+      return <MiniChatbox key={userid} userid={userid}/>;
     })
     return (
       <div className='mini-chatbox-area d-flex flex-row-reverse'>
@@ -24,7 +23,6 @@ class MiniChatboxArea extends Component {
 const mapStateToProps = state => {
   return {
     dmUsers: state.dm.dmUsers,
-    roomUsers: state.room.roomUsers,
     dmUsersShow: state.dm.dmUsersShow
   }
 };
