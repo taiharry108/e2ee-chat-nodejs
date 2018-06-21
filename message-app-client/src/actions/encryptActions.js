@@ -27,9 +27,7 @@ export const assignedAsHost = (pubKeys, socket) => dispatch => {
   for (let userid in pubKeys) {
     if (pubKeys.hasOwnProperty(userid)) {
       let pubKey = pubKeys[userid];
-      console.log('pubKey is ', pubKey);
       encryptedAES[userid] = encryptWithPubKey(pubKey, aesKey)
-      console.log('going to send encrypted aes', encryptedAES[userid])
     }
   }
 

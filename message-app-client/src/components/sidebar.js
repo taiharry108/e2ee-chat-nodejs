@@ -35,8 +35,7 @@ class SideBar extends React.Component {
       let noOfAva = this.state.svgsArray.length;
       let avaIdx = Math.floor(Math.random() * noOfAva)
       let user = this.props.roomUsers[userid]
-      console.log('username', user.username);
-      return  <div className="room-member d-flex flex-row" key={user.userid}>
+      return  <div className="room-member d-flex flex-row" key={user.userid} onClick={() => this.roomMemberOnClick(user.userid)}>
                 <img src={this.state.svgsArray[avaIdx]} className='avatar rounded-circle my-2 mr-2' alt={user.username[0].toUpperCase()}></img>
                 <div className="border-bottom p-2 text-nowrap flex-fill">
                   <CardTitle key={user.userid} className="text-nowrap">

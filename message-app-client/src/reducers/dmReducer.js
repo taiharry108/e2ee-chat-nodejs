@@ -32,10 +32,18 @@ export default function(state = initialState, action) {
         dmUsersShow: remove_ele(state.dmUsersShow, userid)
       }
     case SELECT_DM_USER:
-      newDMUsers[userid] = []
+      if (!(userid in newDMUsers))
+        newDMUsers[userid] = []
       let newDMUsersShow = [...state.dmUsersShow]
-      if (newDMUsersShow.length === 3)
-        newDMUsersShow.pop();
+      let idx = newDMUsersShow.indexOf(userid);
+      let alreadyIn = idx !== -1;
+
+      if (!alreadyIn) {
+        if (newDMUsersShow.length === 3)
+          newDMUsersShow.pop();
+      } else {
+        newDMUsersShow.splice(idx, 1)
+      }
       newDMUsersShow.unshift(userid);
       return {
         ...state,
