@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import NodeRSA from 'node-rsa';
 
 const generate_keys = () => {
-  let rsaKey = new NodeRSA({b: 2048});
+  let rsaKey = new NodeRSA({b: RSA_KEY_SIZE});
   rsaKey = rsaKey.exportKey('pkcs8-private-pem');
   const type = RSA_KEY_GENERATED;
   self.postMessage({type, rsaKey});
