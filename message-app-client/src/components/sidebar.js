@@ -28,7 +28,6 @@ class SideBar extends React.Component {
   roomMemberOnClick(userid) {
     this.props.selectDMUser(userid);
   }
-
   render() {
 
     const userDiv = this.props.roomUserIds.map((userid) => {

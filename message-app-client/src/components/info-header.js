@@ -13,7 +13,6 @@ class InfoHeader extends Component {
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
-
   }
 
   onClick(e) {
@@ -22,12 +21,11 @@ class InfoHeader extends Component {
     else
       this.props.toggleSidebar(this.props.sidebarOut);
   }
-
   render() {
     return (
       <Container className="info-header shadow px-0 container-fw">
         <Row>
-          <Col className="text-center"><img src={logo} className="App-logo" alt="logo" onClick={this.logoOnClick}/></Col>
+          <Col className="text-center"><img src={logo} className="app-logo" alt="logo" onClick={this.logoOnClick}/></Col>
         </Row>
         <Row>
           <Col>
