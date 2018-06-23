@@ -1,8 +1,8 @@
 .mini-chatbox-area {
-  height: 200px;
+  height: 300px;
   right: 320px;
   left: 50px;
-  top: -200px;
+  top: -300px;
   position: absolute;
   overflow: hidden;
 }

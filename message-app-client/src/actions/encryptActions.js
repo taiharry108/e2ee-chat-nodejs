@@ -4,6 +4,10 @@ import aesjs from 'aes-js';
 import NodeRSA from 'node-rsa';
 
 export const genKeys = () => dispatch => {
+  var group = "modp14";
+  var aliceDH = crypto.getDiffieHellman(group);
+
+  aliceDH.generateKeys();
   const rsaKey = new NodeRSA({b: 512});
   dispatch({
     type: KEY_GENERATED,
@@ -67,3 +71,30 @@ export const decrypt = (encryptedHex, aesKey) => {
   var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
   return decryptedText;
 }
+
+// var group = "modp14";
+// var aliceDH = crypto.getDiffieHellman(group);
+// var bobDH = crypto.getDiffieHellman(group);
+//
+// aliceDH.generateKeys();
+// bobDH.generateKeys();
+//
+// var aliceSecret = aliceDH.computeSecret(bobDH.getPublicKey(), null, "hex");
+// var bobSecret = bobDH.computeSecret(aliceDH.getPublicKey(), null, "hex");
+//
+// var cypher = "aes-256-ctr";
+// var hash = "sha256";
+// var iv = new Buffer(crypto.randomBytes(16))
+// var aliceIV = iv.toString('hex').slice(0,16);
+// var aliceHashedSecret = crypto.createHash(hash).update(aliceSecret).digest().slice(0, 32);
+// var aliceCypher = crypto.createCipheriv(cypher, aliceHashedSecret, aliceIV);
+// var aliceCypher2 = crypto.createCipheriv(cypher, aliceHashedSecret, aliceIV);
+//
+// var cypherText = aliceCypher.update("ABC");
+// var cypherText2 = aliceCypher.update("ABC");
+//
+// var bobHashedSecret = crypto.createHash(hash).update(bobSecret).digest().slice(0, 32);
+// var bobCypher = crypto.createDecipheriv(cypher, bobHashedSecret, aliceIV);
+//
+// var plainText = bobCypher.update(cypherText2).toString();
+// console.log(plainText); // => "I love you"

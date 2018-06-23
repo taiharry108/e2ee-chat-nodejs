@@ -13,6 +13,8 @@ class MiniChatbox extends Component {
       minimized: false
     }
     this.minBtnOnClick = this.minBtnOnClick.bind(this);
+    this.onKeyPressed = this.onKeyPressed.bind(this);
+    this.onInput = this.onInput.bind(this);
   }
 
   minBtnOnClick = (event) => {
@@ -21,13 +23,25 @@ class MiniChatbox extends Component {
     });
   }
 
+  onInput(e) {
+    this.setState({
+      textContent: e.target.innerHTML
+    });
+  }
+
+  onKeyPressed(event) {
+    if(event.charCode === 13) {
+      event.preventDefault()
+    }
+  }
+
   render() {
     console.log(this.props)
     let user = this.props.roomUsers[this.props.userid];
 
     let chatboxClass = "mini-chatbox-wrapper rounded-top shadow-sm mx-3 align-self-end flex-shrink-0";
     let headerClass = "mini-chatbox-header bg-danger d-flex";
-    let footerClass = "mini-chatbox-footer bg-danger shadow";
+    let footerClass = "mini-chatbox-footer bg-light shadow";
     headerClass += this.state.minimized ? "" : " border-bottom";
     footerClass += this.state.minimized ? " in" : " border-top";
     chatboxClass += this.state.minimized ? " in" : "";
@@ -43,7 +57,12 @@ class MiniChatbox extends Component {
             <Container className='mini-chatbox-content-container'>
             </Container>
           </div>
-          <div className={footerClass}></div>
+          <div className={footerClass}>
+            <div className='mini-chatbox-textarea h-100' contentEditable="true"
+              onKeyPress={this.onKeyPressed} onInput={this.onInput}
+              ref={(ele) => this.inputDiv = ele}>
+            </div>
+          </div>
         </div>
       </div>
     );
