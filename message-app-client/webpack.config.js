@@ -44,7 +44,7 @@ module.exports = {
       template: './public/index.html'
     }),
     new webpack.DefinePlugin({
-      SERVER_URL: JSON.stringify("http://localhost:5000"),
+      SERVER_URL: JSON.stringify("/"),
       RSA_KEY_SIZE: 512
     })
   ],
