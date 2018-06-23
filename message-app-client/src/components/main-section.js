@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SideBar from './sidebar';
 import Messages from './messages';
 import { toggleAllowAutoBottom } from '../actions/uiActions';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './main-section.css';
 
 class MainSection extends Component {
@@ -74,7 +74,7 @@ class MainSection extends Component {
           <Messages scrollToBot={!this.state.circleShown}/>
           <div className="circle-wrapper">
             <div className={circleClassName} onClick={this.circleOnClick}>
-              <FontAwesome className="fa-down" name="chevron-down" size="2x"/>
+              <FontAwesomeIcon icon="chevron-down" size="2x"/>
             </div>
           </div>
           <div className="new-message-wrapper m-auto">

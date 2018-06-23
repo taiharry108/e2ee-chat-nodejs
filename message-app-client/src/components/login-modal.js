@@ -7,7 +7,8 @@ import './login-modal.css';
 import { toggleModal } from '../actions/roomActions';
 import { login } from '../actions/loginActions';
 import uuidv1 from 'uuid/v1';
-
+// import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class LoginModal extends Component {
   constructor(props) {
@@ -23,6 +24,8 @@ class LoginModal extends Component {
     this.checkValidity = this.checkValidity.bind(this);
     this.feedback = this.feedback.bind(this);
 
+    this.StatusDiv = this.StatusDiv.bind(this);
+    this.StatusIcon = this.StatusIcon.bind(this);
   }
 
   onClick() {
@@ -57,10 +60,30 @@ class LoginModal extends Component {
     }
   }
 
+  StatusDiv = (props) => {
+    const finishedLoading = props.finishedLoading;
+    if (finishedLoading) {
+      return <div className='text-muted m-2'>Keys generated</div>;
+    }
+    else {
+      return <div className='text-muted m-2'>Generating keys...</div>;
+    }
+  }
+
+  StatusIcon = (props) => {
+    const finishedLoading = props.finishedLoading;
+    if (finishedLoading) {
+      return <FontAwesomeIcon icon={["far", "check-circle"]} color="green"/>;
+    }
+    else {
+      return <FontAwesomeIcon icon="spinner" spin/>;
+    }
+  }
   render() {
-    let validUsername = this.checkValidity(this.state.username);
-    let validChatroomName = this.checkValidity(this.state.chatroomName);
-    let validInputs = validUsername && validChatroomName;
+    const validUsername = this.checkValidity(this.state.username);
+    const validChatroomName = this.checkValidity(this.state.chatroomName);
+    const rsaKeyGenerated = this.props.rsaKey !== null;
+    const validInputs = validUsername && validChatroomName && rsaKeyGenerated;
     return (
         <Modal isOpen={this.props.modal} className={this.props.className}
           autoFocus={false}>
@@ -82,6 +105,8 @@ class LoginModal extends Component {
               </FormGroup>
             </ModalBody>
             <ModalFooter>
+              <this.StatusDiv finishedLoading={rsaKeyGenerated}/>
+              <this.StatusIcon finishedLoading={rsaKeyGenerated}/>
               <Button className="shadow" enable-shadows="true" disabled={!validInputs}
               color="primary" onClick={this.onClick} type="submit">Enter</Button>{' '}
             </ModalFooter>
@@ -91,9 +116,15 @@ class LoginModal extends Component {
   }
 }
 
+// <FontAwesome
+//   className={"m-2" + (rsaKeyGenerated ? " finished-loading-icon text-success" : " spinning-spinner")}
+//   name={rsaKeyGenerated ? "check-circle" : "spinner"}
+//   />
+
 const mapStateToProps = state => {
   return {
-    modal: state.room.modal
+    modal: state.room.modal,
+    rsaKey: state.encrypt.rsaKey
   }
 };
 

@@ -1,3 +1,10 @@
 .modal-header {
   margin: auto;
 }
+
+.spinning-spinner {
+  animation: App-logo-spin infinite 2s linear;
+}
+
+.finished-loading-icon {
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container } from 'reactstrap';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types';
 import './mini-chatbox.css';
 
@@ -36,7 +36,6 @@ class MiniChatbox extends Component {
   }
 
   render() {
-    console.log(this.props)
     let user = this.props.roomUsers[this.props.userid];
 
     let chatboxClass = "mini-chatbox-wrapper rounded-top shadow-sm mx-3 align-self-end flex-shrink-0";
@@ -50,8 +49,8 @@ class MiniChatbox extends Component {
         <div className='mini-chatbox d-flex flex-column w-100 h-100'>
           <div className={headerClass}>
             <div className='h5 flex-fill ml-2 mb-0 align-self-center'>{user.username}</div>
-            <FontAwesome className="minimize-btn m-2" name="minus" onClick={this.minBtnOnClick}/>
-            <FontAwesome className="close-chat-btn m-2" name="times"/>
+            <FontAwesomeIcon className="minimize-btn m-2" icon="minus" onClick={this.minBtnOnClick}/>
+            <FontAwesomeIcon className="close-chat-btn m-2" icon="times"/>
           </div>
           <div className='mini-chatbox-content flex-grow-1 shadow-sm bg-light'>
             <Container className='mini-chatbox-content-container'>

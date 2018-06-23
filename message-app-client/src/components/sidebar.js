@@ -6,7 +6,7 @@ import {
 import './sidebar.css';
 import { toggleSidebar } from '../actions/uiActions';
 import { selectDMUser } from '../actions/dmActions';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const svgs = require.context('../avatars', true, /\.svg$/)
 
 class SideBar extends React.Component {
@@ -51,9 +51,9 @@ class SideBar extends React.Component {
         <Card className="h-100 sidebar-card">
           <CardHeader className="text-nowrap pt-2 pb-3">
             <div className='d-flex d-row'>
-              <FontAwesome
+              <FontAwesomeIcon
                 className="close-btn align-self-center mb-2"
-                name="times"
+                icon="times"
                 onClick={this.closeBtnOnClick}
                 />
               <div className='text-center h5 flex-fill'>
