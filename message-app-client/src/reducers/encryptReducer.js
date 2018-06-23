@@ -1,7 +1,7 @@
-import { KEY_GENERATED, ASSIGN_HOST, REMOVE_HOST, SEND_AES } from '../actions/types';
+import { RSA_KEY_GENERATED, ASSIGN_HOST, REMOVE_HOST, SEND_AES } from '../actions/types';
 
 const initialState = {
-  rsaKey: {},
+  rsaKey: null,
   othersKeys: {},
   isHost: false,
   aesKey: null
@@ -10,7 +10,7 @@ const initialState = {
 export default function(state = initialState, action) {
 
   switch (action.type) {
-    case KEY_GENERATED:
+    case RSA_KEY_GENERATED:
       return {
         ...state,
         rsaKey: action.payload

@@ -1,17 +1,14 @@
-import { KEY_GENERATED, SEND_KEY, ASSIGN_HOST, REMOVE_HOST, BROADCAST_AES, SEND_AES } from './types';
-import crypto from 'crypto';
+import { RSA_KEY_GENERATED, SEND_KEY, ASSIGN_HOST, REMOVE_HOST, BROADCAST_AES, SEND_AES } from './types';
 import aesjs from 'aes-js';
+import crypto from 'crypto';
 import NodeRSA from 'node-rsa';
 
-export const genKeys = () => dispatch => {
-  var group = "modp14";
-  var aliceDH = crypto.getDiffieHellman(group);
 
-  aliceDH.generateKeys();
-  const rsaKey = new NodeRSA({b: 512});
+export const dispatchKeys = (rsaKey) => dispatch => {
+  let rsaKeyObject = new NodeRSA(rsaKey);
   dispatch({
-    type: KEY_GENERATED,
-    payload: rsaKey
+    type: RSA_KEY_GENERATED,
+    payload: rsaKeyObject
   })
 }
 

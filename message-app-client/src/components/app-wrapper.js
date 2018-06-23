@@ -8,7 +8,8 @@ import { Container } from 'reactstrap';
 import { connected, clearMsg } from '../actions/textActions';
 import { updateRoomInfo, receiveInitRoomInfo } from '../actions/roomActions';
 import { flipSwitch } from '../actions/uiActions';
-import { genKeys,
+import Worker from '../workers/encrypt.worker.js';
+import { dispatchKeys,
   sendPubKey2Ser,
   assignedAsHost,
   removeAsHost,
@@ -20,7 +21,9 @@ import { UPDATE_ROOM_INFO,
   REMOVE_HOST,
   CONNECTED,
   SEND_AES,
-  SEND_MSG
+  SEND_MSG,
+  GENERATE_RSA_KEYS,
+  RSA_KEY_GENERATED
 } from '../actions/types';
 import './app-wrapper.css'
 
@@ -28,7 +31,16 @@ class AppWrapper extends Component {
 
   constructor(props) {
     super(props);
-    this.props.genKeys();
+    this.worker = new Worker();
+    this.worker.postMessage({type:GENERATE_RSA_KEYS})
+    this.worker.onmessage = (event) => {
+      switch (event.data.type) {
+        case RSA_KEY_GENERATED:
+          this.props.dispatchKeys(event.data.rsaKey);
+          break;
+        default:
+      }
+    }
     this.state = {
       width: 0,
     };
@@ -142,7 +154,7 @@ export default connect(mapStateToProps, {
   removeAsHost,
   connected,
   receivedEncryptedAESKey,
-  genKeys,
+  dispatchKeys,
   flipSwitch,
   clearMsg,
   receiveInitRoomInfo
