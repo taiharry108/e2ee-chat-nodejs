@@ -11,6 +11,7 @@ export const updateRoomInfo = (roomInfo) => dispatch => {
 };
 
 export const receiveInitRoomInfo = (initRoomInfo) => dispatch => {
+  console.log(initRoomInfo);
   dispatch({
     type: INIT_ROOM_INFO,
     payload: initRoomInfo

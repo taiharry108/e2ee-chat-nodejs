@@ -30,7 +30,7 @@ export default function(state = initialState, action) {
       let username = action.payload.username
       let userid = action.payload.userid
       if (clientJoined) {
-        let user = { username, userid }
+        let user = { ...action.payload }
         newRoomUsers[userid] = user;
         newRoomUserIds.push(userid);
       } else {

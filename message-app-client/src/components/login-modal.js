@@ -7,7 +7,6 @@ import './login-modal.css';
 import { toggleModal } from '../actions/roomActions';
 import { login } from '../actions/loginActions';
 import uuidv1 from 'uuid/v1';
-// import FontAwesome from 'react-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class LoginModal extends Component {
@@ -39,7 +38,10 @@ class LoginModal extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    this.props.login(this.state.username, this.state.chatroomName, uuidv1());
+  	const svgs = require.context('../avatars', true, /\.svg$/);
+    const noOfAva = svgs.keys().length;
+    const avaIdx = Math.floor(Math.random() * noOfAva)
+    this.props.login(this.state.username, this.state.chatroomName, uuidv1(), avaIdx);
   }
 
   checkValidity(text) {
@@ -115,11 +117,6 @@ class LoginModal extends Component {
     );
   }
 }
-
-// <FontAwesome
-//   className={"m-2" + (rsaKeyGenerated ? " finished-loading-icon text-success" : " spinning-spinner")}
-//   name={rsaKeyGenerated ? "check-circle" : "spinner"}
-//   />
 
 const mapStateToProps = state => {
   return {

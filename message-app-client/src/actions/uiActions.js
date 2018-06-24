@@ -3,7 +3,7 @@ import { SIDEBAR_TOGGLE,
   APPEND_EMOJI,
   CLEAR_EMOJI,
   EMOJI_CLICKED,
-  TOGGLE_ALLOW_AUTO_BOTTOM,
+  TOGGLE_ALLOW_AUTO_BOTTOM
 } from './types';
 
 export const toggleSidebar = (isOut) => dispatch => {
