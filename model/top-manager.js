@@ -57,7 +57,7 @@ class TopManager {
   }
 
   sendDMMessage(chatroomKey, senderUserid, receiverUserId, message) {
-    this._cms[chatroomKey].sendDMMessage(senderUserid, receiverUserId, message);
+    this._cms[chatroomKey].sendDMMessage(senderUserid, receiverUserId, message, uuidv1());
   }
 }
 

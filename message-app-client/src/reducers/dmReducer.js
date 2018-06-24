@@ -78,11 +78,15 @@ export default function(state = initialState, action) {
       let senderUserid = action.payload.senderUserid;
       let receiverUserId = action.payload.receiverUserId;
       let message = action.payload.message;
-      if (senderUserid in newDMUsers) {
-        let user = newDMUsers[senderUserid]
+      let messageid = action.payload.messageid;
+      let targetUserid = action.payload.senderIsSelf ? receiverUserId : senderUserid;
+      console.log(action.payload.senderIsSelf);
+      console.log({receiverUserId, senderUserid});
+      if (targetUserid in newDMUsers) {
+        let user = newDMUsers[targetUserid]
         if (!('msg' in user))
           user['msg'] = []
-        user['msg'].push(message);        
+        user['msg'].push({senderUserid, receiverUserId, message, messageid});
       }
     default:
       return state;

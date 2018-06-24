@@ -37,9 +37,9 @@ export const sendDMMessage = (senderUserid, receiverUserId, message, socket) => 
   socket.emit(SEND_DM_MESSAGE, {senderUserid, receiverUserId, message})
 }
 
-export const receiveDMMessage = (senderUserid, receiverUserId, message) => dispatch => {
+export const receiveDMMessage = (senderUserid, receiverUserId, message, messageid, senderIsSelf) => dispatch => {
   dispatch({
     type: RECEIVE_DM_MESSAGE,
-    payload: {senderUserid, receiverUserId, message}
+    payload: {senderUserid, receiverUserId, message, messageid, senderIsSelf}
   })
 }

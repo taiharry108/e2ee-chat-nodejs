@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types';
 import {
@@ -20,6 +20,7 @@ class MiniChatbox extends Component {
     this.onKeyPressed = this.onKeyPressed.bind(this);
     this.onInput = this.onInput.bind(this);
     this.sendMsg = this.sendMsg.bind(this);
+
   }
 
   minBtnOnClick = (event) => {
@@ -67,9 +68,20 @@ class MiniChatbox extends Component {
     return true;
   }
 
+  MessageDiv = () => {
+    const user = this.props.dmUsers[this.props.userid];
+    if ('msg' in user) {
+      const messages = user.msg;
+      return messages.map((msg) =>  {
+        let className = 'mini-chatbox-bubble my-2 p-2 d-inline-block';
+        return <div className={className} key={msg.messageid}>{msg.message}</div>
+      });
+    }
+    return <div></div>
+  }
+
   render() {
     let user = this.props.roomUsers[this.props.userid];
-
     let chatboxClass = "mini-chatbox-wrapper rounded-top shadow-sm mx-3 align-self-end flex-shrink-0";
     let headerClass = "mini-chatbox-header bg-danger d-flex";
     let footerClass = "mini-chatbox-footer bg-light shadow";
@@ -84,10 +96,9 @@ class MiniChatbox extends Component {
             <FontAwesomeIcon className="minimize-btn m-2" icon="minus" onClick={this.minBtnOnClick}/>
             <FontAwesomeIcon className="close-chat-btn m-2" icon="times" onClick={this.closeBtnOnClick}/>
           </div>
-          <div className='mini-chatbox-content flex-grow-1 shadow-sm bg-light'>
-            <Container className='mini-chatbox-content-container'>
-            </Container>
-          </div>
+          <Container className='mini-chatbox-content flex-grow-1 shadow-sm bg-light px-1' fluid>
+            <this.MessageDiv/>
+          </Container>
           <div className={footerClass}>
             <div className='mini-chatbox-textarea h-100' contentEditable="true"
               onKeyPress={this.onKeyPressed} onInput={this.onInput}
@@ -106,6 +117,7 @@ const mapStateToProps = state => {
     roomUsers: state.room.roomUsers,
     socket: state.login.socket,
     appUserid: state.login.userid,
+    dmUsers: state.dm.dmUsers
   }
 };
 

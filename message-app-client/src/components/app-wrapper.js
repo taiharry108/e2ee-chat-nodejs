@@ -123,12 +123,11 @@ class AppWrapper extends Component {
         this.props.setPubKeyForDMUser(myUserid, myPubKey)
       })
 
-      socket.on(SEND_DM_MESSAGE, ({senderUserid, receiverUserId, message}) => {
+      socket.on(SEND_DM_MESSAGE, ({senderUserid, receiverUserId, message, messageid}) => {
         console.log('received message from ', senderUserid, ':', message)
-        if (senderUserid !== receiverUserId)
-          this.props.receiveDMMessage(senderUserid, receiverUserId, message);
-        else
-          console.log(message);
+        console.log(this.props.userid);
+        let senderIsSelf = senderUserid === this.props.userid;
+        this.props.receiveDMMessage(senderUserid, receiverUserId, message, messageid, senderIsSelf);
       })
 
     }

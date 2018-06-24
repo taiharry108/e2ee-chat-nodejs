@@ -71,20 +71,14 @@ class ChatroomManager {
     }
   }
 
-  sendDMMessage(senderUserid, receiverUserId, message) {
+  sendDMMessage(senderUserid, receiverUserId, message, messageid) {
     if (receiverUserId in this._users) {
-      let client = this._users[receiverUserId].getClient();
+      let receiverClient = this._users[receiverUserId].getClient();
+      let senderClient = this._users[senderUserid].getClient();
       console.log("going to send DM message to", receiverUserId)
-      client.emit('SEND_DM_MESSAGE', {senderUserid, receiverUserId, message});
-      if (senderUserid in this._users) {
-        let client = this._users[senderUserid].getClient();
-        console.log("going to send DM message to", senderUserid)
-        client.emit('SEND_DM_MESSAGE', {
-          'senderUserid':senderUserid,
-          'message':message,
-          'receiverUserId':senderUserid
-        });
-      }
+      console.log({senderUserid, receiverUserId, message, messageid});
+      receiverClient.emit('SEND_DM_MESSAGE', {senderUserid, receiverUserId, message, messageid});
+      senderClient.emit('SEND_DM_MESSAGE', {senderUserid, receiverUserId, message, messageid});
     }
 
   }
