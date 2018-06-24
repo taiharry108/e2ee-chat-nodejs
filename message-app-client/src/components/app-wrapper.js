@@ -8,6 +8,7 @@ import { Container } from 'reactstrap';
 import { connected, clearMsg } from '../actions/textActions';
 import { updateRoomInfo, receiveInitRoomInfo } from '../actions/roomActions';
 import { flipSwitch } from '../actions/uiActions';
+import { setDhForDMUser } from '../actions/dmActions';
 import Worker from '../workers/encrypt.worker.js';
 import { dispatchKeys,
   sendPubKey2Ser,
@@ -23,7 +24,9 @@ import { UPDATE_ROOM_INFO,
   SEND_AES,
   SEND_MSG,
   GENERATE_RSA_KEYS,
-  RSA_KEY_GENERATED
+  RSA_KEY_GENERATED,
+  DH_GENERATED,
+  INIT_SESSION_FOR_DM
 } from '../actions/types';
 import './app-wrapper.css'
 
@@ -31,12 +34,14 @@ class AppWrapper extends Component {
 
   constructor(props) {
     super(props);
-    this.worker = new Worker();
-    this.worker.postMessage({type:GENERATE_RSA_KEYS})
-    this.worker.onmessage = (event) => {
+    this.props.worker.postMessage({type:GENERATE_RSA_KEYS})
+    this.props.worker.onmessage = (event) => {
       switch (event.data.type) {
         case RSA_KEY_GENERATED:
           this.props.dispatchKeys(event.data.rsaKey);
+          break;
+        case DH_GENERATED:
+          this.props.setDhForDMUser(event.data.userid, event.data.dh);
           break;
         default:
       }
@@ -102,6 +107,10 @@ class AppWrapper extends Component {
       })
 
       socket.on(SEND_AES, (encryptedAES) => this.props.receivedEncryptedAESKey(encryptedAES, this.props.rsaKey));
+
+      socket.on(INIT_SESSION_FOR_DM, (userid, pubKey) => {
+        this.props.worker.postMessage({type: GENERATE_DH, content:userid});
+      })
     }
 
     if (nextProps.msg !== "") {
@@ -141,7 +150,8 @@ const mapStateToProps = state => {
     sidebarOut: state.ui.sidebarOut,
     socket: state.login.socket,
     rsaKey: state.encrypt.rsaKey,
-    msg: state.texts.msg
+    msg: state.texts.msg,
+    worker: state.encrypt.worker
   }
 };
 
@@ -157,5 +167,6 @@ export default connect(mapStateToProps, {
   dispatchKeys,
   flipSwitch,
   clearMsg,
-  receiveInitRoomInfo
+  receiveInitRoomInfo,
+  setDhForDMUser
 })(AppWrapper);

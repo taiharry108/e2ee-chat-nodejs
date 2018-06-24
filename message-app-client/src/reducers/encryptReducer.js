@@ -1,10 +1,12 @@
 import { RSA_KEY_GENERATED, ASSIGN_HOST, REMOVE_HOST, SEND_AES } from '../actions/types';
+import Worker from '../workers/encrypt.worker.js';
 
 const initialState = {
   rsaKey: null,
   othersKeys: {},
   isHost: false,
-  aesKey: null
+  aesKey: null,
+  worker: new Worker()
 }
 
 export default function(state = initialState, action) {

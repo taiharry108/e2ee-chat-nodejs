@@ -69,8 +69,19 @@ export const decrypt = (encryptedHex, aesKey) => {
   return decryptedText;
 }
 
+// var crypto = require('crypto')
 // var group = "modp14";
 // var aliceDH = crypto.getDiffieHellman(group);
+// var bobDH = crypto.createDiffieHellman(aliceDH.getPrime());
+//
+// aliceDH.generateKeys()
+// bobDH.setPrivateKey(aliceDH.getPrivateKey())
+// bobDH.setPublicKey(aliceDH.getPublicKey())
+//
+// const alice_secret = aliceDH.computeSecret(bobDH.getPublicKey());
+// const bob_secret = bobDH.computeSecret(aliceDH.getPublicKey());
+//
+// console.log(alice_secret.equals(bob_secret));
 // var bobDH = crypto.getDiffieHellman(group);
 //
 // aliceDH.generateKeys();

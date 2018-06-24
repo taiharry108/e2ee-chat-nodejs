@@ -1,8 +1,11 @@
-import { REMOVE_DM_USER, SELECT_DM_USER } from '../actions/types';
+import { REMOVE_DM_USER,
+  SELECT_DM_USER,
+  SET_DH_FOR_DM_USER,
+  SET_PK_FOR_DM_USER } from '../actions/types';
 
 const initialState = {
   dmUsers: {},
-  dmUsersShow: []
+  dmUsersShow: [],
 }
 
 const add_to_back = (array, ele) => {
@@ -33,7 +36,7 @@ export default function(state = initialState, action) {
       }
     case SELECT_DM_USER:
       if (!(userid in newDMUsers))
-        newDMUsers[userid] = []
+        newDMUsers[userid] = {}
       let newDMUsersShow = [...state.dmUsersShow]
       let idx = newDMUsersShow.indexOf(userid);
       let alreadyIn = idx !== -1;
@@ -49,6 +52,18 @@ export default function(state = initialState, action) {
         ...state,
         dmUsers: newDMUsers,
         dmUsersShow: newDMUsersShow
+      }
+    case SET_DH_FOR_DM_USER:
+      newDMUsers[action.payload.userid].dh = action.payload.dh
+      return {
+        ...state,
+        dmUsers: newDMUsers
+      }
+    case SET_PK_FOR_DM_USER:
+      newDMUsers[action.payload.userid].pubKey = action.payload.pubKey
+      return {
+        ...state,
+        dmUsers: newDMUsers
       }
     default:
       return state;

@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { Container } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types';
+import {
+  GENERATE_DH,
+  DH_GENERATED } from '../actions/types';
 import './mini-chatbox.css';
 
 class MiniChatbox extends Component {
@@ -71,7 +74,7 @@ class MiniChatbox extends Component {
 
 const mapStateToProps = state => {
   return {
-    roomUsers: state.room.roomUsers
+    roomUsers: state.room.roomUsers,
   }
 };
 

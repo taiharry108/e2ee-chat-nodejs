@@ -7,6 +7,7 @@ import './sidebar.css';
 import { toggleSidebar } from '../actions/uiActions';
 import { selectDMUser } from '../actions/dmActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { GENERATE_DH } from '../actions/types';
 const svgs = require.context('../avatars', true, /\.svg$/)
 
 class SideBar extends React.Component {
@@ -27,6 +28,7 @@ class SideBar extends React.Component {
 
   roomMemberOnClick(userid) {
     this.props.selectDMUser(userid);
+    this.props.worker.postMessage({type: GENERATE_DH, content:userid});
   }
   render() {
 
@@ -77,7 +79,8 @@ class SideBar extends React.Component {
 const mapStateToProps = state => {
   return {
     roomUserIds: state.room.roomUserIds,
-    roomUsers: state.room.roomUsers
+    roomUsers: state.room.roomUsers,
+    worker: state.encrypt.worker
   }
 };
 
