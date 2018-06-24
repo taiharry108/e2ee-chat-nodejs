@@ -20,6 +20,7 @@ class MiniChatbox extends Component {
     this.onKeyPressed = this.onKeyPressed.bind(this);
     this.onInput = this.onInput.bind(this);
     this.sendMsg = this.sendMsg.bind(this);
+    this.headerBarOnClick = this.headerBarOnClick.bind(this);
 
   }
 
@@ -73,12 +74,12 @@ class MiniChatbox extends Component {
     if ('msg' in user) {
     // if ('msg' in user || true) {
       const messages = user.msg;
-      // const messages = [{messageid:0, message: 'this is a short message', senderIsSelf:true}, {messageid:2, message: 'hi', senderIsSelf:true}, {senderIsSelf:false, messageid:1, message: 'this is a another short message'}, ]
+      // const messages = [{messageid:0, message: 'this is a short message', toReceiver:true}, {messageid:2, message: 'hi', toReceiver:true}, {toReceiver:false, messageid:1, message: 'this is a another short message'}, ]
       return messages.map((msg) =>  {
         let className = 'mini-chatbox-bubble my-1 p-2 d-inline-block';
         let wrapperName = "mini-chatbox-bubble-wrapper";
-        className += msg.senderIsSelf ? " sender" : "";
-        wrapperName += msg.senderIsSelf ? " align-self-end" : ""
+        className += !msg.toReceiver ? " sender" : "";
+        wrapperName += !msg.toReceiver ? " align-self-end" : ""
         return  <div className={wrapperName} key={msg.messageid}>
                   <div className={className}>{msg.message}</div>
                 </div>
@@ -90,20 +91,22 @@ class MiniChatbox extends Component {
   render() {
     let user = this.props.roomUsers[this.props.userid];
     let chatboxClass = "mini-chatbox-wrapper rounded-top shadow-sm mx-3 align-self-end flex-shrink-0";
-    let headerClass = "mini-chatbox-header bg-danger d-flex";
+    let headerClass = "mini-chatbox-header d-flex";
+    let mainClass = "mini-chatbox-content flex-grow-1 shadow-sm bg-light px-1 d-flex flex-column";
     let footerClass = "mini-chatbox-footer bg-light shadow";
-    headerClass += this.state.minimized ? "" : " border-bottom";
+    headerClass += this.state.minimized ? " in" : " border-bottom";
+    mainClass += this.state.minimized ? " in" : "";
     footerClass += this.state.minimized ? " in" : " border-top";
     chatboxClass += this.state.minimized ? " in" : "";
     return (
       <div className={chatboxClass}>
         <div className='mini-chatbox d-flex flex-column w-100 h-100'>
-          <div className={headerClass}>
+          <div className={headerClass} onClick={this.headerBarOnClick}>
             <div className='h5 flex-fill ml-2 mb-0 align-self-center'>{user.username}</div>
             <FontAwesomeIcon className="minimize-btn m-2" icon="minus" onClick={this.minBtnOnClick}/>
             <FontAwesomeIcon className="close-chat-btn m-2" icon="times" onClick={this.closeBtnOnClick}/>
           </div>
-          <Container className='mini-chatbox-content flex-grow-1 shadow-sm bg-light px-1 d-flex flex-column' fluid>
+          <Container className={mainClass} fluid>
             <this.MessageDiv/>
           </Container>
           <div className={footerClass}>

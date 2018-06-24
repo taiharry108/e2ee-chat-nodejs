@@ -1,4 +1,5 @@
 const User = require('./user')
+const uuidv1 = require('uuid/v1');
 
 class ChatroomManager {
   constructor() {
@@ -71,14 +72,17 @@ class ChatroomManager {
     }
   }
 
-  sendDMMessage(senderUserid, receiverUserId, message, messageid) {
+  sendDMMessage(senderUserid, receiverUserId, message) {
     if (receiverUserId in this._users) {
       let receiverClient = this._users[receiverUserId].getClient();
       let senderClient = this._users[senderUserid].getClient();
       console.log("going to send DM message to", receiverUserId)
-      console.log({senderUserid, receiverUserId, message, messageid});
-      receiverClient.emit('SEND_DM_MESSAGE', {senderUserid, receiverUserId, message, messageid});
-      senderClient.emit('SEND_DM_MESSAGE', {senderUserid, receiverUserId, message, messageid});
+      let toReceiver = false;
+      let messageid = uuidv1();
+      senderClient.emit('SEND_DM_MESSAGE', {senderUserid, receiverUserId, message, messageid, toReceiver});
+      toReceiver = true;
+      messageid = uuidv1()
+      receiverClient.emit('SEND_DM_MESSAGE', {senderUserid, receiverUserId, message, messageid, toReceiver});
     }
 
   }

@@ -48,7 +48,6 @@ class AppWrapper extends Component {
           let myPrivateKey = event.data.privateKey;
           let myUserid = this.props.userid;
           this.props.setDhForDMUser(targetUserid, myPubKey, myPrivateKey);
-          console.log({myUserid, targetUserid, myPubKey})
           console.log('going to sent dh pubKey to server');
           this.props.socket.emit(DH_GENERATED, {myUserid, targetUserid, myPubKey})
           break;
@@ -123,11 +122,9 @@ class AppWrapper extends Component {
         this.props.setPubKeyForDMUser(myUserid, myPubKey)
       })
 
-      socket.on(SEND_DM_MESSAGE, ({senderUserid, receiverUserId, message, messageid}) => {
+      socket.on(SEND_DM_MESSAGE, ({senderUserid, receiverUserId, message, messageid, toReceiver}) => {
         console.log('received message from ', senderUserid, ':', message)
-        console.log(this.props.userid);
-        let senderIsSelf = senderUserid === this.props.userid;
-        this.props.receiveDMMessage(senderUserid, receiverUserId, message, messageid, senderIsSelf);
+        this.props.receiveDMMessage(senderUserid, receiverUserId, message, messageid, toReceiver);
       })
 
     }
