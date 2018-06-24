@@ -6,7 +6,7 @@ const initialState = {
   othersKeys: {},
   isHost: false,
   aesKey: null,
-  worker: new Worker()
+  // worker: new Worker()
 }
 
 export default function(state = initialState, action) {
