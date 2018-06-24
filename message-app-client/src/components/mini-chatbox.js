@@ -71,10 +71,17 @@ class MiniChatbox extends Component {
   MessageDiv = () => {
     const user = this.props.dmUsers[this.props.userid];
     if ('msg' in user) {
+    // if ('msg' in user || true) {
       const messages = user.msg;
+      // const messages = [{messageid:0, message: 'this is a short message', senderIsSelf:true}, {messageid:2, message: 'hi', senderIsSelf:true}, {senderIsSelf:false, messageid:1, message: 'this is a another short message'}, ]
       return messages.map((msg) =>  {
-        let className = 'mini-chatbox-bubble my-2 p-2 d-inline-block';
-        return <div className={className} key={msg.messageid}>{msg.message}</div>
+        let className = 'mini-chatbox-bubble my-1 p-2 d-inline-block';
+        let wrapperName = "mini-chatbox-bubble-wrapper";
+        className += msg.senderIsSelf ? " sender" : "";
+        wrapperName += msg.senderIsSelf ? " align-self-end" : ""
+        return  <div className={wrapperName} key={msg.messageid}>
+                  <div className={className}>{msg.message}</div>
+                </div>
       });
     }
     return <div></div>
@@ -96,7 +103,7 @@ class MiniChatbox extends Component {
             <FontAwesomeIcon className="minimize-btn m-2" icon="minus" onClick={this.minBtnOnClick}/>
             <FontAwesomeIcon className="close-chat-btn m-2" icon="times" onClick={this.closeBtnOnClick}/>
           </div>
-          <Container className='mini-chatbox-content flex-grow-1 shadow-sm bg-light px-1' fluid>
+          <Container className='mini-chatbox-content flex-grow-1 shadow-sm bg-light px-1 d-flex flex-column' fluid>
             <this.MessageDiv/>
           </Container>
           <div className={footerClass}>

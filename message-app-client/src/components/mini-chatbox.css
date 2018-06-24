@@ -15,11 +15,21 @@
   z-index: 10;
 }
 
+.mini-chatbox-bubble-wrapper {
+  max-width: 90%;
+}
+
 .mini-chatbox-bubble {
   border-radius: .6em;
   background-color: #c5c3c9;
+  color: #443266;
   line-height: 1rem;
   font-size: 0.8rem;
+}
+
+.mini-chatbox-bubble.sender {
+  background-color: #443266;
+  color: #c5c3c9;
 }
 
 .mini-chatbox-footer {
