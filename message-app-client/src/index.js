@@ -4,8 +4,8 @@ import './index.css';
 import './css/bootstrap.css';
 import './css/emoji-mart.css';
 import App from './app';
-import registerServiceWorker, {unregister} from './registerServiceWorker';
+import {unregister} from './registerServiceWorker';
 
 ReactDOM.render(<App/>, document.getElementById('root'));
-registerServiceWorker();
+// registerServiceWorker();
 unregister();
