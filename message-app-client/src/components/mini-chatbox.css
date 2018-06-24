@@ -19,6 +19,10 @@
 .mini-chatbox-header.in {
   cursor: pointer;
 }
+
+.mini-chatbox-content {
+  overflow-y: auto;
+}
 .mini-chatbox-content.in {
   height: 0;
 }
@@ -33,6 +37,7 @@
   color: #dc3545;
   line-height: 1rem;
   font-size: 0.8rem;
+  word-break: break-word;
 }
 
 .mini-chatbox-bubble.sender {
@@ -41,8 +46,9 @@
 }
 
 .mini-chatbox-footer {
-  height: 30px;
+  max-height: 100px;
   z-index: 10;
+  overflow-y: auto;
 }
 
 .mini-chatbox-footer.in {

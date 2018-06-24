@@ -110,7 +110,7 @@ class MiniChatbox extends Component {
             <this.MessageDiv/>
           </Container>
           <div className={footerClass}>
-            <div className='mini-chatbox-textarea h-100' contentEditable="true"
+            <div className='mini-chatbox-textarea h-100 p-1' contentEditable="true"
               onKeyPress={this.onKeyPressed} onInput={this.onInput}
               ref={(ele) => this.inputDiv = ele}>
             </div>
