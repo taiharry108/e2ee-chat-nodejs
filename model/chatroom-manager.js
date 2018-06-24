@@ -63,6 +63,15 @@ class ChatroomManager {
     }
   }
 
+  sendDHToClient(myUserid, targetUserid, myPubKey) {
+    if (targetUserid in this._users) {
+      let client = this._users[targetUserid].getClient();
+      console.log(this._users[myUserid].getClient() === client)
+      console.log("going to send DH_GENERATED to", targetUserid)
+      client.emit('DH_GENERATED', {myUserid, targetUserid, myPubKey});
+    }
+  }
+
   getUserNumber() {
     return Object.keys(this._users).length;
   }

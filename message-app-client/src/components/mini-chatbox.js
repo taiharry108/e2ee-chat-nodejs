@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {
   GENERATE_DH,
   DH_GENERATED } from '../actions/types';
+import { removeDMUser } from '../actions/dmActions';
 import './mini-chatbox.css';
 
 class MiniChatbox extends Component {
@@ -24,6 +25,17 @@ class MiniChatbox extends Component {
     this.setState({
       minimized: !this.state.minimized
     });
+  }
+
+  headerBarOnClick = (event) => {
+    if (this.state.minimized)
+      this.setState({
+        minimized: false
+      });
+  }
+
+  closeBtnOnClick = (event) => {
+    this.props.removeDMUser(this.props.userid);
   }
 
   onInput(e) {
@@ -53,7 +65,7 @@ class MiniChatbox extends Component {
           <div className={headerClass}>
             <div className='h5 flex-fill ml-2 mb-0 align-self-center'>{user.username}</div>
             <FontAwesomeIcon className="minimize-btn m-2" icon="minus" onClick={this.minBtnOnClick}/>
-            <FontAwesomeIcon className="close-chat-btn m-2" icon="times"/>
+            <FontAwesomeIcon className="close-chat-btn m-2" icon="times" onClick={this.closeBtnOnClick}/>
           </div>
           <div className='mini-chatbox-content flex-grow-1 shadow-sm bg-light'>
             <Container className='mini-chatbox-content-container'>
@@ -81,4 +93,4 @@ const mapStateToProps = state => {
 MiniChatbox.propTypes = {
 }
 
-export default connect(mapStateToProps, { })(MiniChatbox);
+export default connect(mapStateToProps, { removeDMUser })(MiniChatbox);

@@ -15,10 +15,13 @@ const generateDH = (userid) => {
   console.log('going to gen DH for ', userid)
   let group = "modp14";
   let dh = crypto.getDiffieHellman(group);
+  dh.generateKeys();
+  let pubKey = dh.getPublicKey();
+  let privateKey = dh.getPrivateKey();
   console.log("DH generated, going to post it back")
   const type = DH_GENERATED;
 
-  self.postMessage({type, dh, userid});
+  self.postMessage({type, userid, dh, pubKey, privateKey});
 }
 
 self.addEventListener('message', (event) => {

@@ -51,6 +51,10 @@ class TopManager {
   updateRoomInfoToOtherClients(client, chatroomKey, userid, clientJoined, username) {
     client.to(chatroomKey).emit('UPDATE_ROOM_INFO', { userid, username, clientJoined });
   }
+
+  sendDHToClient(chatroomKey, myUserid, targetUserid, myPubKey) {
+    this._cms[chatroomKey].sendDHToClient(myUserid, targetUserid, myPubKey);
+  }
 }
 
 module.exports = TopManager;

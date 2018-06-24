@@ -31,3 +31,4 @@ export const DH_GENERATED = 'DH_GENERATED';
 export const SET_DH_FOR_DM_USER = 'SET_DH_FOR_DM_USER';
 export const INIT_SESSION_FOR_DM = 'INIT_SESSION_FOR_DM';
 export const SET_PK_FOR_DM_USER = 'SET_PK_FOR_DM_USER';
+export const SEND_DM_MESSAGE = 'SEND_DM_MESSAGE';

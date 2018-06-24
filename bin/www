@@ -61,6 +61,12 @@ io.on('connection', (client) => {
     tm.removeClientFromChat(chatroomKey, userid);
     tm.updateRoomInfoToOtherClients(client, chatroomKey, userid, false, username);
   })
+
+  client.on('DH_GENERATED', ({myUserid, targetUserid, myPubKey}) => {
+    let chatroomKey = getChatroomKey(client);
+    console.log('DH_GENERATED from', myUserid, ' to ', targetUserid);
+    tm.sendDHToClient(chatroomKey, myUserid, targetUserid, myPubKey);
+  })
 })
 /**
  * Listen on provided port, on all network interfaces.

@@ -28,15 +28,16 @@ export default function(state = initialState, action) {
 
   switch (action.type) {
     case REMOVE_DM_USER:
-      delete newDMUsers[userid]
       return {
         ...state,
         dmUsers: newDMUsers,
         dmUsersShow: remove_ele(state.dmUsersShow, userid)
       }
     case SELECT_DM_USER:
-      if (!(userid in newDMUsers))
+      if (!(userid in newDMUsers)) {
         newDMUsers[userid] = {}
+      }
+      console.log("in select dm user", newDMUsers[userid])
       let newDMUsersShow = [...state.dmUsersShow]
       let idx = newDMUsersShow.indexOf(userid);
       let alreadyIn = idx !== -1;
@@ -54,12 +55,19 @@ export default function(state = initialState, action) {
         dmUsersShow: newDMUsersShow
       }
     case SET_DH_FOR_DM_USER:
-      newDMUsers[action.payload.userid].dh = action.payload.dh
+      if (!(action.payload.userid in newDMUsers)) {
+        newDMUsers[action.payload.userid] = {}
+      }
+      newDMUsers[action.payload.userid].myPubKey = action.payload.pubKey
+      newDMUsers[action.payload.userid].myPrivateKey = action.payload.privateKey
       return {
         ...state,
         dmUsers: newDMUsers
       }
     case SET_PK_FOR_DM_USER:
+      if (!(action.payload.userid in newDMUsers)) {
+        newDMUsers[action.payload.userid] = {}
+      }
       newDMUsers[action.payload.userid].pubKey = action.payload.pubKey
       return {
         ...state,

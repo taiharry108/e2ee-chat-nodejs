@@ -1,4 +1,8 @@
-import { REMOVE_DM_USER, SELECT_DM_USER, SET_DH_FOR_DM_USER, SET_PK_FOR_DM_USER } from './types';
+import { REMOVE_DM_USER,
+  SELECT_DM_USER,
+  SET_DH_FOR_DM_USER,
+  SET_PK_FOR_DM_USER,
+  SEND_DM_MESSAGE } from './types';
 
 export const removeDMUser = (userid) => dispatch => {
   dispatch({
@@ -14,16 +18,20 @@ export const selectDMUser = (userid) => dispatch => {
   })
 };
 
-export const setDhForDMUser = (userid, dh) => dispatch => {
+export const setDhForDMUser = (userid, pubKey, privateKey) => dispatch => {
   dispatch({
     type: SET_DH_FOR_DM_USER,
-    payload: {userid, dh}
+    payload: {userid, pubKey, privateKey}
   })
 }
 
 export const setPubKeyForDMUser = (userid, pubKey) => dispatch => {
   dispatch({
     type: SET_PK_FOR_DM_USER,
-    paylaod: {userid, pubKey}
+    payload: {userid, pubKey}
   })
+}
+
+export const sendDMMessage = (senderUserid, receiverUserId, message, socket) => {
+  socket.emit(SEND_DM_MESSAGE, {senderUserid, receiverUserId, message})
 }
