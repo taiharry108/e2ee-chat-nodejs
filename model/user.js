@@ -1,9 +1,10 @@
 class User {
-  constructor(client, username, pubKey) {
+  constructor(client, username, pubKey, avaIdx) {
     this._client = client;
     this._username = username;
     this._pubKey = pubKey;
     this._isHost = false;
+    this._avaIdx = avaIdx;
   }
 
   removeAsHost() {
@@ -26,6 +27,10 @@ class User {
 
   getUsername() {
     return this._username;
+  }
+
+  getAvaIdx() {
+    return this._avaIdx;
   }
 
 }

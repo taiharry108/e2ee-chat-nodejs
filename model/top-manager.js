@@ -7,14 +7,14 @@ class TopManager {
     this._io = io;
   }
 
-  addClientToChat(chatroomKey, client, username, pubKey, userid) {
+  addClientToChat(chatroomKey, client, username, pubKey, userid, avaIdx) {
     if (!(chatroomKey in this._cms)) {
       let newCM = new ChatroomManager();
       this._cms[chatroomKey] = newCM;
     }
     let newCM = this._cms[chatroomKey];
     client.join(chatroomKey);
-    newCM.addNewClient(client, username, pubKey, userid);
+    newCM.addNewClient(client, username, pubKey, userid, avaIdx);
   }
 
   removeClientFromChat(chatroomKey, userid) {
@@ -48,8 +48,8 @@ class TopManager {
     })
   }
 
-  updateRoomInfoToOtherClients(client, chatroomKey, userid, clientJoined, username) {
-    client.to(chatroomKey).emit('UPDATE_ROOM_INFO', { userid, username, clientJoined });
+  updateRoomInfoToOtherClients(client, chatroomKey, userid, clientJoined, username, avaIdx) {
+    client.to(chatroomKey).emit('UPDATE_ROOM_INFO', { userid, username, clientJoined, avaIdx });
   }
 
   sendDHToClient(chatroomKey, myUserid, targetUserid, myPubKey) {

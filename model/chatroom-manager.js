@@ -7,9 +7,9 @@ class ChatroomManager {
     this._hostId = null;
   }
 
-  addNewClient(newClient, newUsername, newPubKey, userid) {
+  addNewClient(newClient, newUsername, newPubKey, userid, avaIdx) {
     this.removeHost();
-    let user = new User (newClient, newUsername, newPubKey);
+    let user = new User (newClient, newUsername, newPubKey, avaIdx);
     this._users[userid] = user
     this.assignHost();
   }
@@ -97,7 +97,8 @@ class ChatroomManager {
       let user = this._users[userid]
       return {
       username: user.getUsername(),
-      userid: userid
+      userid: userid,
+      avaIdx: user.getAvaIdx()
     }});
   }
 }

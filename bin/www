@@ -33,6 +33,7 @@ io.on('connection', (client) => {
   client.emit('CONNECTED');
   let username = client.handshake.query.username;
   let userid = client.handshake.query.userid;
+  let avaIdx = client.handshake.query.avaIdx;
 
   client.on('SEND_MSG', (msg) => {
     console.log('received new message ', msg.textContent);
@@ -44,9 +45,9 @@ io.on('connection', (client) => {
 
     let chatroomKey = getChatroomKey(client);
     console.log('received keys {', pubKey,'} from client', userid, ' at ', chatroomKey);
-    tm.addClientToChat(chatroomKey, client, username, pubKey, userid);
+    tm.addClientToChat(chatroomKey, client, username, pubKey, userid, avaIdx);
     tm.sendRoomInfoToClient(client, chatroomKey, userid);
-    tm.updateRoomInfoToOtherClients(client, chatroomKey, userid, true, username);
+    tm.updateRoomInfoToOtherClients(client, chatroomKey, userid, true, username, avaIdx);
   })
 
   client.on('BROADCAST_AES', (encryptedAESKeys) => {
@@ -59,7 +60,7 @@ io.on('connection', (client) => {
     let userid = client.handshake.query.userid;
     console.log('user from ', chatroomKey,' disconnected', userid);
     tm.removeClientFromChat(chatroomKey, userid);
-    tm.updateRoomInfoToOtherClients(client, chatroomKey, userid, false, username);
+    tm.updateRoomInfoToOtherClients(client, chatroomKey, userid, false, username, avaIdx);
   })
 
   client.on('DH_GENERATED', ({myUserid, targetUserid, myPubKey}) => {
@@ -70,7 +71,7 @@ io.on('connection', (client) => {
 
   client.on('SEND_DM_MESSAGE', ({senderUserid, receiverUserId, message}) => {
     let chatroomKey = getChatroomKey(client);
-    tm.sendDMMessage(chatroomKey, senderUserid, receiverUserId, message);
+    tm.sendDMMessage(chatroomKey, senderUserid, receiverUserId, message, avaIdx);
   })
 })
 /**
