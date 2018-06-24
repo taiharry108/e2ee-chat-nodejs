@@ -88,6 +88,11 @@ export default function(state = initialState, action) {
           user['msg'] = []
         user['msg'].push({senderUserid, receiverUserId, message, messageid});
       }
+      return {
+        ...state,
+        dmUsers: newDMUsers
+      }
+
     default:
       return state;
   }
