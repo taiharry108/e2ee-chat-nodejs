@@ -2,7 +2,8 @@ import { REMOVE_DM_USER,
   SELECT_DM_USER,
   SET_DH_FOR_DM_USER,
   SET_PK_FOR_DM_USER,
-  SEND_DM_MESSAGE } from './types';
+  SEND_DM_MESSAGE,
+  RECEIVE_DM_MESSAGE } from './types';
 
 export const removeDMUser = (userid) => dispatch => {
   dispatch({
@@ -34,4 +35,11 @@ export const setPubKeyForDMUser = (userid, pubKey) => dispatch => {
 
 export const sendDMMessage = (senderUserid, receiverUserId, message, socket) => {
   socket.emit(SEND_DM_MESSAGE, {senderUserid, receiverUserId, message})
+}
+
+export const receiveDMMessage = (senderUserid, receiverUserId, message) => dispatch => {
+  dispatch({
+    type: RECEIVE_DM_MESSAGE,
+    payload: {senderUserid, receiverUserId, message}
+  })
 }

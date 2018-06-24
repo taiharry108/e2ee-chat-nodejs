@@ -1,7 +1,8 @@
 import { REMOVE_DM_USER,
   SELECT_DM_USER,
   SET_DH_FOR_DM_USER,
-  SET_PK_FOR_DM_USER } from '../actions/types';
+  SET_PK_FOR_DM_USER,
+  RECEIVE_DM_MESSAGE } from '../actions/types';
 
 const initialState = {
   dmUsers: {},
@@ -72,6 +73,16 @@ export default function(state = initialState, action) {
       return {
         ...state,
         dmUsers: newDMUsers
+      }
+    case RECEIVE_DM_MESSAGE:
+      let senderUserid = action.payload.senderUserid;
+      let receiverUserId = action.payload.receiverUserId;
+      let message = action.payload.message;
+      if (senderUserid in newDMUsers) {
+        let user = newDMUsers[senderUserid]
+        if (!('msg' in user))
+          user['msg'] = []
+        user['msg'].push(message);        
       }
     default:
       return state;

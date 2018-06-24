@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {
   GENERATE_DH,
   DH_GENERATED } from '../actions/types';
-import { removeDMUser } from '../actions/dmActions';
+import { removeDMUser, sendDMMessage } from '../actions/dmActions';
 import './mini-chatbox.css';
 
 class MiniChatbox extends Component {
@@ -19,6 +19,7 @@ class MiniChatbox extends Component {
     this.minBtnOnClick = this.minBtnOnClick.bind(this);
     this.onKeyPressed = this.onKeyPressed.bind(this);
     this.onInput = this.onInput.bind(this);
+    this.sendMsg = this.sendMsg.bind(this);
   }
 
   minBtnOnClick = (event) => {
@@ -46,8 +47,24 @@ class MiniChatbox extends Component {
 
   onKeyPressed(event) {
     if(event.charCode === 13) {
-      event.preventDefault()
+      event.preventDefault();
+      this.sendMsg();
     }
+  }
+
+  sendMsg() {
+    if (this.state.textContent === "")
+      return false;
+      // senderUserid, receiverUserId, message, socket
+    let senderUserid = this.props.appUserid;
+    let receiverUserId = this.props.userid;
+    let message = this.state.textContent;
+    let socket = this.props.socket;
+
+    sendDMMessage(senderUserid, receiverUserId, message, socket);
+    this.setState({textContent: ''});
+    this.inputDiv.innerHTML = "";
+    return true;
   }
 
   render() {
@@ -87,6 +104,8 @@ class MiniChatbox extends Component {
 const mapStateToProps = state => {
   return {
     roomUsers: state.room.roomUsers,
+    socket: state.login.socket,
+    appUserid: state.login.userid,
   }
 };
 

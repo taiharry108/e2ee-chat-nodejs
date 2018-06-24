@@ -8,7 +8,7 @@ import { Container } from 'reactstrap';
 import { connected, clearMsg } from '../actions/textActions';
 import { updateRoomInfo, receiveInitRoomInfo } from '../actions/roomActions';
 import { flipSwitch } from '../actions/uiActions';
-import { setDhForDMUser, setPubKeyForDMUser } from '../actions/dmActions';
+import { setDhForDMUser, setPubKeyForDMUser, receiveDMMessage } from '../actions/dmActions';
 import Worker from '../workers/encrypt.worker.js';
 import { dispatchKeys,
   sendPubKey2Ser,
@@ -27,7 +27,8 @@ import { UPDATE_ROOM_INFO,
   RSA_KEY_GENERATED,
   DH_GENERATED,
   INIT_SESSION_FOR_DM,
-  GENERATE_DH
+  GENERATE_DH,
+  SEND_DM_MESSAGE
 } from '../actions/types';
 import './app-wrapper.css'
 
@@ -122,6 +123,14 @@ class AppWrapper extends Component {
         this.props.setPubKeyForDMUser(myUserid, myPubKey)
       })
 
+      socket.on(SEND_DM_MESSAGE, ({senderUserid, receiverUserId, message}) => {
+        console.log('received message from ', senderUserid, ':', message)
+        if (senderUserid !== receiverUserId)
+          this.props.receiveDMMessage(senderUserid, receiverUserId, message);
+        else
+          console.log(message);
+      })
+
     }
 
     if (nextProps.msg !== "") {
@@ -182,5 +191,6 @@ export default connect(mapStateToProps, {
   clearMsg,
   receiveInitRoomInfo,
   setDhForDMUser,
-  setPubKeyForDMUser
+  setPubKeyForDMUser,
+  receiveDMMessage
 })(AppWrapper);

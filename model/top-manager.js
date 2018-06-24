@@ -55,6 +55,10 @@ class TopManager {
   sendDHToClient(chatroomKey, myUserid, targetUserid, myPubKey) {
     this._cms[chatroomKey].sendDHToClient(myUserid, targetUserid, myPubKey);
   }
+
+  sendDMMessage(chatroomKey, senderUserid, receiverUserId, message) {
+    this._cms[chatroomKey].sendDMMessage(senderUserid, receiverUserId, message);
+  }
 }
 
 module.exports = TopManager;

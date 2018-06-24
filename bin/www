@@ -67,6 +67,11 @@ io.on('connection', (client) => {
     console.log('DH_GENERATED from', myUserid, ' to ', targetUserid);
     tm.sendDHToClient(chatroomKey, myUserid, targetUserid, myPubKey);
   })
+
+  client.on('SEND_DM_MESSAGE', ({senderUserid, receiverUserId, message}) => {
+    let chatroomKey = getChatroomKey(client);
+    tm.sendDMMessage(chatroomKey, senderUserid, receiverUserId, message);
+  })
 })
 /**
  * Listen on provided port, on all network interfaces.
