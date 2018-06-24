@@ -28,7 +28,7 @@ class SideBar extends React.Component {
 
   roomMemberOnClick(userid) {
     this.props.selectDMUser(userid);
-    // this.props.worker.postMessage({type: GENERATE_DH, content:userid});
+    this.props.worker.postMessage({type: GENERATE_DH, content:userid});
   }
   render() {
 
@@ -80,7 +80,7 @@ const mapStateToProps = state => {
   return {
     roomUserIds: state.room.roomUserIds,
     roomUsers: state.room.roomUsers,
-    // worker: state.encrypt.worker
+    worker: state.encrypt.worker
   }
 };
 

@@ -34,18 +34,18 @@ class AppWrapper extends Component {
 
   constructor(props) {
     super(props);
-    // this.props.worker.postMessage({type:GENERATE_RSA_KEYS})
-    // this.props.worker.onmessage = (event) => {
-    //   switch (event.data.type) {
-    //     case RSA_KEY_GENERATED:
-    //       this.props.dispatchKeys(event.data.rsaKey);
-    //       break;
-    //     case DH_GENERATED:
-    //       this.props.setDhForDMUser(event.data.userid, event.data.dh);
-    //       break;
-    //     default:
-    //   }
-    // }
+    this.props.worker.postMessage({type:GENERATE_RSA_KEYS})
+    this.props.worker.onmessage = (event) => {
+      switch (event.data.type) {
+        case RSA_KEY_GENERATED:
+          this.props.dispatchKeys(event.data.rsaKey);
+          break;
+        case DH_GENERATED:
+          this.props.setDhForDMUser(event.data.userid, event.data.dh);
+          break;
+        default:
+      }
+    }
     this.state = {
       width: 0,
     };
@@ -109,7 +109,7 @@ class AppWrapper extends Component {
       socket.on(SEND_AES, (encryptedAES) => this.props.receivedEncryptedAESKey(encryptedAES, this.props.rsaKey));
 
       socket.on(INIT_SESSION_FOR_DM, (userid, pubKey) => {
-        // this.props.worker.postMessage({type: GENERATE_DH, content:userid});
+        this.props.worker.postMessage({type: GENERATE_DH, content:userid});
       })
     }
 
@@ -151,7 +151,7 @@ const mapStateToProps = state => {
     socket: state.login.socket,
     rsaKey: state.encrypt.rsaKey,
     msg: state.texts.msg,
-    // worker: state.encrypt.worker
+    worker: state.encrypt.worker
   }
 };
 
