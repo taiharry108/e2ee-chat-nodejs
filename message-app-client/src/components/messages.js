@@ -44,7 +44,6 @@ class Messages extends Component {
     this.messageDiv = this.messageDiv.bind(this);
     this.replaceMsgWithEmoji = this.replaceMsgWithEmoji.bind(this);
     this.scrollToBottom = this.scrollToBottom.bind(this);
-    console.log(NotificationLogo);
   }
 
   scrollToBottom = () => {
@@ -72,7 +71,8 @@ class Messages extends Component {
         Push.create('New Message', {
           body: newMsg.textContent,
           timeout: 2000,
-          icon:'http://www.myiconfinder.com/uploads/iconsets/256-256-8007c02e43c5e5c87fc8976e34c8290f-message.png'
+          icon:NotificationLogo
+
         });
     }
     // subscribe to socket
