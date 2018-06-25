@@ -58,27 +58,9 @@ class MiniChatbox extends Component {
   }
 
   hasHashedSecret() {
-    let senderUserid = this.props.appUserid;
-    let receiverUserId = this.props.userid;
+    const receiverUserId = this.props.userid;
     const receiverUser = this.props.dmUsers[receiverUserId];
-    if (!('hashedSecret' in receiverUser)) {
-      if (!('myPrime' in receiverUser) || !('pubKey' in receiverUser))
-        return false;
-      const myPrivateKey = receiverUser.myPrivateKey;
-      const otherPartyPubKey = receiverUser.pubKey;
-      const myPrime = receiverUser.myPrime;
-      const msg = {
-        type: COMPUTE_SECRET,
-        myPrivateKey: myPrivateKey,
-        otherPartyPubKey: otherPartyPubKey,
-        myPrime: myPrime,
-        otherPartyUserid: receiverUserId
-      }
-      this.props.worker.postMessage(msg)
-      return false;
-    }
-    return true;
-
+    return 'hashedSecret' in receiverUser;
   }
 
   sendMsg() {

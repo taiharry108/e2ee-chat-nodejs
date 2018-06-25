@@ -30,7 +30,8 @@ import { UPDATE_ROOM_INFO,
   INIT_SESSION_FOR_DM,
   GENERATE_DH,
   SEND_DM_MESSAGE,
-  SECRET_COMPUTED
+  SECRET_COMPUTED,
+  COMPUTE_SECRET
 } from '../actions/types';
 import './app-wrapper.css'
 
@@ -146,6 +147,26 @@ class AppWrapper extends Component {
       this.props.socket.emit(SEND_MSG, nextProps.msg);
       this.props.clearMsg();
     }
+
+    const userids = Object.keys(nextProps.dmUsers);
+    userids.map((userid) => {
+      const user = nextProps.dmUsers[userid];
+      if (!('hashedSecret' in user)) {
+        if ('myPrime' in user && 'pubKey' in user) {
+            const myPrivateKey = user.myPrivateKey;
+            const otherPartyPubKey = user.pubKey;
+            const myPrime = user.myPrime;
+            const msg = {
+              type: COMPUTE_SECRET,
+              myPrivateKey: myPrivateKey,
+              otherPartyPubKey: otherPartyPubKey,
+              myPrime: myPrime,
+              otherPartyUserid: userid
+            }
+            this.props.worker.postMessage(msg)
+        }
+      }
+    });
   }
 
   render() {
