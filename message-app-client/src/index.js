@@ -7,5 +7,5 @@ import App from './app';
 import registerServiceWorker, {unregister} from './registerServiceWorker';
 
 ReactDOM.render(<App/>, document.getElementById('root'));
-registerServiceWorker();
+// registerServiceWorker();
 unregister();
