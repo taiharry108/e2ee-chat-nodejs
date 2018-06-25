@@ -55,6 +55,10 @@
   height: 0;
 }
 
+.mini-chatbox-textarea {
+  min-height: 32px;
+}
+
 .close-chat-btn, .minimize-btn {
   cursor: pointer;
 }

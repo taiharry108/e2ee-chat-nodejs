@@ -1,4 +1,9 @@
-import { RSA_KEY_GENERATED, SEND_KEY, ASSIGN_HOST, REMOVE_HOST, BROADCAST_AES, SEND_AES } from './types';
+import { RSA_KEY_GENERATED,
+  SEND_KEY,
+  ASSIGN_HOST,
+  REMOVE_HOST,
+  BROADCAST_AES,
+  SEND_AES } from './types';
 import aesjs from 'aes-js';
 import crypto from 'crypto';
 import NodeRSA from 'node-rsa';
@@ -69,26 +74,46 @@ export const decrypt = (encryptedHex, aesKey) => {
   return decryptedText;
 }
 
-// var crypto = require('crypto')
+export const dmEncrypt = (msg, hashedSecret) => {
+  const cypherType = "aes-256-ctr";
+  let iv = new Buffer(crypto.randomBytes(16))
+  iv = iv.toString('hex').slice(0,16);
+  const cypher = crypto.createCipheriv(cypherType, hashedSecret, iv);
+  const cypherText = cypher.update(msg).toString('hex');
+  return iv + cypherText;
+}
+
+export const dmDecrypt = (encryptedMsg, hashedSecret) => {
+  const cypherType = "aes-256-ctr";
+  const iv = encryptedMsg.slice(0, 16)
+  const cypherText = encryptedMsg.slice(16)
+  const decypher = crypto.createDecipheriv(cypherType, hashedSecret, iv);
+  return decypher.update(new Buffer(cypherText, "hex")).toString();
+}
+
+
+// var crypto = require('crypto');
 // var group = "modp14";
 // var aliceDH = crypto.getDiffieHellman(group);
-// var bobDH = crypto.createDiffieHellman(aliceDH.getPrime());
-//
-// aliceDH.generateKeys()
-// bobDH.setPrivateKey(aliceDH.getPrivateKey())
-// bobDH.setPublicKey(aliceDH.getPublicKey())
-//
-// const alice_secret = aliceDH.computeSecret(bobDH.getPublicKey());
-// const bob_secret = bobDH.computeSecret(aliceDH.getPublicKey());
-//
-// console.log(alice_secret.equals(bob_secret));
+// var aliceDH2 = crypto.createDiffieHellman(crypto.getDiffieHellman(group).getPrime());
+// // var bobDH = crypto.createDiffieHellman(aliceDH.getPrime());
 // var bobDH = crypto.getDiffieHellman(group);
 //
 // aliceDH.generateKeys();
+// aliceDH2.generateKeys();
 // bobDH.generateKeys();
 //
-// var aliceSecret = aliceDH.computeSecret(bobDH.getPublicKey(), null, "hex");
-// var bobSecret = bobDH.computeSecret(aliceDH.getPublicKey(), null, "hex");
+//
+//
+// aliceDH2.getPublicKey()
+// aliceDH2.setPrivateKey(aliceDH.getPrivateKey());
+// aliceDH2.getPublicKey()
+//
+// var aliceSecret = aliceDH.computeSecret(bobDH.getPublicKey());
+// var aliceSecret2 = aliceDH2.computeSecret(bobDH.getPublicKey());
+// aliceSecret
+// aliceSecret2
+// var bobSecret = bobDH.computeSecret(aliceDH.getPublicKey());
 //
 // var cypher = "aes-256-ctr";
 // var hash = "sha256";
@@ -96,13 +121,10 @@ export const decrypt = (encryptedHex, aesKey) => {
 // var aliceIV = iv.toString('hex').slice(0,16);
 // var aliceHashedSecret = crypto.createHash(hash).update(aliceSecret).digest().slice(0, 32);
 // var aliceCypher = crypto.createCipheriv(cypher, aliceHashedSecret, aliceIV);
-// var aliceCypher2 = crypto.createCipheriv(cypher, aliceHashedSecret, aliceIV);
-//
-// var cypherText = aliceCypher.update("ABC");
-// var cypherText2 = aliceCypher.update("ABC");
+// var cypherText = aliceCypher.update("ABC").toString('hex');
 //
 // var bobHashedSecret = crypto.createHash(hash).update(bobSecret).digest().slice(0, 32);
 // var bobCypher = crypto.createDecipheriv(cypher, bobHashedSecret, aliceIV);
 //
-// var plainText = bobCypher.update(cypherText2).toString();
-// console.log(plainText); // => "I love you"
+// var plainText = bobCypher.update(new Buffer(cypherText, "hex")).toString();
+// console.log(plainText);

@@ -3,7 +3,9 @@ import { REMOVE_DM_USER,
   SET_DH_FOR_DM_USER,
   SET_PK_FOR_DM_USER,
   SEND_DM_MESSAGE,
-  RECEIVE_DM_MESSAGE } from './types';
+  RECEIVE_DM_MESSAGE,
+  SET_HASH_SECRET } from './types';
+import crypto from 'crypto';
 
 export const removeDMUser = (userid) => dispatch => {
   dispatch({
@@ -19,10 +21,10 @@ export const selectDMUser = (userid) => dispatch => {
   })
 };
 
-export const setDhForDMUser = (userid, pubKey, privateKey) => dispatch => {
+export const setDhForDMUser = (userid, pubKey, privateKey, myPrime) => dispatch => {
   dispatch({
     type: SET_DH_FOR_DM_USER,
-    payload: {userid, pubKey, privateKey}
+    payload: {userid, pubKey, privateKey, myPrime}
   })
 }
 
@@ -41,5 +43,12 @@ export const receiveDMMessage = (senderUserid, receiverUserId, message, messagei
   dispatch({
     type: RECEIVE_DM_MESSAGE,
     payload: {senderUserid, receiverUserId, message, messageid, toReceiver}
+  })
+}
+
+export const setHashedSecret = (hashedSecret, otherPartyUserid) => dispatch => {
+  dispatch({
+    type: SET_HASH_SECRET,
+    payload: {hashedSecret, otherPartyUserid}
   })
 }

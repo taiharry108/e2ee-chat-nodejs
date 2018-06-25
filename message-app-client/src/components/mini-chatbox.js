@@ -5,8 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types';
 import {
   GENERATE_DH,
-  DH_GENERATED } from '../actions/types';
-import { removeDMUser, sendDMMessage } from '../actions/dmActions';
+  DH_GENERATED,
+  COMPUTE_SECRET } from '../actions/types';
+import { removeDMUser, sendDMMessage, createHashedSecret } from '../actions/dmActions';
+import { createDHFromPrivateKey } from '../actions/encryptActions';
 import './mini-chatbox.css';
 
 class MiniChatbox extends Component {
@@ -21,6 +23,8 @@ class MiniChatbox extends Component {
     this.onInput = this.onInput.bind(this);
     this.sendMsg = this.sendMsg.bind(this);
     this.headerBarOnClick = this.headerBarOnClick.bind(this);
+    this.encryptDMMsg = this.encryptDMMsg.bind(this);
+    this.hasHashedSecret = this.hasHashedSecret.bind(this);
 
   }
 
@@ -54,6 +58,37 @@ class MiniChatbox extends Component {
     }
   }
 
+  encryptDMMsg(senderUserid, receiverUserId, message) {
+    const receiverUser = this.props.dmUsers[receiverUserId]
+  }
+
+  hasHashedSecret() {
+    let senderUserid = this.props.appUserid;
+    let receiverUserId = this.props.userid;
+    const receiverUser = this.props.dmUsers[receiverUserId];
+    console.log(receiverUser);
+    if (!('hashedSecret' in receiverUser)) {
+      if (!('myPrime' in receiverUser) || !('pubKey' in receiverUser))
+        return false;
+      const myPrivateKey = receiverUser.myPrivateKey;
+      const otherPartyPubKey = receiverUser.pubKey;
+      const myPrime = receiverUser.myPrime;
+      const msg = {
+        type: COMPUTE_SECRET,
+        myPrivateKey: myPrivateKey,
+        otherPartyPubKey: otherPartyPubKey,
+        myPrime: myPrime,
+        otherPartyUserid: receiverUserId
+      }
+      this.props.worker.postMessage(msg)
+      console.log("doesn't have HH yet", otherPartyPubKey);
+      return false;
+    }
+    console.log("Have hh now");
+    return true;
+
+  }
+
   sendMsg() {
     if (this.state.textContent === "")
       return false;
@@ -62,6 +97,10 @@ class MiniChatbox extends Component {
     let receiverUserId = this.props.userid;
     let message = this.state.textContent;
     let socket = this.props.socket;
+
+    console.log("going to send message to user with pubKey", this.props.dmUsers[receiverUserId].pubKey);
+
+    this.encryptDMMsg(senderUserid, receiverUserId, message);
 
     sendDMMessage(senderUserid, receiverUserId, message, socket);
     this.setState({textContent: ''});
@@ -110,7 +149,7 @@ class MiniChatbox extends Component {
             <this.MessageDiv/>
           </Container>
           <div className={footerClass}>
-            <div className='mini-chatbox-textarea h-100 p-1' contentEditable="true"
+            <div className='mini-chatbox-textarea h-100 p-1' contentEditable={this.hasHashedSecret()}
               onKeyPress={this.onKeyPressed} onInput={this.onInput}
               ref={(ele) => this.inputDiv = ele}>
             </div>
@@ -127,7 +166,8 @@ const mapStateToProps = state => {
     roomUsers: state.room.roomUsers,
     socket: state.login.socket,
     appUserid: state.login.userid,
-    dmUsers: state.dm.dmUsers
+    dmUsers: state.dm.dmUsers,
+    worker: state.encrypt.worker
   }
 };
 

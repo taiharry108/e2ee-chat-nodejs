@@ -8,7 +8,7 @@ import { Container } from 'reactstrap';
 import { connected, clearMsg } from '../actions/textActions';
 import { updateRoomInfo, receiveInitRoomInfo } from '../actions/roomActions';
 import { flipSwitch } from '../actions/uiActions';
-import { setDhForDMUser, setPubKeyForDMUser, receiveDMMessage, selectDMUser } from '../actions/dmActions';
+import { setDhForDMUser, setPubKeyForDMUser, receiveDMMessage, selectDMUser, setHashedSecret } from '../actions/dmActions';
 import Worker from '../workers/encrypt.worker.js';
 import { dispatchKeys,
   sendPubKey2Ser,
@@ -28,7 +28,8 @@ import { UPDATE_ROOM_INFO,
   DH_GENERATED,
   INIT_SESSION_FOR_DM,
   GENERATE_DH,
-  SEND_DM_MESSAGE
+  SEND_DM_MESSAGE,
+  SECRET_COMPUTED
 } from '../actions/types';
 import './app-wrapper.css'
 
@@ -46,11 +47,17 @@ class AppWrapper extends Component {
           let targetUserid = event.data.userid;
           let myPubKey = event.data.pubKey;
           let myPrivateKey = event.data.privateKey;
+          let myPrime = event.data.prime;
           let myUserid = this.props.userid;
-          this.props.setDhForDMUser(targetUserid, myPubKey, myPrivateKey);
+          this.props.setDhForDMUser(targetUserid, myPubKey, myPrivateKey, myPrime);
           console.log('going to sent dh pubKey to server');
           this.props.socket.emit(DH_GENERATED, {myUserid, targetUserid, myPubKey})
           break;
+        case SECRET_COMPUTED:
+          const hashedSecret = event.data.hashedSecret;
+          const otherPartyUserid = event.data.otherPartyUserid;
+          console.log('going to set hashedSecret for', hashedSecret);
+          this.props.setHashedSecret(hashedSecret, otherPartyUserid);
         default:
       }
     }
@@ -190,5 +197,6 @@ export default connect(mapStateToProps, {
   setDhForDMUser,
   setPubKeyForDMUser,
   receiveDMMessage,
-  selectDMUser
+  selectDMUser,
+  setHashedSecret
 })(AppWrapper);

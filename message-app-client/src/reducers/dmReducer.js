@@ -2,7 +2,8 @@ import { REMOVE_DM_USER,
   SELECT_DM_USER,
   SET_DH_FOR_DM_USER,
   SET_PK_FOR_DM_USER,
-  RECEIVE_DM_MESSAGE } from '../actions/types';
+  RECEIVE_DM_MESSAGE,
+  SET_HASH_SECRET } from '../actions/types';
 
 const initialState = {
   dmUsers: {},
@@ -38,7 +39,6 @@ export default function(state = initialState, action) {
       if (!(userid in newDMUsers)) {
         newDMUsers[userid] = {}
       }
-      console.log("in select dm user", newDMUsers[userid])
       let newDMUsersShow = [...state.dmUsersShow]
       let idx = newDMUsersShow.indexOf(userid);
       let alreadyIn = idx !== -1;
@@ -61,6 +61,7 @@ export default function(state = initialState, action) {
       }
       newDMUsers[action.payload.userid].myPubKey = action.payload.pubKey
       newDMUsers[action.payload.userid].myPrivateKey = action.payload.privateKey
+      newDMUsers[action.payload.userid].myPrime = action.payload.myPrime
       return {
         ...state,
         dmUsers: newDMUsers
@@ -69,7 +70,8 @@ export default function(state = initialState, action) {
       if (!(action.payload.userid in newDMUsers)) {
         newDMUsers[action.payload.userid] = {}
       }
-      newDMUsers[action.payload.userid].pubKey = action.payload.pubKey
+      let pubKeyMap = action.payload.pubKey;
+      newDMUsers[action.payload.userid].pubKey = new Uint8Array(Object.keys(pubKeyMap).map((k) => pubKeyMap[k]))
       return {
         ...state,
         dmUsers: newDMUsers
@@ -86,13 +88,19 @@ export default function(state = initialState, action) {
         if (!('msg' in user))
           user['msg'] = [];
         user['msg'].push({senderUserid, receiverUserId, message, messageid, toReceiver});
-        console.log(user['msg']);
       }
       return {
         ...state,
         dmUsers: newDMUsers
       }
-
+    case SET_HASH_SECRET:
+      let hashedSecret = action.payload.hashedSecret;
+      let otherPartyUserid = action.payload.otherPartyUserid;
+      newDMUsers[otherPartyUserid].hashedSecret = hashedSecret
+      return {
+        ...state,
+        dmUsers: newDMUsers
+      }
     default:
       return state;
   }
