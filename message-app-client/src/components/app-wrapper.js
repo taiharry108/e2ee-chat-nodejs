@@ -137,6 +137,7 @@ class AppWrapper extends Component {
         const hashedSecret = this.props.dmUsers[otherPartyUserid].hashedSecret;
         console.log(hashedSecret);
         const decryptedMsg = dmDecrypt(message, hashedSecret);
+        decryptedMsg = decryptedMsg.replace(/&nbsp;/g, ' ');
         this.props.receiveDMMessage(senderUserid, receiverUserId, decryptedMsg, messageid, toReceiver);
         this.props.selectDMUser(otherPartyUserid);
       })
