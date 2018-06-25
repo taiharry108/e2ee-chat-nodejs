@@ -8,7 +8,12 @@ import { Container } from 'reactstrap';
 import { connected, clearMsg } from '../actions/textActions';
 import { updateRoomInfo, receiveInitRoomInfo } from '../actions/roomActions';
 import { flipSwitch } from '../actions/uiActions';
-import { setDhForDMUser, setPubKeyForDMUser, receiveDMMessage, selectDMUser, setHashedSecret } from '../actions/dmActions';
+import { setDhForDMUser,
+  setPubKeyForDMUser,
+  receiveDMMessage,
+  selectDMUser,
+  setHashedSecret,
+  removeDMUser } from '../actions/dmActions';
 import Worker from '../workers/encrypt.worker.js';
 import { dispatchKeys,
   sendPubKey2Ser,
@@ -101,6 +106,11 @@ class AppWrapper extends Component {
       let socket = nextProps.socket;
 
       socket.on(UPDATE_ROOM_INFO, (resp) => {
+        const clientJoined = resp.clientJoined
+        if (!clientJoined) {
+          const userid = resp.userid
+          this.props.removeDMUser(userid);
+        }
         this.props.updateRoomInfo(resp);
       })
 
@@ -225,5 +235,6 @@ export default connect(mapStateToProps, {
   setPubKeyForDMUser,
   receiveDMMessage,
   selectDMUser,
-  setHashedSecret
+  setHashedSecret,
+  removeDMUser
 })(AppWrapper);
