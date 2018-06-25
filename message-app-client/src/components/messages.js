@@ -8,6 +8,7 @@ import { Emoji } from 'emoji-mart';
 import Push from 'push.js';
 import PropTypes from 'prop-types';
 import './messages.css';
+import NotificationLogo from '../img/notificaiton_img.png';
 import reactStringReplace from 'react-string-replace';
 
 const emojiREGEX = /(:[a-z0-9_-]+:)/g
@@ -43,6 +44,7 @@ class Messages extends Component {
     this.messageDiv = this.messageDiv.bind(this);
     this.replaceMsgWithEmoji = this.replaceMsgWithEmoji.bind(this);
     this.scrollToBottom = this.scrollToBottom.bind(this);
+    console.log(NotificationLogo);
   }
 
   scrollToBottom = () => {
