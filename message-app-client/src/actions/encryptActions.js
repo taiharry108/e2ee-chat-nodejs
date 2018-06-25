@@ -59,18 +59,18 @@ export const removeAsHost = () => dispatch => {
 }
 
 export const encrypt = (msg, aesKey) => {
-  var msgBytes = aesjs.utils.utf8.toBytes(msg);
-  var aesCtrEncrypter = new aesjs.ModeOfOperation.ctr(aesKey, new aesjs.Counter(5));
-  var encryptedBytes = aesCtrEncrypter.encrypt(msgBytes);
-  var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
+  const msgBytes = aesjs.utils.utf8.toBytes(msg);
+  const aesCtrEncrypter = new aesjs.ModeOfOperation.ctr(aesKey, new aesjs.Counter(5));
+  const encryptedBytes = aesCtrEncrypter.encrypt(msgBytes);
+  const encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
   return encryptedHex;
 }
 
 export const decrypt = (encryptedHex, aesKey) => {
-  var aesCtrDecrypter = new aesjs.ModeOfOperation.ctr(aesKey, new aesjs.Counter(5));
-  var encryptedBytes = aesjs.utils.hex.toBytes(encryptedHex);
-  var decryptedBytes = aesCtrDecrypter.decrypt(encryptedBytes);
-  var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
+  const aesCtrDecrypter = new aesjs.ModeOfOperation.ctr(aesKey, new aesjs.Counter(5));
+  const encryptedBytes = aesjs.utils.hex.toBytes(encryptedHex);
+  const decryptedBytes = aesCtrDecrypter.decrypt(encryptedBytes);
+  const decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
   return decryptedText;
 }
 

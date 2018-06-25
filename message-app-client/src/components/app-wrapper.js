@@ -15,6 +15,7 @@ import { dispatchKeys,
   assignedAsHost,
   removeAsHost,
   receivedEncryptedAESKey,
+  dmDecrypt
 } from '../actions/encryptActions';
 import { UPDATE_ROOM_INFO,
   INIT_ROOM_INFO,
@@ -130,9 +131,13 @@ class AppWrapper extends Component {
       })
 
       socket.on(SEND_DM_MESSAGE, ({senderUserid, receiverUserId, message, messageid, toReceiver}) => {
-        console.log('received message from ', senderUserid, ':', message)
-        this.props.receiveDMMessage(senderUserid, receiverUserId, message, messageid, toReceiver);
-        this.props.selectDMUser(toReceiver ? senderUserid: receiverUserId);
+        console.log('received message from ', senderUserid, ':', message);
+        const otherPartyUserid = toReceiver ? senderUserid: receiverUserId;
+        const hashedSecret = this.props.dmUsers[otherPartyUserid].hashedSecret;
+        console.log(hashedSecret);
+        const decryptedMsg = dmDecrypt(message, hashedSecret);
+        this.props.receiveDMMessage(senderUserid, receiverUserId, decryptedMsg, messageid, toReceiver);
+        this.props.selectDMUser(otherPartyUserid);
       })
 
     }

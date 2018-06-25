@@ -8,7 +8,7 @@ import {
   DH_GENERATED,
   COMPUTE_SECRET } from '../actions/types';
 import { removeDMUser, sendDMMessage, createHashedSecret } from '../actions/dmActions';
-import { createDHFromPrivateKey } from '../actions/encryptActions';
+import { createDHFromPrivateKey, dmEncrypt } from '../actions/encryptActions';
 import './mini-chatbox.css';
 
 class MiniChatbox extends Component {
@@ -23,7 +23,6 @@ class MiniChatbox extends Component {
     this.onInput = this.onInput.bind(this);
     this.sendMsg = this.sendMsg.bind(this);
     this.headerBarOnClick = this.headerBarOnClick.bind(this);
-    this.encryptDMMsg = this.encryptDMMsg.bind(this);
     this.hasHashedSecret = this.hasHashedSecret.bind(this);
 
   }
@@ -58,15 +57,10 @@ class MiniChatbox extends Component {
     }
   }
 
-  encryptDMMsg(senderUserid, receiverUserId, message) {
-    const receiverUser = this.props.dmUsers[receiverUserId]
-  }
-
   hasHashedSecret() {
     let senderUserid = this.props.appUserid;
     let receiverUserId = this.props.userid;
     const receiverUser = this.props.dmUsers[receiverUserId];
-    console.log(receiverUser);
     if (!('hashedSecret' in receiverUser)) {
       if (!('myPrime' in receiverUser) || !('pubKey' in receiverUser))
         return false;
@@ -81,10 +75,8 @@ class MiniChatbox extends Component {
         otherPartyUserid: receiverUserId
       }
       this.props.worker.postMessage(msg)
-      console.log("doesn't have HH yet", otherPartyPubKey);
       return false;
     }
-    console.log("Have hh now");
     return true;
 
   }
@@ -95,14 +87,14 @@ class MiniChatbox extends Component {
       // senderUserid, receiverUserId, message, socket
     let senderUserid = this.props.appUserid;
     let receiverUserId = this.props.userid;
+    let hashedSecret = this.props.dmUsers[receiverUserId].hashedSecret;
     let message = this.state.textContent;
     let socket = this.props.socket;
 
     console.log("going to send message to user with pubKey", this.props.dmUsers[receiverUserId].pubKey);
+    const encryptedMsg = dmEncrypt(message, hashedSecret);
 
-    this.encryptDMMsg(senderUserid, receiverUserId, message);
-
-    sendDMMessage(senderUserid, receiverUserId, message, socket);
+    sendDMMessage(senderUserid, receiverUserId, encryptedMsg, socket);
     this.setState({textContent: ''});
     this.inputDiv.innerHTML = "";
     return true;
